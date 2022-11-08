@@ -7,7 +7,7 @@ _createNotes()
 import { httpService } from './http.service.js'
 const prmStr = 'note'
 
-export const notesService = {
+export const noteService = {
 	query,
 	remove,
 	save,
@@ -70,15 +70,15 @@ function addEmailToNotes(subejct, body) {
 }
 
 function _createNotes() {
-	let notes = utilService.loadFromStorage(NOTES_KEY)
+	let notes = JSON.parse(localStorage.getItem(NOTE_KEY))
 	if (!notes || !notes.length) {
-		notes = getNotes()
-		utilService.saveToStorage(NOTES_KEY, notes)
+		notes = _getNotes()
+		localStorage.setItem(NOTE_KEY, JSON.stringify(notes))
 	}
 	return notes
 }
 
-function getNotes() {
+function _getNotes() {
 	return [
 		{
 			id: 'n109',
