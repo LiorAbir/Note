@@ -1,8 +1,9 @@
 <template>
 	<section class="note-list">
-		<ul>
-			<li v-for="note in notes" :key="note._id" class="note-container">
-				{{ note }}
+		<h1>note list</h1>
+		<ul class="clean-list">
+			<li class="note-container" v-for="note in notes" :key="note._id">
+				<notePreview :note="note" />
 			</li>
 		</ul>
 	</section>
@@ -25,4 +26,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.note-list {
+	background-color: lightcoral;
+	padding: 5px;
+}
+</style>

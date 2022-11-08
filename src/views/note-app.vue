@@ -1,7 +1,7 @@
 <template>
 	<section class="note-app">
 		<h1>note app</h1>
-		{{ notes }}
+		<noteList :notes="notes" />
 	</section>
 </template>
 
@@ -25,5 +25,9 @@ export default {
 }
 </script>
 
-<styly>
-</styly>
+<style>
+.note-app {
+	background-color: lightgreen;
+	padding: 5px;
+}
+</style>
