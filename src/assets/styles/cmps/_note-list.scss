@@ -1,0 +1,25 @@
+.note-list {
+	margin-top: 20px;
+	width: 80%;
+	margin: 0 auto;
+
+	// 	ul {
+	// 		columns: 4;
+	// 		column-gap: 10px;
+	// 		// display: grid;
+	// 		// grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	// 		// gap: 15px;
+	// 	}
+	// }
+
+	.note-preview {
+		width: 250px;
+		padding: 20px;
+		background-color: $clr4;
+		margin: 10px;
+		// margin-bottom: 10px;
+		// float: left;
+		// margin: 10px;
+		// break-inside: avoid;
+	}
+}

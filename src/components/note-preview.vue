@@ -32,9 +32,4 @@ export default {
 }
 </script>
 
-<style>
-.note-preview {
-	background-color: lightblue;
-	margin-bottom: 5px;
-}
-</style>
+<style></style>

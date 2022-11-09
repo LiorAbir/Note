@@ -1,7 +1,6 @@
 <template>
 	<section class="note-list">
-		<h1>note list</h1>
-		<ul class="clean-list">
+		<ul class="clean-list" ref="grid">
 			<li class="note-container" v-for="note in notes" :key="note._id">
 				<notePreview :note="note" />
 			</li>
@@ -11,6 +10,7 @@
 
 <script>
 import notePreview from './note-preview.vue'
+import Masonry from 'masonry-layout'
 
 export default {
 	name: 'note-list',
@@ -20,15 +20,17 @@ export default {
 			requaired: true,
 		},
 	},
+	mounted() {
+		const gridEl = this.$refs.grid
+		const masonry = new Masonry(gridEl, {
+			itemSelector: '.note-preview',
+			getter: 10,
+		})
+	},
 	components: {
 		notePreview,
 	},
 }
 </script>
 
-<style>
-.note-list {
-	/* background-color: lightcoral; */
-	padding: 5px;
-}
-</style>
+<style></style>
