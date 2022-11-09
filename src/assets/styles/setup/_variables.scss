@@ -1,11 +1,11 @@
 //COLORS
-$clr1: rgba(27, 35, 48, 1);
-$clr2: #181f2b;
-$clr3: hsl(216, 53%, 9%);
-$clr4: hsl(219, 30%, 18%);
-$clr5: hsl(176, 68%, 64%);
-$clr6: hsl(198, 60%, 50%);
-$clr7: hsl(0, 0%, 100%);
+$clr1: black;
+$clr2: white;
+$clr3: #757575;
+$clr4: rgb(241 243 244);
+
+$svg-clr1: invert(44%) sepia(36%) saturate(9%) hue-rotate(317deg) brightness(95%)
+	contrast(86%);
 
 // - Dark Blue (intro and email sign up background): h
 // - Dark Blue (main background):

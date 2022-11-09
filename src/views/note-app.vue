@@ -1,11 +1,12 @@
 <template>
 	<section class="note-app">
-		<h1>note app</h1>
+		<appHeader />
 		<noteList :notes="notes" />
 	</section>
 </template>
 
 <script>
+import appHeader from '../components/app-header.vue'
 import noteList from '../components/note-list.vue'
 
 export default {
@@ -20,14 +21,15 @@ export default {
 		},
 	},
 	components: {
+		appHeader,
 		noteList,
 	},
 }
 </script>
 
 <style>
-.note-app {
+/* .note-app {
 	background-color: lightgreen;
 	padding: 5px;
-}
+} */
 </style>

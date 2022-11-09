@@ -28,7 +28,7 @@ export default {
 
 <style>
 .note-list {
-	background-color: lightcoral;
+	/* background-color: lightcoral; */
 	padding: 5px;
 }
 </style>
