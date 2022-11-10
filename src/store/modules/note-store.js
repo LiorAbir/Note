@@ -1,4 +1,4 @@
-import { noteService } from '../../services/note-service.cmp'
+import { noteService } from '../../services/note-service.js'
 
 export default {
 	state: {

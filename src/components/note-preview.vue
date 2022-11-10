@@ -1,9 +1,9 @@
 <template>
-	<!-- <router-link> -->
 	<section
 		class="note-preview"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
+		@click="goToDetails"
 	>
 		<div class="note-title">
 			<h1>{{ note.info.title }}</h1>
@@ -15,11 +15,10 @@
 			<button class="btn remove-btn" title="delete" @click="removeNote">
 				remove
 			</button>
+			<input type="color" />
 			<button class="btn remove-btn" title="delete">Add pic</button>
-			<button class="btn remove-btn" title="delete">Change clr</button>
 		</div>
 	</section>
-	<!-- </router-link> -->
 </template>
 
 <script>
@@ -41,6 +40,9 @@ export default {
 	methods: {
 		removeNote() {
 			this.$emit('removeNote', this.note._id)
+		},
+		goToDetails() {
+			this.$router.push(`/note/${this.note._id}`)
 		},
 	},
 	computed: {},
