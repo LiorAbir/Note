@@ -24,7 +24,8 @@ export default {
 		const gridEl = this.$refs.grid
 		const masonry = new Masonry(gridEl, {
 			itemSelector: '.note-preview',
-			getter: 10,
+			// getter: 10,
+			fitWidth: true,
 		})
 	},
 	components: {
