@@ -81,7 +81,7 @@ function _createNotes() {
 function _getNotes() {
 	return [
 		{
-			id: 'n109',
+			_id: 'n109',
 			type: 'note-txt',
 			isPinned: false,
 			info: {
@@ -91,7 +91,7 @@ function _getNotes() {
 			backgroundColor: '#953255',
 		},
 		{
-			id: 'n108',
+			_id: 'n108',
 			type: 'note-todos',
 			isPinned: false,
 			info: {
@@ -105,7 +105,7 @@ function _getNotes() {
 			backgroundColor: '#953255',
 		},
 		{
-			id: 'n103',
+			_id: 'n103',
 			type: 'note-todos',
 			isPinned: true,
 			info: {
@@ -118,7 +118,7 @@ function _getNotes() {
 			backgroundColor: '#496D89',
 		},
 		{
-			id: 'n104',
+			_id: 'n104',
 			type: 'note-img',
 			isPinned: false,
 			info: {
@@ -128,7 +128,7 @@ function _getNotes() {
 			backgroundColor: '#718EA4',
 		},
 		{
-			id: 'n105',
+			_id: 'n105',
 			type: 'note-todos',
 			isPinned: false,
 			info: {
@@ -145,7 +145,7 @@ function _getNotes() {
 			backgroundColor: '#FFAAAA',
 		},
 		{
-			id: 'n106',
+			_id: 'n106',
 			type: 'note-txt',
 			isPinned: false,
 			info: {
@@ -155,7 +155,7 @@ function _getNotes() {
 			backgroundColor: '#FFD6AA',
 		},
 		{
-			id: 'n107',
+			_id: 'n107',
 			type: 'note-video',
 			isPinned: false,
 			info: {
@@ -165,7 +165,7 @@ function _getNotes() {
 			backgroundColor: '#FFD6AA',
 		},
 		{
-			id: 'n102',
+			_id: 'n102',
 			type: 'note-img',
 			isPinned: false,
 			info: {
@@ -175,7 +175,7 @@ function _getNotes() {
 			backgroundColor: '#AA3939',
 		},
 		{
-			id: 'n104',
+			_id: 'n104',
 			type: 'note-img',
 			isPinned: false,
 			info: {
@@ -185,7 +185,7 @@ function _getNotes() {
 			backgroundColor: '#496D89',
 		},
 		{
-			id: 'n101',
+			_id: 'n101',
 			type: 'note-txt',
 			isPinned: false,
 			info: {
@@ -195,7 +195,7 @@ function _getNotes() {
 			backgroundColor: '#FFAAAA',
 		},
 		{
-			id: 'n110',
+			_id: 'n110',
 			type: 'note-img',
 			isPinned: false,
 			info: {

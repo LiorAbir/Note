@@ -4,6 +4,7 @@
 	margin: 8px;
 	border-radius: 8px;
 	border: 1px solid rgb(0 0 0 / 13%);
+	position: relative;
 
 	////
 	padding: 20px;
@@ -11,5 +12,22 @@
 	&:hover {
 		box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
 			0 1px 3px 1px rgb(60 64 67 / 15%);
+	}
+
+	.actions {
+		margin-top: 10px;
+		opacity: 0;
+		transition: 0.2s;
+
+		justify-content: space-between;
+		align-items: center;
+
+		.btn {
+			border: 1px solid black;
+		}
+
+		&.active {
+			opacity: 1;
+		}
 	}
 }

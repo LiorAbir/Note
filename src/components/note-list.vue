@@ -2,7 +2,7 @@
 	<section class="note-list">
 		<ul class="clean-list" ref="grid">
 			<li class="note-container" v-for="note in notes" :key="note._id">
-				<notePreview :note="note" />
+				<notePreview :note="note" @removeNote="removeNote" />
 			</li>
 		</ul>
 	</section>
@@ -27,6 +27,11 @@ export default {
 			// getter: 10,
 			fitWidth: true,
 		})
+	},
+	methods: {
+		removeNote(id) {
+			this.$emit('removeNote', id)
+		},
 	},
 	components: {
 		notePreview,

@@ -1,7 +1,7 @@
 <template>
 	<section class="note-app">
 		<appHeader />
-		<noteList :notes="notes" />
+		<noteList :notes="notes" @removeNote="removeNote" />
 	</section>
 </template>
 
@@ -14,7 +14,11 @@ export default {
 	data() {
 		return {}
 	},
-	methods: {},
+	methods: {
+		removeNote(id) {
+			this.$store.dispatch({ type: 'removeNote', id })
+		},
+	},
 	computed: {
 		notes() {
 			return this.$store.getters.notesToDisplay
@@ -26,10 +30,3 @@ export default {
 	},
 }
 </script>
-
-<style>
-/* .note-app {
-	background-color: lightgreen;
-	padding: 5px;
-} */
-</style>
