@@ -4,7 +4,7 @@
 		<noteList :notes="notes" @removeNote="removeNote" />
 	</section>
 	<div v-if="showModal" class="modal-background">
-		<div class="modal-content">
+		<div class="modal-content" v-clickOutSide="toggleModal">
 			<router-view></router-view>
 		</div>
 	</div>
@@ -24,6 +24,10 @@ export default {
 	methods: {
 		removeNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
+		},
+		toggleModal() {
+			this.showModal = !this.showModal
+			this.$router.push('/note')
 		},
 	},
 	computed: {
