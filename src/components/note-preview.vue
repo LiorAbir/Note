@@ -35,6 +35,7 @@
 			/>
 			<img src="../assets/icon/copy.svg" alt="copy" title="copy note" />
 		</div>
+		<backgroundPallete />
 	</section>
 </template>
 
@@ -43,6 +44,7 @@ import noteTxt from './dynamic/note-txt.vue'
 import noteImg from './dynamic/note-img.vue'
 import noteTodos from './dynamic/note-todos.vue'
 import noteVideo from './dynamic/note-video.vue'
+import backgroundPallete from './background-pallete.vue'
 
 export default {
 	name: 'note-preview',
@@ -68,6 +70,7 @@ export default {
 		noteTodos,
 		noteImg,
 		noteVideo,
+		backgroundPallete,
 	},
 }
 </script>

@@ -98,6 +98,7 @@ export default {
 		},
 		closeAddNote() {
 			this.isFocus = false
+			this.newNote.type = 'note-txt'
 		},
 	},
 	computed: {
