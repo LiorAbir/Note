@@ -84,7 +84,7 @@ export default {
 		}
 	},
 	created() {
-		this.newNote = this.$store.getters.emptyNote
+		this.getNewNote()
 	},
 	methods: {
 		setNoteType(type) {
@@ -94,13 +94,10 @@ export default {
 			let val = el.target.innerText
 			switch (this.newNote.type) {
 				case 'note-txt':
-					this.newNote.info = {
-						txt: val,
-					}
+					this.newNote.info.txt = val
 					break
 				case 'note-todos':
 					const todos = []
-					console.log(val)
 					val.split(',').map((todo) => {
 						const newTodo = { txt: todo }
 						todos.push(newTodo)
@@ -116,10 +113,17 @@ export default {
 		save() {
 			this.$store.dispatch({ type: 'saveNote', note: this.newNote })
 			this.closeAddNote()
+			this.isFocus = false
 		},
 		closeAddNote() {
-			if (this.isClrPlt === false) this.isFocus = false
+			if (this.isClrPlt === false) {
+				this.isFocus = false
+				this.getNewNote()
+			}
 			this.newNote.type = 'note-txt'
+		},
+		getNewNote() {
+			this.newNote = JSON.parse(JSON.stringify(this.$store.getters.emptyNote))
 		},
 	},
 	computed: {

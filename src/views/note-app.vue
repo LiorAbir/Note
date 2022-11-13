@@ -5,7 +5,7 @@
 		<noteList :notes="notes" @removeNote="removeNote" />
 	</section>
 	<div v-if="showModal" class="modal-background">
-		<div class="modal-content" v-clickOutSide="toggleModal">
+		<div class="modal-content">
 			<router-view></router-view>
 		</div>
 	</div>
