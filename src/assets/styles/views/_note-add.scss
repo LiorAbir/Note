@@ -49,6 +49,11 @@
 			align-items: center;
 		}
 	}
+
+	.background-pallete {
+		right: 454px;
+		top: 198px;
+	}
 }
 
 .content-input {
@@ -60,6 +65,7 @@ input {
 	border: none;
 	border-radius: 8px;
 	padding: 10px 15px;
+	background-color: inherit;
 }
 
 .actions {

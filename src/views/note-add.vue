@@ -21,9 +21,21 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="note-add" v-if="isFocus" v-clickOutSide="closeAddNote">
+	<div
+		class="note-add"
+		v-if="isFocus"
+		v-clickOutSide="closeAddNote"
+		:style="{
+			backgroundColor: newNote.bgClr,
+		}"
+	>
 		<div class="add-note-input">
-			<div class="content-input flex">
+			<div
+				class="content-input flex"
+				:style="{
+					'background-image': `url(${newNote.bgImg})`,
+				}"
+			>
 				<input
 					type="text"
 					class="note-title"
@@ -50,20 +62,25 @@
 						alt="color"
 						class="btn clr-btn"
 						title="choose background"
+						@click="isClrPlt = !isClrPlt"
 					/>
 				</div>
 				<button @click="save">Save</button>
 			</div>
 		</div>
+		<backgroundPallete v-if="isClrPlt" @setBackground="setBackground" />
 	</div>
 </template>
 <script>
+import backgroundPallete from '../components/background-pallete.vue'
+
 export default {
 	name: 'note-add',
 	data() {
 		return {
 			newNote: null,
 			isFocus: false,
+			isClrPlt: false,
 		}
 	},
 	created() {
@@ -92,12 +109,16 @@ export default {
 					break
 			}
 		},
+		setBackground(fill, type) {
+			this.isFocus = true
+			this.newNote[type] = fill
+		},
 		save() {
 			this.$store.dispatch({ type: 'saveNote', note: this.newNote })
 			this.closeAddNote()
 		},
 		closeAddNote() {
-			this.isFocus = false
+			if (this.isClrPlt === false) this.isFocus = false
 			this.newNote.type = 'note-txt'
 		},
 	},
@@ -112,6 +133,9 @@ export default {
 					break
 			}
 		},
+	},
+	components: {
+		backgroundPallete,
 	},
 }
 </script>

@@ -57,7 +57,8 @@ function getEmptyNote() {
 		id: '',
 		type: 'note-txt',
 		isPinned: false,
-		backgroundColor: 'white',
+		bgClr: '#ffffff',
+		bgImg: '',
 		info: {},
 	}
 }
