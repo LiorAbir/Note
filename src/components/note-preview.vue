@@ -9,14 +9,30 @@
 			<h1>{{ note.info.title }}</h1>
 		</div>
 
-		<component :is="note.type" :info="note.info"></component>
+		<component
+			:is="note.type"
+			:info="note.info"
+			class="note-content"
+		></component>
 
 		<div class="actions flex" :class="{ active: hover }">
-			<button class="btn remove-btn" title="delete" @click="removeNote">
-				remove
-			</button>
-			<input type="color" />
-			<button class="btn remove-btn" title="delete">Add pic</button>
+			<img
+				src="../assets/icon/trash.svg"
+				alt="trash"
+				title="delete"
+				@click="removeNote"
+			/>
+			<img
+				src="../assets/icon/color.svg"
+				alt="color"
+				title="choose background color"
+			/>
+			<img
+				src="../assets/icon/image.svg"
+				alt="image"
+				title="add image to note"
+			/>
+			<img src="../assets/icon/copy.svg" alt="copy" title="copy note" />
 		</div>
 	</section>
 </template>
