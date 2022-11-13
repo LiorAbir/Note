@@ -3,17 +3,18 @@
 		class="note-preview"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
-		@click="goToDetails"
 	>
-		<div class="note-title">
-			<h1>{{ note.info.title }}</h1>
-		</div>
+		<div @click="goToDetails">
+			<div class="note-title">
+				<h1>{{ note.info.title }}</h1>
+			</div>
 
-		<component
-			:is="note.type"
-			:info="note.info"
-			class="note-content"
-		></component>
+			<component
+				:is="note.type"
+				:info="note.info"
+				class="note-content"
+			></component>
+		</div>
 
 		<div class="actions flex" :class="{ active: hover }">
 			<img
