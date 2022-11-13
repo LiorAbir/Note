@@ -3,6 +3,11 @@
 		class="note-preview"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
+		:style="{
+			backgroundColor: note.bgClr,
+			border: noteBorder,
+			'background-image': `url(${note.bgImg})`,
+		}"
 	>
 		<div @click="goToDetails">
 			<div class="note-title">
@@ -27,6 +32,7 @@
 				src="../assets/icon/color.svg"
 				alt="color"
 				title="choose background color"
+				@click="isClrPlt = !isClrPlt"
 			/>
 			<img
 				src="../assets/icon/image.svg"
@@ -35,7 +41,11 @@
 			/>
 			<img src="../assets/icon/copy.svg" alt="copy" title="copy note" />
 		</div>
-		<backgroundPallete />
+		<backgroundPallete
+			v-if="isClrPlt"
+			v-clickOutSide="closeClrPlt"
+			@setBackground="setBackground"
+		/>
 	</section>
 </template>
 
@@ -54,6 +64,7 @@ export default {
 	data() {
 		return {
 			hover: false,
+			isClrPlt: false,
 		}
 	},
 	methods: {
@@ -63,8 +74,24 @@ export default {
 		goToDetails() {
 			this.$router.push(`/note/${this.note._id}`)
 		},
+		closeClrPlt() {
+			this.isClrPlt = false
+		},
+		setBackground(fill, type) {
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			editedNote[type] = fill
+			this.$store.dispatch({ type: 'saveNote', note: editedNote })
+		},
 	},
-	computed: {},
+	computed: {
+		noteBorder() {
+			if (this.note.bgClr === '#ffffff') {
+				return '1px solid rgb(0 0 0 / 13%)'
+			} else {
+				return `1px solid ${this.note.bgClr}70`
+			}
+		},
+	},
 	components: {
 		noteTxt,
 		noteTodos,
