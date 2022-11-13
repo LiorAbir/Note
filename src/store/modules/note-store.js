@@ -11,6 +11,9 @@ export default {
 		notesToDisplay(state) {
 			return state.notes
 		},
+		emptyNote() {
+			return noteService.getEmptyNote()
+		},
 	},
 	mutations: {
 		setNotes(state, { notes }) {
@@ -45,9 +48,8 @@ export default {
 				console.log('cannot remove note')
 			}
 		},
-		async saveNote({ commit }, { toy }) {
+		async saveNote({ commit }, { note }) {
 			let type = note._id ? 'editNote' : 'addNote'
-
 			try {
 				const savedNote = await noteService.save(note)
 				commit({ type: type, note: savedNote })

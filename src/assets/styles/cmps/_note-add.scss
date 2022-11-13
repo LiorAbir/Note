@@ -1,0 +1,67 @@
+.note-add {
+	width: 60%;
+	margin: 0 auto 16px auto;
+	box-shadow: 0 0 7px 0px #0000007a;
+	border-radius: 8px;
+
+	.add-container {
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 15px;
+
+		.type-btn {
+			margin-left: 10px;
+		}
+		img {
+			filter: $svg-clr1;
+			height: 20px;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+
+	.add-note-input {
+		width: 100%;
+
+		.note-content {
+			padding: 10px 15px;
+
+			&[placeholder]:empty::before {
+				content: attr(placeholder);
+				color: $clr3;
+			}
+		}
+
+		img {
+			filter: $svg-clr1;
+			height: 20px;
+			margin-right: 10px;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+		.actions {
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+}
+
+.content-input {
+	flex-direction: column;
+	justify-content: center;
+}
+
+input {
+	border: none;
+	border-radius: 8px;
+	padding: 10px 15px;
+}
+
+.actions {
+	padding: 10px 15px;
+}

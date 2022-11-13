@@ -1,6 +1,7 @@
 <template>
 	<section class="note-app">
 		<appHeader />
+		<note-add />
 		<noteList :notes="notes" @removeNote="removeNote" />
 	</section>
 	<div v-if="showModal" class="modal-background">
@@ -13,6 +14,7 @@
 <script>
 import appHeader from '../components/app-header.vue'
 import noteList from '../components/note-list.vue'
+import noteAdd from './note-add.vue'
 
 export default {
 	name: 'note-app',
@@ -49,6 +51,7 @@ export default {
 	components: {
 		appHeader,
 		noteList,
+		noteAdd,
 	},
 }
 </script>
