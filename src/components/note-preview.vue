@@ -11,13 +11,14 @@
 	>
 		<div @click="goToDetails">
 			<div class="note-title">
-				<h1>{{ note.info.title }}</h1>
+				<input type="text" v-model="note.info.title" />
 			</div>
 
 			<component
 				:is="note.type"
 				:info="note.info"
 				class="note-content"
+				@updateNote="updateNote"
 			></component>
 		</div>
 
@@ -81,6 +82,9 @@ export default {
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			editedNote[type] = fill
 			this.$store.dispatch({ type: 'saveNote', note: editedNote })
+		},
+		updateNote() {
+			console.log('hhh')
 		},
 	},
 	computed: {

@@ -15,12 +15,13 @@
 			}"
 		>
 			<div class="note-title">
-				<h1>{{ note.info.title }}</h1>
+				<input type="text" v-model="note.info.title" @input="updateNote" />
 			</div>
 			<component
 				:is="note.type"
 				:info="note.info"
 				class="note-content"
+				@updateNote="updateNote"
 			></component>
 		</div>
 		<div class="actions-container flex">
@@ -67,19 +68,16 @@ export default {
 	async created() {
 		const { id } = this.$route.params
 		try {
-			const note = await noteService.getById(id)
-			this.note = note
+			const currNote = await noteService.getById(id)
+			this.note = JSON.parse(JSON.stringify(currNote))
 		} catch (err) {
 			console.log('cannot find note')
 		}
 	},
 	methods: {
 		setBackground(fill, type) {
-			// this.note[type] = fill
-			// this.$store.dispatch({ type: 'saveNote', note: this.note })
-
+			this.note[type] = fill
 			let editedNote = JSON.parse(JSON.stringify(this.note))
-			editedNote[type] = fill
 			this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 		closeModal() {
@@ -88,6 +86,10 @@ export default {
 			} else {
 				this.$router.push('/note')
 			}
+		},
+		updateNote() {
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 	},
 	computed: {

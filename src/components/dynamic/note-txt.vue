@@ -1,6 +1,8 @@
 <template>
 	<div class="note-txt-container">
-		<p>{{ info.txt }}</p>
+		<div class="content" contenteditable="true" @input="updateNote">
+			{{ info.txt }}
+		</div>
 	</div>
 </template>
 
@@ -8,6 +10,12 @@
 export default {
 	props: {
 		info: Object,
+	},
+	methods: {
+		updateNote(el) {
+			this.info.txt = el.target.innerText
+			this.$emit('updateNote', this.info)
+		},
 	},
 }
 </script>

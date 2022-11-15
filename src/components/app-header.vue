@@ -4,7 +4,8 @@
 		v-scroll="handleScroll"
 		:style="{ boxShadow: shadow }"
 	>
-		<nav class="main-nav flex">
+		<!-- TODO -->
+		<!-- <nav class="main-nav flex">
 			<button class="user">L</button>
 			<img
 				class="svg settings-svg"
@@ -12,7 +13,7 @@
 				alt="settings"
 				title="settings"
 			/>
-		</nav>
+		</nav> -->
 
 		<input type="text" name="" id="" />
 
@@ -28,12 +29,13 @@
 					/>
 				</div>
 			</router-link>
-			<img
+			<!-- TODO -->
+			<!-- <img
 				class="svg menu-svg"
 				src="../assets/icon/burger.svg"
 				alt="menu"
 				title="main menu"
-			/>
+			/> -->
 		</div>
 	</header>
 </template>
