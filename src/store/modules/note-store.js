@@ -17,10 +17,20 @@ export default {
 
 			const regexTst = new RegExp(txt, 'i')
 
-			//title
-			let filteredNotes = state.notes.filter((note) =>
-				regexTst.test(note.info.title)
-			)
+			let filteredNotes = state.notes.filter((note) => {
+				if (note.type === 'note-txt') {
+					return (
+						regexTst.test(note.info.txt) ||
+						regexTst.test(note.info.title)
+					)
+				} else if (note.type === 'note-todos') {
+					note.info.todos.filter((todo) => {
+						return regexTst.test(todo.txt) || note.info.title
+					})
+				}
+			})
+
+			console.log(filteredNotes)
 
 			return filteredNotes
 		},
