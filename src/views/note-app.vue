@@ -1,6 +1,6 @@
 <template>
 	<section class="note-app">
-		<appHeader />
+		<appHeader @setFilterBy="setFilterBy" />
 		<note-add />
 		<noteList :notes="notes" @removeNote="removeNote" />
 	</section>
@@ -30,6 +30,9 @@ export default {
 		toggleModal() {
 			this.showModal = !this.showModal
 			this.$router.push('/note')
+		},
+		setFilterBy(filterBy) {
+			this.$store.dispatch({ type: 'setFilterBy', filterBy })
 		},
 	},
 	computed: {

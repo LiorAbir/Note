@@ -9,7 +9,7 @@
 			'background-image': `url(${note.bgImg})`,
 		}"
 	>
-		<div @click="goToDetails">
+		<div @click="goToDetails" :style="{}">
 			<div class="note-title">
 				<input type="text" v-model="note.info.title" />
 			</div>

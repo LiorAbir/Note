@@ -15,7 +15,7 @@
 			/>
 		</nav> -->
 
-		<input type="text" name="" id="" />
+		<noteFilter @setFilterBy="setFilterBy" />
 
 		<div class="menu-container flex">
 			<router-link to="/">
@@ -40,6 +40,8 @@
 	</header>
 </template>
 <script>
+import noteFilter from './note-filter.vue'
+
 export default {
 	name: 'ap-header',
 	data() {
@@ -48,13 +50,19 @@ export default {
 		}
 	},
 	methods: {
-		handleScroll(el) {
+		handleScroll() {
 			if (window.scrollY === 0) {
 				this.shadow = 'inset 0 -1px 0 0 #dadce0'
 			} else {
 				this.shadow = '-1px -2px 5px 5px #9c9ea3'
 			}
 		},
+		setFilterBy(filterBy) {
+			this.$emit('setFilterBy', filterBy)
+		},
+	},
+	components: {
+		noteFilter,
 	},
 }
 </script>

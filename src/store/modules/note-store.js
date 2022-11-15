@@ -3,13 +3,26 @@ import { noteService } from '../../services/note-service.js'
 export default {
 	state: {
 		notes: [],
+		filter: {
+			txt: '',
+		},
 	},
 	getters: {
 		notes(state) {
 			return state.notes
 		},
 		notesToDisplay(state) {
-			return state.notes
+			let { txt } = state.filter
+			if (!txt) return state.notes
+
+			const regexTst = new RegExp(txt, 'i')
+
+			//title
+			let filteredNotes = state.notes.filter((note) =>
+				regexTst.test(note.info.title)
+			)
+
+			return filteredNotes
 		},
 		emptyNote() {
 			return noteService.getEmptyNote()
@@ -29,6 +42,10 @@ export default {
 		editNote(state, { note }) {
 			const idx = state.notes.findIndex((n) => n._id === note._id)
 			state.notes.splice(idx, 1, note)
+		},
+		setFilter(state, { filterBy }) {
+			state.filter = filterBy
+			console.log(state.filter)
 		},
 	},
 	actions: {
@@ -56,6 +73,10 @@ export default {
 			} catch (err) {
 				console.log('cannot save note')
 			}
+		},
+		async setFilterBy({ commit }, { filterBy }) {
+			const copyFilter = JSON.parse(JSON.stringify(filterBy))
+			commit({ type: 'setFilter', filterBy: copyFilter })
 		},
 	},
 }
