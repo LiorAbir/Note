@@ -43,7 +43,12 @@
 					alt="image"
 					title="add image to note"
 				/>
-				<img src="../assets/icon/copy.svg" alt="copy" title="copy note" />
+				<img
+					src="../assets/icon/copy.svg"
+					alt="copy"
+					title="copy note"
+					@click="copyNote"
+				/>
 			</div>
 			<button class="btn close-btn">Close</button>
 		</div>
@@ -90,6 +95,12 @@ export default {
 		updateNote() {
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.$store.dispatch({ type: 'saveNote', note: editedNote })
+		},
+		copyNote() {
+			console.log('copy')
+			const noteToCopy = JSON.parse(JSON.stringify(this.note))
+			noteToCopy._id = ''
+			this.$store.dispatch({ type: 'saveNote', note: noteToCopy })
 		},
 	},
 	computed: {

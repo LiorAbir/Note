@@ -2,7 +2,12 @@
 	<section class="note-app">
 		<appHeader @setFilterBy="setFilterBy" />
 		<note-add />
-		<noteList :notes="notes" @removeNote="removeNote" />
+		<noteList
+			:notes="notes"
+			@removeNote="removeNote"
+			@copyNote="save"
+			@setBackground="save"
+		/>
 	</section>
 	<div v-if="showModal" class="modal-background">
 		<div class="modal-content">
@@ -27,12 +32,16 @@ export default {
 		removeNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
+
 		toggleModal() {
 			this.showModal = !this.showModal
 			this.$router.push('/note')
 		},
 		setFilterBy(filterBy) {
 			this.$store.dispatch({ type: 'setFilterBy', filterBy })
+		},
+		save(note) {
+			this.$store.dispatch({ type: 'saveNote', note })
 		},
 	},
 	computed: {

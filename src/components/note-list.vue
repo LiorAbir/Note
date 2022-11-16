@@ -2,7 +2,12 @@
 	<section class="note-list">
 		<ul class="clean-list" ref="grid">
 			<li class="note-container" v-for="note in notes" :key="note._id">
-				<notePreview :note="note" @removeNote="removeNote" />
+				<notePreview
+					:note="note"
+					@removeNote="removeNote"
+					@copyNote="copyNote"
+					@setBackground="setBackground"
+				/>
 			</li>
 		</ul>
 	</section>
@@ -31,6 +36,12 @@ export default {
 	methods: {
 		removeNote(id) {
 			this.$emit('removeNote', id)
+		},
+		copyNote(note) {
+			this.$emit('copyNote', note)
+		},
+		setBackground(note) {
+			this.$emit('setBackground', note)
 		},
 	},
 	components: {

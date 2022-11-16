@@ -18,7 +18,6 @@
 				:is="note.type"
 				:info="note.info"
 				class="note-content"
-				@updateNote="updateNote"
 			></component>
 		</div>
 
@@ -40,7 +39,12 @@
 				alt="image"
 				title="add image to note"
 			/>
-			<img src="../assets/icon/copy.svg" alt="copy" title="copy note" />
+			<img
+				src="../assets/icon/copy.svg"
+				alt="copy"
+				title="copy note"
+				@click="copyNote"
+			/>
 		</div>
 		<backgroundPallete
 			v-if="isClrPlt"
@@ -78,13 +82,15 @@ export default {
 		closeClrPlt() {
 			this.isClrPlt = false
 		},
+		copyNote() {
+			const noteToCopy = JSON.parse(JSON.stringify(this.note))
+			noteToCopy._id = ''
+			this.$emit('copyNote', noteToCopy)
+		},
 		setBackground(fill, type) {
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			editedNote[type] = fill
-			this.$store.dispatch({ type: 'saveNote', note: editedNote })
-		},
-		updateNote() {
-			console.log('hhh')
+			this.$emit('setBackground', editedNote)
 		},
 	},
 	computed: {
