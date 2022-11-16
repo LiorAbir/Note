@@ -7,6 +7,7 @@
 					@removeNote="removeNote"
 					@copyNote="copyNote"
 					@setBackground="setBackground"
+					@save="save"
 				/>
 			</li>
 		</ul>
@@ -42,6 +43,9 @@ export default {
 		},
 		setBackground(note) {
 			this.$emit('setBackground', note)
+		},
+		save(note) {
+			this.$emit('save', note)
 		},
 	},
 	components: {

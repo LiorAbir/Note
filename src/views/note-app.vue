@@ -7,6 +7,7 @@
 			@removeNote="removeNote"
 			@copyNote="save"
 			@setBackground="save"
+			@save="save"
 		/>
 	</section>
 	<div v-if="showModal" class="modal-background">
