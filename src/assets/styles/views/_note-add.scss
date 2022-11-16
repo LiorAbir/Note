@@ -34,7 +34,7 @@
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			gap: 5px;
-			img {
+			img:not(.delete-img-btn) {
 				border-radius: 8px;
 			}
 		}

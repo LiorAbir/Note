@@ -18,22 +18,11 @@
 	.note-imgs {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 2px;
+		gap: 5px;
 
-		// img {
-		// 	border-radius: 8px;
-		// }
-
-		// display: flex;
-		// justify-content: center;
-		// align-items: center;
-		// flex-wrap: wrap;
-
-		// position: absolute;
-		// top: 0%;
-		// left: 0%;
-		// width: 100%;
-		// width: 100%;
+		img {
+			border-radius: 3px;
+		}
 	}
 
 	.note-content {

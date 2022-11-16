@@ -30,7 +30,16 @@
 				}"
 			>
 				<div class="note-imgs" v-if="newNote.info.imgs">
-					<img v-for="img in newNote.info.imgs" :src="img" alt="upload" />
+					<div class="img-container" v-for="(img, i) in newNote.info.imgs">
+						<img :src="img" alt="upload" />
+						<img
+							class="delete-img-btn"
+							src="../assets/icon/trash.svg"
+							alt="trash"
+							title="Delete image"
+							@click="deleteImg(i)"
+						/>
+					</div>
 				</div>
 
 				<input
@@ -122,6 +131,9 @@ export default {
 		},
 		addImgUrl(url) {
 			this.newNote.info.imgs.push(url)
+		},
+		deleteImg(index) {
+			this.newNote.info.imgs.splice(index, 1)
 		},
 	},
 	computed: {
