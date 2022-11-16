@@ -2,13 +2,7 @@
 	<section class="note-app">
 		<appHeader @setFilterBy="setFilterBy" />
 		<note-add />
-		<noteList
-			:notes="notes"
-			@removeNote="removeNote"
-			@copyNote="save"
-			@setBackground="save"
-			@save="save"
-		/>
+		<noteList :notes="notes" @removeNote="removeNote" @save="save" />
 	</section>
 	<div v-if="showModal" class="modal-background">
 		<div class="modal-content">

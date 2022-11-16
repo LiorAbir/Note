@@ -98,12 +98,11 @@ export default {
 		copyNote() {
 			const noteToCopy = JSON.parse(JSON.stringify(this.note))
 			noteToCopy._id = ''
-			this.$emit('copyNote', noteToCopy)
+			this.save(noteToCopy)
 		},
 		setBackground(fill, type) {
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			editedNote[type] = fill
-			this.$emit('setBackground', editedNote)
+			this.noteCopy[type] = fill
+			this.save(this.noteCopy)
 		},
 		handleFile(ev) {
 			const file = ev.target.files[0]
