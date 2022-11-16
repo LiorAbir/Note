@@ -3,8 +3,8 @@
 	transition: 0.4s;
 	padding: 1px;
 	max-height: 80vh;
-	overflow: scroll;
-	overflow-x: hiddenq;
+	// overflow: scroll;
+	// overflow-x: hiddenq;
 
 	.content {
 		border-radius: 8px;
@@ -30,11 +30,11 @@
 			filter: $svg-clr2;
 			padding: 5px;
 			position: absolute;
-			width: 30px;
+			width: 25px;
 			bottom: 0;
 			left: 0;
 			opacity: 0;
-			background-color: rgb(135 124 124 / 67%);
+			background-color: rgb(251 251 251 / 57%);
 
 			&:hover {
 				cursor: pointer;

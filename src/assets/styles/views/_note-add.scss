@@ -25,29 +25,41 @@
 
 	.add-note-input {
 		width: 100%;
+		.content-input {
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.note-imgs {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 5px;
+			img {
+				border-radius: 8px;
+			}
+		}
 
 		.note-content {
 			padding: 10px 15px;
-
 			&[placeholder]:empty::before {
 				content: attr(placeholder);
 				color: $clr3;
 			}
 		}
 
-		img {
-			filter: $svg-clr1;
-			height: 20px;
-			margin-right: 10px;
-
-			&:hover {
-				cursor: pointer;
-			}
-		}
-
 		.actions {
 			justify-content: space-between;
 			align-items: center;
+			padding: 10px 15px;
+			img {
+				filter: $svg-clr1;
+				height: 20px;
+				margin-right: 10px;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
 		}
 	}
 
@@ -55,20 +67,4 @@
 		right: 454px;
 		top: 198px;
 	}
-}
-
-.content-input {
-	flex-direction: column;
-	justify-content: center;
-}
-
-input {
-	border: none;
-	border-radius: 8px;
-	padding: 10px 15px;
-	background-color: inherit;
-}
-
-.actions {
-	padding: 10px 15px;
 }

@@ -10,13 +10,6 @@
 					title="list note"
 					@click="setNoteType('note-todos')"
 				/>
-				<img
-					src="../assets/icon/image.svg"
-					alt="image"
-					class="btn type-btn"
-					title="note with image"
-					@click="setNoteType('note-txt')"
-				/>
 			</div>
 		</div>
 	</div>
@@ -36,12 +29,17 @@
 					'background-image': `url(${newNote.bgImg})`,
 				}"
 			>
+				<div class="note-imgs" v-if="newNote.info.imgs">
+					<img v-for="img in newNote.info.imgs" :src="img" alt="upload" />
+				</div>
+
 				<input
 					type="text"
 					class="note-title"
 					placeholder="Title"
 					v-model="newNote.info.title"
 				/>
+
 				<div
 					class="note-content"
 					:placeholder="setInputPlaceHolder"
@@ -49,14 +47,10 @@
 					@input="setVal"
 				></div>
 			</div>
+
 			<div class="actions flex">
 				<div class="flex">
-					<img
-						src="../assets/icon/image.svg"
-						alt="image"
-						class="btn img-btn"
-						title="add image"
-					/>
+					<addImg @addImgUrl="addImgUrl" />
 					<img
 						src="../assets/icon/color.svg"
 						alt="color"
@@ -73,6 +67,7 @@
 </template>
 <script>
 import backgroundPallete from '../components/background-pallete.vue'
+import addImg from '../components/add-img.vue'
 
 export default {
 	name: 'note-add',
@@ -125,6 +120,9 @@ export default {
 		getNewNote() {
 			this.newNote = JSON.parse(JSON.stringify(this.$store.getters.emptyNote))
 		},
+		addImgUrl(url) {
+			this.newNote.info.imgs.push(url)
+		},
 	},
 	computed: {
 		setInputPlaceHolder() {
@@ -140,6 +138,7 @@ export default {
 	},
 	components: {
 		backgroundPallete,
+		addImg,
 	},
 }
 </script>

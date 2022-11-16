@@ -106,7 +106,6 @@ export default {
 			this.note[type] = fill
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
-			// this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 		closeModal() {
 			if (this.isClrPlt === true) {
@@ -118,14 +117,11 @@ export default {
 		updateNote() {
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
-			// this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 		copyNote() {
-			console.log('copy')
 			const noteToCopy = JSON.parse(JSON.stringify(this.note))
 			noteToCopy._id = ''
 			this.save(noteToCopy)
-			// this.$store.dispatch({ type: 'saveNote', note: noteToCopy })
 		},
 		handleFile(ev) {
 			const file = ev.target.files[0]
@@ -135,8 +131,6 @@ export default {
 			const res = await uploadImg(file)
 			this.note.info.imgs.push(res.url)
 			let editedNote = JSON.parse(JSON.stringify(this.note))
-			// let noteCopy = JSON.parse(JSON.stringify(this.note))
-			// noteCopy.info.imgs.push(res.url)
 			this.save(editedNote)
 		},
 		deleteImg(index) {
