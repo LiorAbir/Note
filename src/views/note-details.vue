@@ -52,18 +52,7 @@
 					title="choose background color"
 					@click="isClrPlt = !isClrPlt"
 				/>
-				<label>
-					<img
-						src="../assets/icon/image.svg"
-						alt="image"
-						title="add image to note"
-					/>
-					<input
-						type="file"
-						:style="{ display: 'none' }"
-						@change="handleFile"
-					/>
-				</label>
+				<addImg @addImgUrl="addImgUrl" />
 				<img
 					src="../assets/icon/copy.svg"
 					alt="copy"
@@ -82,7 +71,7 @@ import { noteService } from '../services/note-service.js'
 import noteTodos from '../components/dynamic/note-todos.vue'
 import noteTxt from '../components/dynamic/note-txt.vue'
 import backgroundPallete from '../components/background-pallete.vue'
-import { uploadImg } from '../services/img-upload.service'
+import addImg from '../components/add-img.vue'
 
 export default {
 	name: 'note-details',
@@ -123,18 +112,13 @@ export default {
 			noteToCopy._id = ''
 			this.save(noteToCopy)
 		},
-		handleFile(ev) {
-			const file = ev.target.files[0]
-			this.uploadFile(file, this.note._id)
-		},
-		async uploadFile(file) {
-			const res = await uploadImg(file)
-			this.note.info.imgs.push(res.url)
+		deleteImg(index) {
+			this.note.info.imgs.splice(index, 1)
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
 		},
-		deleteImg(index) {
-			this.note.info.imgs.splice(index, 1)
+		addImgUrl(url) {
+			this.note.info.imgs.push(url)
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
 		},
@@ -155,6 +139,7 @@ export default {
 		noteTodos,
 		noteTxt,
 		backgroundPallete,
+		addImg,
 	},
 }
 </script>

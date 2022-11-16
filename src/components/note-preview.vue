@@ -38,18 +38,7 @@
 				title="choose background color"
 				@click="isClrPlt = !isClrPlt"
 			/>
-			<label>
-				<img
-					src="../assets/icon/image.svg"
-					alt="image"
-					title="add image to note"
-				/>
-				<input
-					type="file"
-					:style="{ display: 'none' }"
-					@change="handleFile"
-				/>
-			</label>
+			<addImg @addImgUrl="addImgUrl" />
 			<img
 				src="../assets/icon/copy.svg"
 				alt="copy"
@@ -71,7 +60,7 @@ import noteImg from './dynamic/note-img.vue'
 import noteTodos from './dynamic/note-todos.vue'
 import noteVideo from './dynamic/note-video.vue'
 import backgroundPallete from './background-pallete.vue'
-import { uploadImg } from '../services/img-upload.service'
+import addImg from './add-img.vue'
 
 export default {
 	name: 'note-preview',
@@ -105,13 +94,8 @@ export default {
 			editedNote[type] = fill
 			this.save(editedNote)
 		},
-		handleFile(ev) {
-			const file = ev.target.files[0]
-			this.uploadFile(file, this.note._id)
-		},
-		async uploadFile(file) {
-			const res = await uploadImg(file)
-			this.noteCopy.info.imgs.push(res.url)
+		addImgUrl(url) {
+			this.noteCopy.info.imgs.push(url)
 			this.save(this.noteCopy)
 		},
 		save(note) {
@@ -133,6 +117,7 @@ export default {
 		noteImg,
 		noteVideo,
 		backgroundPallete,
+		addImg,
 	},
 }
 </script>
