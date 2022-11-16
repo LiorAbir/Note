@@ -101,8 +101,9 @@ export default {
 			this.save(noteToCopy)
 		},
 		setBackground(fill, type) {
-			this.noteCopy[type] = fill
-			this.save(this.noteCopy)
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			editedNote[type] = fill
+			this.save(editedNote)
 		},
 		handleFile(ev) {
 			const file = ev.target.files[0]

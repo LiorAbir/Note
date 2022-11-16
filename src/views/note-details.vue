@@ -14,9 +14,23 @@
 				'background-image': `url(${note.bgImg})`,
 			}"
 		>
+			<div class="note-imgs" v-if="note.info.imgs">
+				<div class="img-container" v-for="(img, i) in note.info.imgs">
+					<img :src="img" alt="upload" />
+					<img
+						class="delete-img-btn"
+						src="../assets/icon/trash.svg"
+						alt="trash"
+						title="Delete image"
+						@click="deleteImg(i)"
+					/>
+				</div>
+			</div>
+
 			<div class="note-title">
 				<input type="text" v-model="note.info.title" @input="updateNote" />
 			</div>
+
 			<component
 				:is="note.type"
 				:info="note.info"
@@ -38,11 +52,18 @@
 					title="choose background color"
 					@click="isClrPlt = !isClrPlt"
 				/>
-				<img
-					src="../assets/icon/image.svg"
-					alt="image"
-					title="add image to note"
-				/>
+				<label>
+					<img
+						src="../assets/icon/image.svg"
+						alt="image"
+						title="add image to note"
+					/>
+					<input
+						type="file"
+						:style="{ display: 'none' }"
+						@change="handleFile"
+					/>
+				</label>
 				<img
 					src="../assets/icon/copy.svg"
 					alt="copy"
@@ -61,6 +82,7 @@ import { noteService } from '../services/note-service.js'
 import noteTodos from '../components/dynamic/note-todos.vue'
 import noteTxt from '../components/dynamic/note-txt.vue'
 import backgroundPallete from '../components/background-pallete.vue'
+import { uploadImg } from '../services/img-upload.service'
 
 export default {
 	name: 'note-details',
@@ -83,7 +105,8 @@ export default {
 		setBackground(fill, type) {
 			this.note[type] = fill
 			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.$store.dispatch({ type: 'saveNote', note: editedNote })
+			this.save(editedNote)
+			// this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 		closeModal() {
 			if (this.isClrPlt === true) {
@@ -94,13 +117,35 @@ export default {
 		},
 		updateNote() {
 			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.$store.dispatch({ type: 'saveNote', note: editedNote })
+			this.save(editedNote)
+			// this.$store.dispatch({ type: 'saveNote', note: editedNote })
 		},
 		copyNote() {
 			console.log('copy')
 			const noteToCopy = JSON.parse(JSON.stringify(this.note))
 			noteToCopy._id = ''
-			this.$store.dispatch({ type: 'saveNote', note: noteToCopy })
+			this.save(noteToCopy)
+			// this.$store.dispatch({ type: 'saveNote', note: noteToCopy })
+		},
+		handleFile(ev) {
+			const file = ev.target.files[0]
+			this.uploadFile(file, this.note._id)
+		},
+		async uploadFile(file) {
+			const res = await uploadImg(file)
+			this.note.info.imgs.push(res.url)
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			// let noteCopy = JSON.parse(JSON.stringify(this.note))
+			// noteCopy.info.imgs.push(res.url)
+			this.save(editedNote)
+		},
+		deleteImg(index) {
+			this.note.info.imgs.splice(index, 1)
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			this.save(editedNote)
+		},
+		save(note) {
+			this.$store.dispatch({ type: 'saveNote', note })
 		},
 	},
 	computed: {
