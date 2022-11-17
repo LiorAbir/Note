@@ -60,4 +60,15 @@
 	.background-pallete {
 		left: -95px;
 	}
+
+	.pin-btn {
+		width: 15px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
 }

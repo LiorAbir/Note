@@ -27,6 +27,12 @@
 
 		<div class="actions flex" :class="{ active: hover }">
 			<img
+				src="../assets/icon/pinned.svg"
+				alt="pinned"
+				class="btn pin-btn"
+				@click="pinNote()"
+			/>
+			<img
 				src="../assets/icon/trash.svg"
 				alt="trash"
 				title="delete"
@@ -77,6 +83,10 @@ export default {
 	methods: {
 		removeNote() {
 			this.$emit('removeNote', this.note._id)
+		},
+		pinNote() {
+			this.noteCopy.isPinned = !this.noteCopy.isPinned
+			this.save(this.noteCopy)
 		},
 		goToDetails() {
 			this.$router.push(`/note/${this.note._id}`)

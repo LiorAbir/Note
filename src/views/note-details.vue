@@ -39,6 +39,12 @@
 			></component>
 		</div>
 		<div class="actions-container flex">
+			<img
+				src="../assets/icon/pinned.svg"
+				alt="pinned"
+				class="btn pin-btn"
+				@click="pinNote()"
+			/>
 			<div class="actions-container flex">
 				<img
 					src="../assets/icon/trash.svg"
@@ -93,6 +99,11 @@ export default {
 	methods: {
 		setBackground(fill, type) {
 			this.note[type] = fill
+			let editedNote = JSON.parse(JSON.stringify(this.note))
+			this.save(editedNote)
+		},
+		pinNote() {
+			this.note.isPinned = !this.note.isPinned
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
 		},
