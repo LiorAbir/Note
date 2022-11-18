@@ -1,0 +1,44 @@
+.home-page {
+	height: 100vh;
+	// width: 100vh;
+	position: relative;
+
+	.blob {
+		position: absolute;
+		top: -239px;
+		left: -263px;
+		bottom: 7px;
+		width: 132%;
+	}
+
+	.home-page-header {
+		justify-content: flex-end;
+		align-items: center;
+		padding: 15px;
+		margin-bottom: 10%;
+
+		.main-nav {
+			margin-right: 10%;
+
+			& > * {
+				margin-left: 10%;
+			}
+		}
+	}
+
+	.home-page-content {
+		justify-content: center;
+		align-items: center;
+
+		.get-started {
+			justify-content: center;
+			align-items: flex-start;
+			flex-direction: column;
+			margin-right: 20px;
+		}
+
+		img {
+			width: 40%;
+		}
+	}
+}
