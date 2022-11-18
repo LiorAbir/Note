@@ -76,8 +76,8 @@ function addEmailToNotes(subejct, body) {
 function _createNotes() {
 	let notes = JSON.parse(localStorage.getItem(NOTE_KEY))
 	if (!notes || !notes.length) {
-		notes = _getNotes()
-		localStorage.setItem(NOTE_KEY, JSON.stringify(notes))
+		// notes = _getNotes()
+		// localStorage.setItem(NOTE_KEY, JSON.stringify(notes))
 	}
 	return notes
 }
