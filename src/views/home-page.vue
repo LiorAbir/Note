@@ -1,11 +1,8 @@
 <template>
-	<section
-		class="home-page"
-		:style="{ 'background-image': 'url(../assets/img/blob.svg)' }"
-	>
+	<section class="home-page">
 		<header class="home-page-header flex">
 			<nav class="main-nav">
-				<router-link to="/note">Note</router-link>
+				<router-link class="first" to="/note">Note</router-link>
 				<router-link to="/note">About</router-link>
 			</nav>
 		</header>
@@ -19,7 +16,9 @@
 					quae fugiat veniam quas unde accusamus suscipit pariatur quaerat,
 					ducimus omnis sint. Iure, distinctio.
 				</p>
-				<button class="start-btn">Start for free</button>
+				<router-link to="/note">
+					<button class="start-btn">Start for free</button>
+				</router-link>
 			</div>
 			<img src="../assets/img/notesUndraw.svg" alt="note" />
 		</div>
