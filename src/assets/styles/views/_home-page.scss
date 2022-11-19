@@ -1,6 +1,5 @@
 .home-page {
 	height: 100vh;
-	// width: 100vh;
 	position: relative;
 
 	.blob {
@@ -29,12 +28,29 @@
 	.home-page-content {
 		justify-content: center;
 		align-items: center;
+		flex-wrap: wrap;
 
 		.get-started {
 			justify-content: center;
 			align-items: flex-start;
 			flex-direction: column;
 			margin-right: 20px;
+		}
+
+		h1 {
+			font-size: 300%;
+		}
+
+		.start-btn {
+			background-color: $clr5;
+			padding: 1em 2em;
+			border-radius: 25px;
+			color: $clr2;
+			transition: 0.2s;
+
+			&:hover {
+				box-shadow: 1px 1px 1px 2px rgb(177 150 70);
+			}
 		}
 
 		img {
