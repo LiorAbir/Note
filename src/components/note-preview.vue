@@ -25,7 +25,7 @@
 			></component>
 		</div>
 
-		<div class="actions flex" :class="{ active: hover }">
+		<div class="actions flex">
 			<img
 				src="../assets/icon/pinned.svg"
 				alt="pinned"

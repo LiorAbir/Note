@@ -9,6 +9,10 @@
 	&:hover {
 		box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
 			0 1px 3px 1px rgb(60 64 67 / 15%);
+
+		.actions {
+			opacity: 1;
+		}
 	}
 
 	.note-title {
@@ -55,9 +59,9 @@
 			}
 		}
 
-		&.active {
-			opacity: 1;
-		}
+		// &.active {
+		// 	opacity: 1;
+		// }
 	}
 
 	.background-pallete {
