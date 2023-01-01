@@ -3,14 +3,6 @@
 	position: relative;
 	background-color: rgb(198 196 196 / 19%);
 
-	.blob {
-		position: absolute;
-		top: -239px;
-		left: -263px;
-		bottom: 7px;
-		width: 132%;
-	}
-
 	.home-page-header {
 		justify-content: flex-end;
 		align-items: center;
@@ -21,8 +13,8 @@
 		.main-nav {
 			margin-right: 10%;
 
-			.first {
-				margin-right: 20px;
+			a {
+				margin-right: 1rem;
 			}
 
 			a:hover {

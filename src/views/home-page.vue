@@ -2,8 +2,9 @@
 	<section class="home-page">
 		<header class="home-page-header flex">
 			<nav class="main-nav">
-				<router-link class="first" to="/note">Note</router-link>
+				<router-link to="/note">Note</router-link>
 				<router-link to="/note">About</router-link>
+				<router-link to="/login">User</router-link>
 			</nav>
 		</header>
 
