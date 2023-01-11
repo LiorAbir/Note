@@ -14,8 +14,10 @@ export default {
 			this.uploadFile(file)
 		},
 		async uploadFile(file) {
+			this.$emit('setIsLoading', true)
 			const res = await uploadImg(file)
 			this.$emit('addImgUrl', res.url)
+			this.$emit('setIsLoading', false)
 		},
 	},
 }

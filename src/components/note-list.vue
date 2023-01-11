@@ -10,11 +10,7 @@
 			</li>
 		</ul>
 
-		<ul
-			class="clean-list"
-			:class="{ border: isPinnedNotes === true }"
-			ref="grid"
-		>
+		<ul class="clean-list" ref="grid">
 			<li
 				class="note-container"
 				v-for="note in notPinnedNotes"

@@ -10,9 +10,20 @@
 		}"
 	>
 		<div @click="goToDetails">
+			<!-- <div v-if="!isLoading"> -->
 			<div class="note-imgs" v-if="note.info.imgs">
-				<img v-for="img in note.info.imgs" :src="img" alt="upload" />
+				<img
+					v-for="img in note.info.imgs"
+					:key="img"
+					:src="img"
+					alt="upload"
+				/>
 			</div>
+			<!-- </div> -->
+			<!-- 
+			<div v-else>
+				<h1>loading</h1>
+			</div> -->
 
 			<div class="note-title">
 				<input type="text" v-model="note.info.title" />
@@ -44,7 +55,7 @@
 				title="choose background color"
 				@click="isClrPlt = !isClrPlt"
 			/>
-			<addImg @addImgUrl="addImgUrl" />
+			<addImg @addImgUrl="addImgUrl" @setIsLoading="setIsLoading" />
 			<img
 				src="../assets/icon/copy.svg"
 				alt="copy"
@@ -78,6 +89,7 @@ export default {
 			hover: false,
 			isClrPlt: false,
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
+			isLoading: false,
 		}
 	},
 	methods: {
@@ -110,6 +122,9 @@ export default {
 		},
 		save(note) {
 			this.$emit('save', note)
+		},
+		setIsLoading(boolean) {
+			this.isLoading === boolean
 		},
 	},
 	computed: {
