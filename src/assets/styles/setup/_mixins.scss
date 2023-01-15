@@ -1,29 +1,13 @@
-/* Media queries Breakpoint mixins */
+@mixin blue-btn {
+	color: $clr2;
+	background-image: linear-gradient(
+		180deg,
+		rgb(105 141 246) 0%,
+		rgb(95 129 246) 100%
+	);
+}
 
-// @mixin for-mobile-layout {
-//   @media (max-width: $break-narrow) {
-//     @content;
-//   }
-// }
-
-// @mixin for-narrow-layout {
-//   @media (min-width: $break-narrow) {
-//     @content;
-//   }
-// }
-
-// @mixin for-normal-layout {
-//   @media (min-width: $break-normal) {
-//     @content;
-//   }
-// }
-
-// @mixin for-wide-layout {
-//   @media (min-width: $break-wide) {
-//     @content;
-//   }
-// }
-
+//MEDIA Q
 @mixin from-mini-layout {
 	@media (min-width: $mini-breakpoint) {
 		@content;

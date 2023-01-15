@@ -1,4 +1,5 @@
 <template>
+	<appHeader />
 	<section class="login-signup">
 		<div class="logo">
 			<router-link to="/">logo</router-link>
@@ -58,6 +59,7 @@
 	</section>
 </template>
 <script>
+import appHeader from '../components/app-header.vue'
 export default {
 	name: 'login-signup',
 	data() {
@@ -85,6 +87,9 @@ export default {
 			ev.preventDefault()
 			console.log(this.signUpInfo)
 		},
+	},
+	components: {
+		appHeader,
 	},
 }
 </script>

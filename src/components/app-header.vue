@@ -2,69 +2,46 @@
 	<header
 		class="app-header flex"
 		v-scroll="handleScroll"
-		:style="{ boxShadow: shadow }"
+		:class="{ 'header-sticky': isSticky }"
 	>
-		<!-- TODO -->
-		<!-- <nav class="main-nav flex">
-			<button class="user">L</button>
-			<img
-				class="svg settings-svg"
-				src="../assets/icon/settings.svg"
-				alt="settings"
-				title="settings"
-			/>
-		</nav> -->
-
-		<noteFilter @setFilterBy="setFilterBy" />
-
-		<div class="menu-container flex">
-			<router-link to="/">
-				<div class="logo flex">
-					<span>Noted</span>
-					<img
-						class="svg logo-svg"
-						src="../assets/img/favicon.png"
-						alt="logo"
-						title="home page"
-					/>
-				</div>
-			</router-link>
-			<!-- TODO -->
-			<!-- <img
-				class="svg menu-svg"
-				src="../assets/icon/burger.svg"
-				alt="menu"
-				title="main menu"
-			/> -->
-		</div>
+		<div class="logo">Noted <span>.</span></div>
+		<nav class="main-nav flex">
+			<div class="socials flex">
+				<router-link
+					to="/note"
+					class="btn social-btn facebook"
+					title="facebbok"
+				>
+					<img src="../assets/icon/facebook.svg" alt="facebook icon" />
+				</router-link>
+				<router-link
+					to="/note"
+					class="btn social-btn twitter"
+					title="twitter"
+					><img src="../assets/icon/twitter.svg" alt="twittwe icon"
+				/></router-link>
+			</div>
+		</nav>
+		<router-link to="/login" class="btn start-btn">Get noted</router-link>
+		<div class="header-background"></div>
 	</header>
 </template>
 <script>
-import noteFilter from './note-filter.vue'
-
 export default {
-	name: 'ap-header',
+	name: 'app-header',
 	data() {
 		return {
-			shadow: 'inset 0 -1px 0 0 #dadce0',
+			isSticky: false,
 		}
 	},
 	methods: {
 		handleScroll() {
-			if (window.scrollY === 0) {
-				this.shadow = 'inset 0 -1px 0 0 #dadce0'
+			if (window.scrollY >= 458) {
+				this.isSticky = true
 			} else {
-				this.shadow = '-1px -2px 5px 5px #9c9ea3'
+				this.isSticky = false
 			}
 		},
-		setFilterBy(filterBy) {
-			this.$emit('setFilterBy', filterBy)
-		},
-	},
-	components: {
-		noteFilter,
 	},
 }
 </script>
-
-<style></style>

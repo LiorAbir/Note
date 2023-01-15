@@ -1,14 +1,12 @@
 //DAMMY BACEND
-import { storageService } from './storage.service'
-const USER_KEY = 'loggedinUser'
-
-const USERS_KEY = 'users_DB'
-var _gUsers = []
-_createUsers()
+// import { storageService } from './storage.service'
+// const LOGGEDIN_KEY = 'loggedinUser'
+// const USERS_KEY = 'users_DB'
+// _createUsers()
 
 //BACKEND
-// import { httpService } from './http.service';
-// const prmStr = 'auth'
+import { httpService } from './http.service'
+const prmStr = 'auth'
 
 export const userService = {
 	login,
@@ -16,73 +14,79 @@ export const userService = {
 	signUp,
 	getLoggedinUser,
 	updateUser,
+	getById,
+	removeUser,
 }
 
-async function login({ username, password }) {
-	const user = _gUsers.find(
-		(user) => user.username === username && user.password === password
-	)
-	return _saveLocalUser(user)
-	// const user = await httpService.post(`${prmStr}/login`, credentials)
+async function login(credentials) {
+	// const users = await storageService.query(USERS_KEY)
+	// const user = users.find((user) => user.username === credentials.username)
+	// return _saveLocalUser(user)
+
+	const user = await httpService.post(`${prmStr}/login`, credentials)
+	if (user) return _saveLocalUser(user)
 }
 
 async function logout() {
-	sessionStorage.removeItem(USER_KEY)
-	// return await httpService.post(`${prmStr}/logout`)
+	sessionStorage.removeItem(LOGGEDIN_KEY)
+	return await httpService.post(`${prmStr}/logout`)
 }
 
-async function signUp({ fullName, username, email, password }) {
-	const user = {
-		_id: _makeId(),
-		fullName,
-		username,
-		email,
-		password,
-		isAdmin: false,
-		cart: [],
-		wishlist: [],
-	}
+async function signUp(signupInfo) {
+	// const { fullName, username, email, password } = signupInfo
+	// const user = {
+	// 	_id: _makeId(),
+	// 	fullName,
+	// 	username,
+	// 	email,
+	// 	password,
+	// notesId,
+	// }
 
-	_gUsers.push(user)
-	_saveLocalUsers(_gUsers)
+	// const user = await storageService.post(USERS_KEY)
+	// return _saveLocalUser(user)
+
+	const user = await httpService.post(`${prmStr}/signup`, signupInfo)
 	return _saveLocalUser(user)
-	// const user = await httpService.post(`${prmStr}/signup`, signupInfo)
 }
 
 function getLoggedinUser() {
-	var user = sessionStorage.getItem(USER_KEY)
-	return JSON.parse(user)
+	return JSON.parse(sessionStorage.getItem(LOGGEDIN_KEY) || 'null')
 }
 
-function updateUser(user) {
-	storageService.put(USERS_KEY, user)
-	_saveLocalUser(user)
-}
+async function updateUser(user) {
+	// user = await storageService.put(USERS_KEY, user)
 
-function _saveLocalUser(user) {
-	sessionStorage.setItem(USER_KEY, JSON.stringify(user))
+	user = await httpService.put(`user/${user._id}`, user)
+
+	if (getLoggedinUser._id === user._id) _saveLocalUser(user)
 	return user
 }
 
-// async function getById(userId) {
-// 	const user = await storageService.get('user', userId)
-// 	return user
-// }
-///
+async function getById(userId) {
+	// const user = await storageService.get(USERS_KEY, userId)
+	const user = await httpService.get(`user/${userId}`)
+	return user
+}
 
+function removeUser(userId) {
+	// return storageService.remove(USERS_KEY, userId)
+	return httpService.delete(`user/${userId}`)
+}
+
+function _saveLocalUser(user) {
+	sessionStorage.setItem(LOGGEDIN_KEY, JSON.stringify(user))
+	return user
+}
+
+//WITH DUMMY BACKEND
 function _createUsers() {
 	let users = JSON.parse(localStorage.getItem(USERS_KEY))
 	if (!users || !users.length) {
 		users = _getUsers()
 		localStorage.setItem(USERS_KEY, JSON.stringify(users))
 	}
-	_gUsers = users
 	return users
-}
-
-function _saveLocalUsers(user) {
-	localStorage.setItem(USERS_KEY, JSON.stringify(_gUsers))
-	return user
 }
 
 function _getUsers() {
@@ -94,16 +98,7 @@ function _getUsers() {
 			email: 'liorabir@gmail.com',
 			password: '123456',
 			isAdmin: true,
-			notes: [],
+			notesId: '',
 		},
 	]
-}
-
-function _makeId(length = 8) {
-	var text = ''
-	var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	for (var i = 0; i < length; i++) {
-		text += possible.charAt(Math.floor(Math.random() * possible.length))
-	}
-	return text
 }

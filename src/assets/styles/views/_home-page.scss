@@ -1,62 +1,59 @@
 .home-page {
-	height: 100vh;
+	min-height: 200vh;
 	position: relative;
-	background-color: rgb(198 196 196 / 19%);
 
-	.home-page-header {
-		justify-content: flex-end;
-		align-items: center;
-		padding: 2rem;
-		margin-bottom: 10%;
-		border-bottom: 1px solid rgb(128 128 128 / 14%);
+	.hero {
+		background-image: url('/src/assets/img/hero.jpg');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		min-height: 540px;
 
-		.main-nav {
-			margin-right: 10%;
-
-			a {
-				margin-right: 1rem;
-			}
-
-			a:hover {
-				color: $clr5;
-			}
-		}
-	}
-
-	.home-page-content {
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-
-		.get-started {
-			justify-content: center;
-			align-items: flex-start;
+		.content {
 			flex-direction: column;
-			margin-right: 20px;
+			justify-content: flex-end;
+			align-items: center;
+			text-align: center;
+			padding-bottom: 2.5rem;
+			min-height: 500px;
 
-			& > * {
-				margin-bottom: 1rem;
+			@include from-mobile-layout() {
+				text-align: left;
+				align-items: flex-start;
+				margin: auto;
+				max-width: 90%;
 			}
-		}
 
-		h1 {
-			font-size: 300%;
-		}
+			.title {
+				color: $clr2;
+				font-size: 33px;
+				padding-bottom: 1.5rem;
+				text-shadow: 0 0 10px rgb(0 0 0 / 50%);
 
-		.start-btn {
-			background-color: $clr5;
-			padding: 1em 2em;
-			border-radius: 25px;
-			color: $clr2;
-			transition: 0.2s;
-
-			&:hover {
-				box-shadow: 1px 1px 1px 2px rgb(177 150 70);
+				@include from-mobile-layout() {
+					font-size: 53px;
+					width: 50%;
+				}
 			}
-		}
 
-		img {
-			width: 40%;
+			.start-btn {
+				@include blue-btn();
+				border-radius: 3px;
+				box-shadow: 2px 2px 1px rgb(0 0 0 / 19%), inset 0 -2px 0 #5878e5;
+				font-size: 16px;
+				font-weight: 300;
+				line-height: 33px;
+				padding: 10px 21px;
+				font-family: 'Roboto-regular', sans-serif;
+
+				&:hover {
+					background-image: linear-gradient(
+						0deg,
+						rgb(105 141 246) 0%,
+						rgb(95 129 246) 100%
+					);
+				}
+			}
 		}
 	}
 }

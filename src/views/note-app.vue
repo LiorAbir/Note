@@ -1,6 +1,6 @@
 <template>
 	<section class="note-app">
-		<appHeader @setFilterBy="setFilterBy" />
+		<listHeader @setFilterBy="setFilterBy" />
 		<note-add />
 		<div v-if="!notes || !notes.length" class="no-notes flex">
 			<img src="../assets/img/add-note.svg" alt="" />
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import appHeader from '../components/app-header.vue'
+import listHeader from '../components/list-header.vue'
 import noteList from '../components/note-list.vue'
 import noteAdd from './note-add.vue'
 
@@ -60,7 +60,7 @@ export default {
 		},
 	},
 	components: {
-		appHeader,
+		listHeader,
 		noteList,
 		noteAdd,
 	},

@@ -1,31 +1,48 @@
 <template>
 	<section class="home-page">
-		<header class="home-page-header flex">
-			<nav class="main-nav">
-				<router-link to="/note">Note</router-link>
-				<router-link to="/note">About</router-link>
-				<router-link to="/login">User</router-link>
-			</nav>
-		</header>
-
-		<div class="home-page-content flex">
-			<div class="get-started flex">
-				<h1>noted .</h1>
-				<p>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-					Molestias, eius? Laboriosam quasi eveniet tempore incidunt, sed
-					quae fugiat veniam quas unde accusamus suscipit pariatur quaerat,
-					ducimus omnis sint. Iure, distinctio.
-				</p>
-				<router-link to="/note">
-					<button class="start-btn">Start for free</button>
+		<appHeader />
+		<div class="hero">
+			<div
+				class="content flex"
+				v-scroll="handleScroll"
+				:style="{ opacity: opacityNum }"
+			>
+				<h2 class="title">Save your thoughts, wherever you are</h2>
+				<router-link to="/login" class="start-btn">
+					Try Noted .
 				</router-link>
 			</div>
-			<img src="../assets/img/notesUndraw.svg" alt="note" />
 		</div>
 	</section>
 </template>
 <script>
-export default {}
+import appHeader from '../components/app-header.vue'
+export default {
+	name: 'home-page',
+	data() {
+		return {
+			opacityNum: 1,
+			prevScroll: 0,
+		}
+	},
+	components: {
+		appHeader,
+	},
+	methods: {
+		handleScroll() {
+			const st = window.scrollY
+
+			if (st > this.prevScroll) {
+				this.opacityNum -= 0.02
+			} else {
+				this.opacityNum += 0.01
+			}
+
+			if (window.scrollY === 0) this.opacityNum = 1
+
+			this.prevScroll = st <= 0 ? 0 : st
+		},
+	},
+}
 </script>
 <style></style>
