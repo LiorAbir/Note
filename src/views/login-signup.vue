@@ -1,12 +1,11 @@
 <template>
-	<appHeader />
 	<section class="login-signup">
 		<div class="logo">
-			<router-link to="/">logo</router-link>
+			<router-link to="/">Noted .</router-link>
 		</div>
 		<section class="login-signup-container flex">
-			<div class="login">
-				<h1>login</h1>
+			<div class="login" v-if="isLogin">
+				<h1 class="title">Login</h1>
 				<form @submit="onLogin">
 					{{ credentials }}
 					<input
@@ -21,11 +20,16 @@
 						required
 						placeholder="Enter Password"
 					/>
-					<button class="btn login-btn">Sign in</button>
+					<div class="btns flex">
+						<button class="btn login-btn">Sign in</button>
+						<button class="sign-in" @click="this.isLogin = false">
+							Dont have an acount yet?
+						</button>
+					</div>
 				</form>
 			</div>
-			<div class="signup">
-				<h1>signup</h1>
+			<div class="signup" v-else>
+				<h1 class="title">Signup</h1>
 				{{ signUpInfo }}
 				<form @submit="onSignup">
 					<input
@@ -52,7 +56,12 @@
 						required
 						placeholder="Password"
 					/>
-					<button class="btn login-btn">Create account</button>
+					<div class="btns flex">
+						<button class="btn login-btn">Sign up</button>
+						<button class="sign-in" @click="this.isLogin = true">
+							Already have an account?
+						</button>
+					</div>
 				</form>
 			</div>
 		</section>
@@ -64,6 +73,7 @@ export default {
 	name: 'login-signup',
 	data() {
 		return {
+			isLogin: true,
 			loggedInUser: null,
 			credentials: {
 				username: '',
