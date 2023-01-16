@@ -27,6 +27,7 @@ export default {
 			try {
 				const user = await userService.login(credentials)
 				commit({ type: 'setUser', user })
+				return Promise.resolve()
 			} catch (err) {
 				console.log('Cannot login')
 			}

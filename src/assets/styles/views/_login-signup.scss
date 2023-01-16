@@ -1,7 +1,5 @@
 .login-signup {
 	min-height: 100vh;
-	// flex-direction: column;
-	// justify-content: center;
 
 	.logo {
 		padding: 1rem;
@@ -14,16 +12,14 @@
 	.login-signup-container {
 		width: 90%;
 		margin: auto;
+		min-height: 50vh;
 
 		@include from-mobile-layout() {
 			border: 1px solid rgb(218 220 224);
 			border-radius: 8px;
 			width: 50%;
-			padding: 3rem;
-			// justify-content: space-between;
-			// align-items: center;
-			// flex-wrap: wrap;
-			min-height: 50vh;
+			padding: 2rem;
+			min-height: 60vh;
 		}
 
 		@include from-narrow-layout() {
@@ -31,7 +27,7 @@
 		}
 
 		@include from-normal-layout() {
-			width: 30%;
+			width: 35%;
 		}
 
 		& > * {
@@ -40,6 +36,7 @@
 			justify-content: center;
 			text-align: center;
 			width: 100%;
+			position: relative;
 
 			.title {
 				font-family: 'Roboto-Bold';
@@ -53,7 +50,6 @@
 		form {
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
 			flex-grow: 1;
 			position: relative;
 
@@ -69,19 +65,26 @@
 					border: 1px solid $google-blue;
 				}
 			}
+		}
 
-			.btns {
-				justify-content: space-between;
-				color: $google-blue;
-				font-family: 'roboto-medium';
+		.btn {
+			background-color: $google-blue;
+			color: $clr2;
+			padding: 12px;
+			border-radius: 4px;
+			min-width: 30%;
 
-				.btn {
-					background-color: $google-blue;
-					color: $clr2;
-					padding: 12px;
-					border-radius: 4px;
-				}
-			}
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		.move-to {
+			color: $google-blue;
+			font-family: 'roboto-medium';
+			position: absolute;
+			bottom: 0;
+			left: 0;
 		}
 	}
 }

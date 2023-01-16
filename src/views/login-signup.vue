@@ -7,7 +7,7 @@
 			<div class="login" v-if="isLogin">
 				<h1 class="title">Login</h1>
 				<form @submit="onLogin">
-					{{ credentials }}
+					<!-- {{ credentials }} -->
 					<input
 						type="text"
 						v-model="credentials.username"
@@ -20,21 +20,20 @@
 						required
 						placeholder="Enter Password"
 					/>
-					<div class="btns flex">
-						<button class="btn login-btn">Sign in</button>
-						<button class="sign-in" @click="this.isLogin = false">
-							Dont have an acount yet?
-						</button>
-					</div>
+					<button class="btn login-btn" @click="onLogin">Sign in</button>
 				</form>
+
+				<button class="move-to" @click="this.isLogin = false">
+					Dont have an acount yet?
+				</button>
 			</div>
 			<div class="signup" v-else>
 				<h1 class="title">Signup</h1>
-				{{ signUpInfo }}
+				<!-- {{ signUpInfo }} -->
 				<form @submit="onSignup">
 					<input
 						type="text"
-						v-model="signUpInfo.fullName"
+						v-model="signUpInfo.fullname"
 						required
 						placeholder="Full name"
 					/>
@@ -45,7 +44,7 @@
 						placeholder="username"
 					/>
 					<input
-						type="text"
+						type="email"
 						v-model="signUpInfo.email"
 						required
 						placeholder="Email"
@@ -56,19 +55,18 @@
 						required
 						placeholder="Password"
 					/>
-					<div class="btns flex">
-						<button class="btn login-btn">Sign up</button>
-						<button class="sign-in" @click="this.isLogin = true">
-							Already have an account?
-						</button>
-					</div>
+					<button class="btn login-btn" @click="onSignup">Sign up</button>
 				</form>
+
+				<button class="move-to" @click="this.isLogin = true">
+					Already have an account?
+				</button>
 			</div>
 		</section>
+		<button @click="onLogout">logout</button>
 	</section>
 </template>
 <script>
-import appHeader from '../components/app-header.vue'
 export default {
 	name: 'login-signup',
 	data() {
@@ -80,26 +78,33 @@ export default {
 				password: '',
 			},
 			signUpInfo: {
-				fullName: '',
-				username: '',
-				email: '',
-				password: '',
+				fullname: 'Lior Abir',
+				username: 'liorabir',
+				email: 'lior@gmail.com',
+				password: '123456',
 			},
 		}
 	},
 	created() {},
 	methods: {
-		onLogin(ev) {
+		async onLogin(ev) {
 			ev.preventDefault()
-			console.log(this.credentials)
+			await this.$store.dispatch({
+				type: 'login',
+				credentials: this.credentials,
+			})
+			// this.$router.push('/note')
 		},
-		onSignup(ev) {
+		async onSignup(ev) {
 			ev.preventDefault()
-			console.log(this.signUpInfo)
+			await this.$store.dispatch({
+				type: 'signup',
+				signupInfo: this.signUpInfo,
+			})
 		},
-	},
-	components: {
-		appHeader,
+		onLogout() {
+			this.$store.dispatch({ type: 'logout' })
+		},
 	},
 }
 </script>

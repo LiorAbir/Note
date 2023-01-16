@@ -1,6 +1,6 @@
 //DAMMY BACEND
 // import { storageService } from './storage.service'
-// const LOGGEDIN_KEY = 'loggedinUser'
+const LOGGEDIN_KEY = 'loggedinUser'
 // const USERS_KEY = 'users_DB'
 // _createUsers()
 
