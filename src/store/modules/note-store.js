@@ -2,7 +2,8 @@ import { noteService } from '../../services/note-service.js'
 
 export default {
 	state: {
-		notes: [],
+		notes: null,
+		noteInfo: null,
 		filter: {
 			txt: '',
 		},
@@ -31,7 +32,6 @@ export default {
 			})
 
 			console.log(filteredNotes)
-
 			return filteredNotes
 		},
 		emptyNote() {
@@ -40,7 +40,8 @@ export default {
 	},
 	mutations: {
 		setNotes(state, { notes }) {
-			state.notes = notes
+			state.notes = notes.noteList
+			state.noteInfo = notes
 		},
 		removeNote(state, { id }) {
 			const idx = state.notes.findIndex((note) => note._id === id)
@@ -62,7 +63,7 @@ export default {
 		async loadNotes({ commit }) {
 			try {
 				const notes = await noteService.query()
-				commit({ type: 'setNotes', notes })
+				commit({ type: 'setNotes', notes: notes[0] })
 			} catch (err) {
 				console.log('cannot load notes')
 			}

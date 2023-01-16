@@ -13,11 +13,6 @@ const router = createRouter({
 			component: homePage,
 		},
 		{
-			path: '/login',
-			name: 'login',
-			component: loginSignUp,
-		},
-		{
 			path: '/note',
 			name: 'note-app',
 			component: noteApp,
@@ -32,6 +27,11 @@ const router = createRouter({
 					},
 				},
 			],
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: loginSignUp,
 		},
 	],
 })

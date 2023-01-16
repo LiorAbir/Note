@@ -85,19 +85,17 @@ export default {
 			},
 		}
 	},
-	created() {},
 	methods: {
 		async onLogin(ev) {
 			ev.preventDefault()
-			await this.$store.dispatch({
+			this.$store.dispatch({
 				type: 'login',
 				credentials: this.credentials,
 			})
-			// this.$router.push('/note')
 		},
-		async onSignup(ev) {
+		onSignup(ev) {
 			ev.preventDefault()
-			await this.$store.dispatch({
+			this.$store.dispatch({
 				type: 'signup',
 				signupInfo: this.signUpInfo,
 			})

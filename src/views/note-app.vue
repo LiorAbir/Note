@@ -2,6 +2,9 @@
 	<section class="note-app">
 		<listHeader @setFilterBy="setFilterBy" />
 		<note-add />
+		<pre>{{ notes }}</pre>
+
+		<button class="btn" @click="logout">logout</button>
 		<div v-if="!notes || !notes.length" class="no-notes flex">
 			<img src="../assets/img/add-note.svg" alt="" />
 			<h1>Add note</h1>
@@ -25,6 +28,20 @@ export default {
 	data() {
 		return {
 			showModal: false,
+			loggedInUser: null,
+			notes: null,
+		}
+	},
+	async created() {
+		await this.$store.dispatch({ type: 'loadLoggedInUser' })
+		this.loggedInUser = this.$store.getters.loggedInUser
+
+		if (this.loggedInUser) {
+			await this.$store.dispatch({ type: 'loadNotes' })
+			this.notes = await this.$store.getters.notes
+		} else {
+			this.$router.push('/login')
+			window.alert('Login first')
 		}
 	},
 	methods: {
@@ -42,11 +59,15 @@ export default {
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
+		logout() {
+			this.$store.dispatch({ type: 'logout' })
+			this.$router.push('/')
+		},
 	},
 	computed: {
-		notes() {
-			return this.$store.getters.notesToDisplay
-		},
+		// notes() {
+		// 	return this.$store.getters.notesToDisplay
+		// },
 		goToNotes() {
 			this.$router.push('/note')
 		},
