@@ -62,7 +62,6 @@ export default {
 	},
 	actions: {
 		async loadNotes({ commit }) {
-			console.log('load')
 			try {
 				const notes = await noteService.query()
 				commit({ type: 'setNotes', notes: notes[0] })

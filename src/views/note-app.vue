@@ -1,15 +1,13 @@
 <template>
-	<section class="note-app">
+	<section class="note-app flex">
 		<listHeader @setFilterBy="setFilterBy" />
-		<note-add />
-		<!-- <pre>{{ notes }}</pre> -->
-
-		<!-- <button class="btn" @click="logout">logout</button> -->
-		<!-- <div v-if="!notes || !notes.length" class="no-notes flex">
-			<img src="../assets/img/add-note.svg" alt="" />
-			<h1>Add note</h1>
-		</div> -->
-		<noteList :notes="notes" @removeNote="removeNote" @save="save" />
+		<div class="content-container flex">
+			<sideNav @changePage="changePage" />
+			<div class="notes-content" v-if="notes">
+				<noteAdd />
+				<noteList :notes="notes" @removeNote="removeNote" @save="save" />
+			</div>
+		</div>
 	</section>
 	<div v-if="showModal" class="modal-background">
 		<div class="modal-content">
@@ -21,6 +19,7 @@
 <script>
 import listHeader from '../components/list-header.vue'
 import noteList from '../components/note-list.vue'
+import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
 
 export default {
@@ -33,18 +32,22 @@ export default {
 		}
 	},
 	async created() {
-		await this.$store.dispatch({ type: 'loadLoggedInUser' })
-		this.loggedInUser = this.$store.getters.loggedInUser
-
-		if (this.loggedInUser) {
-			await this.$store.dispatch({ type: 'loadNotes' })
-			this.notes = await this.$store.getters.notes
-		} else {
-			this.$router.push('/login')
-			window.alert('Login first')
-		}
+		this.loadUser()
+		const { type } = this.$route.params
 	},
 	methods: {
+		async loadUser() {
+			await this.$store.dispatch({ type: 'loadLoggedInUser' })
+			this.loggedInUser = this.$store.getters.loggedInUser
+
+			if (this.loggedInUser) {
+				await this.$store.dispatch({ type: 'loadNotes' })
+				this.notes = await this.$store.getters.notes
+			} else {
+				this.$router.push('/login')
+				window.alert('Login first')
+			}
+		},
 		removeNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
@@ -58,6 +61,10 @@ export default {
 		},
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
+		},
+		changePage(page) {
+			// this.$router.push()
+			this.$router.push(`/${page}`)
 		},
 	},
 	computed: {
@@ -80,6 +87,7 @@ export default {
 		listHeader,
 		noteList,
 		noteAdd,
+		sideNav,
 	},
 }
 </script>

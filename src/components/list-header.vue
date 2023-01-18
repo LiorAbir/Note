@@ -30,7 +30,7 @@
 			<noteFilter @setFilterBy="setFilterBy" />
 		</div>
 
-		<div class="user-actions flex">
+		<div class="user-actions flex" v-if="user">
 			<button
 				class="user-img"
 				@click="this.isDetailsOpen = !this.isDetailsOpen"

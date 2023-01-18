@@ -13,7 +13,7 @@ const router = createRouter({
 			component: homePage,
 		},
 		{
-			path: '/note',
+			path: '/:type/:label?',
 			name: 'note-app',
 			component: noteApp,
 
