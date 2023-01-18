@@ -2,14 +2,14 @@
 	<section class="note-app">
 		<listHeader @setFilterBy="setFilterBy" />
 		<note-add />
-		<pre>{{ notes }}</pre>
+		<!-- <pre>{{ notes }}</pre> -->
 
-		<button class="btn" @click="logout">logout</button>
-		<div v-if="!notes || !notes.length" class="no-notes flex">
+		<!-- <button class="btn" @click="logout">logout</button> -->
+		<!-- <div v-if="!notes || !notes.length" class="no-notes flex">
 			<img src="../assets/img/add-note.svg" alt="" />
 			<h1>Add note</h1>
-		</div>
-		<noteList v-else :notes="notes" @removeNote="removeNote" @save="save" />
+		</div> -->
+		<noteList :notes="notes" @removeNote="removeNote" @save="save" />
 	</section>
 	<div v-if="showModal" class="modal-background">
 		<div class="modal-content">
@@ -58,10 +58,6 @@ export default {
 		},
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
-		},
-		logout() {
-			this.$store.dispatch({ type: 'logout' })
-			this.$router.push('/')
 		},
 	},
 	computed: {

@@ -4,38 +4,47 @@
 		v-scroll="handleScroll"
 		:style="{ boxShadow: shadow }"
 	>
-		<!-- TODO -->
-		<!-- <nav class="main-nav flex">
-			<button class="user">L</button>
-			<img
-				class="svg settings-svg"
-				src="../assets/icon/settings.svg"
-				alt="settings"
-				title="settings"
-			/>
-		</nav> -->
+		<nav class="menu-nav flex">
+			<div class="menu-container round" title="main menu">
+				<img
+					class="svg menu-svg"
+					src="../assets/icon/burger.svg"
+					alt="menu"
+				/>
+			</div>
 
-		<noteFilter @setFilterBy="setFilterBy" />
-
-		<div class="menu-container flex">
 			<router-link to="/">
 				<div class="logo flex">
-					<span>Noted</span>
 					<img
 						class="svg logo-svg"
 						src="../assets/img/favicon.png"
 						alt="logo"
 						title="home page"
 					/>
+					<h2>Noted<span>.</span></h2>
 				</div>
 			</router-link>
-			<!-- TODO -->
-			<!-- <img
-				class="svg menu-svg"
-				src="../assets/icon/burger.svg"
-				alt="menu"
-				title="main menu"
-			/> -->
+		</nav>
+
+		<div class="app-actions flex">
+			<noteFilter @setFilterBy="setFilterBy" />
+		</div>
+
+		<div class="user-actions flex">
+			<button
+				class="user-img"
+				@click="this.isDetailsOpen = !this.isDetailsOpen"
+			>
+				{{ user.fullname[0] }}
+			</button>
+		</div>
+		<div class="user-details modal flex" v-if="isDetailsOpen">
+			<div class="info flex">
+				<h1 class="user-img">{{ user.fullname[0] }}</h1>
+				<h4>{{ user.fullname }}</h4>
+				<!-- <h5>{{ user.email }}</h5> -->
+			</div>
+			<button class="btn logout-btn" @click="onLogout">Logout</button>
 		</div>
 	</header>
 </template>
@@ -47,6 +56,7 @@ export default {
 	data() {
 		return {
 			shadow: 'inset 0 -1px 0 0 #dadce0',
+			isDetailsOpen: false,
 		}
 	},
 	methods: {
@@ -59,6 +69,15 @@ export default {
 		},
 		setFilterBy(filterBy) {
 			this.$emit('setFilterBy', filterBy)
+		},
+		onLogout() {
+			this.$store.dispatch({ type: 'logout' })
+			this.$router.push('/')
+		},
+	},
+	computed: {
+		user() {
+			return this.$store.getters.loggedInUser
 		},
 	},
 	components: {

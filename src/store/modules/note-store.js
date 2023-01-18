@@ -48,6 +48,7 @@ export default {
 			state.notes.splice(idx, 1)
 		},
 		addNote(state, { note }) {
+			console.log(note)
 			state.notes.unshift(note)
 		},
 		editNote(state, { note }) {
@@ -61,6 +62,7 @@ export default {
 	},
 	actions: {
 		async loadNotes({ commit }) {
+			console.log('load')
 			try {
 				const notes = await noteService.query()
 				commit({ type: 'setNotes', notes: notes[0] })

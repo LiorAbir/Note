@@ -47,13 +47,14 @@ async function save(note) {
 		// return storageService.post(NOTE_KEY, note)
 
 		//WITH SERVER
+		note._id = _makeId(10)
 		return await httpService.post(prmStr, note)
 	}
 }
 
 function getEmptyNote() {
 	return {
-		id: '',
+		_id: '',
 		type: 'note-txt',
 		isPinned: false,
 		bgClr: '#ffffff',
@@ -255,4 +256,13 @@ function _getNotes() {
 			},
 		},
 	]
+}
+
+function _makeId(length = 8) {
+	var text = ''
+	var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	for (var i = 0; i < length; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length))
+	}
+	return text
 }
