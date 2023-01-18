@@ -3,9 +3,15 @@
 		<listHeader @setFilterBy="setFilterBy" />
 		<div class="content-container flex">
 			<sideNav @changePage="changePage" />
+
 			<div class="notes-content" v-if="notes">
 				<noteAdd />
-				<noteList :notes="notes" @removeNote="removeNote" @save="save" />
+				<component
+					:is="pageType"
+					:notes="notes"
+					class="notes-container"
+				></component>
+				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" />  -->
 			</div>
 		</div>
 	</section>
@@ -22,6 +28,11 @@ import noteList from '../components/note-list.vue'
 import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
 
+//Dynamic
+import notes from '../components/dynamic-pages/notes.vue'
+import archive from '../components/dynamic-pages/archive.vue'
+import trash from '../components/dynamic-pages/trash.vue'
+
 export default {
 	name: 'note-app',
 	data() {
@@ -29,11 +40,13 @@ export default {
 			showModal: false,
 			loggedInUser: null,
 			notes: null,
+			pageType: 'notes',
 		}
 	},
 	async created() {
 		this.loadUser()
 		const { type } = this.$route.params
+		this.pageType = type
 	},
 	methods: {
 		async loadUser() {
@@ -65,15 +78,16 @@ export default {
 		changePage(page) {
 			// this.$router.push()
 			this.$router.push(`/${page}`)
+			this.pageType = page
 		},
 	},
 	computed: {
 		// notes() {
 		// 	return this.$store.getters.notesToDisplay
 		// },
-		goToNotes() {
-			this.$router.push('/note')
-		},
+		// goToNotes() {
+		// 	this.$router.push('/note')
+		// },
 	},
 	watch: {
 		$route: {
@@ -88,6 +102,9 @@ export default {
 		noteList,
 		noteAdd,
 		sideNav,
+		archive,
+		notes,
+		trash,
 	},
 }
 </script>

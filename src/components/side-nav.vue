@@ -32,7 +32,7 @@ export default {
 				// },
 				{
 					name: 'archive',
-					svg: 'src/assets/icon/archive.scg',
+					svg: 'src/assets/icon/archive.svg',
 				},
 				{
 					name: 'trash',
