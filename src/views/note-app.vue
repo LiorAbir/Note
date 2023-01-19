@@ -1,8 +1,8 @@
 <template>
 	<section class="note-app flex">
-		<listHeader @setFilterBy="setFilterBy" />
+		<listHeader @setFilterBy="setFilterBy" @toggleMenu="toggleMenu" />
 		<div class="content-container flex">
-			<sideNav @changePage="changePage" />
+			<sideNav @changePage="changePage" :isMenuOpen="isMenuOpen" />
 
 			<div class="notes-content" v-if="notes">
 				<noteAdd />
@@ -10,6 +10,8 @@
 					:is="pageType"
 					:notes="notes"
 					class="notes-container"
+					@removeNote="removeNote"
+					@save="save"
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" />  -->
 			</div>
@@ -37,6 +39,7 @@ export default {
 	name: 'note-app',
 	data() {
 		return {
+			isMenuOpen: false,
 			showModal: false,
 			loggedInUser: null,
 			notes: null,
@@ -74,11 +77,15 @@ export default {
 		},
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
+			this.$router.push(`/${this.type}`)
 		},
 		changePage(page) {
 			// this.$router.push()
 			this.$router.push(`/${page}`)
 			this.pageType = page
+		},
+		toggleMenu() {
+			this.isMenuOpen = !this.isMenuOpen
 		},
 	},
 	computed: {

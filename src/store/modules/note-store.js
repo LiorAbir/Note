@@ -48,7 +48,6 @@ export default {
 			state.notes.splice(idx, 1)
 		},
 		addNote(state, { note }) {
-			console.log(note)
 			state.notes.unshift(note)
 		},
 		editNote(state, { note }) {

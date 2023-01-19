@@ -5,7 +5,11 @@
 		:style="{ boxShadow: shadow }"
 	>
 		<nav class="menu-nav flex">
-			<div class="menu-container round" title="main menu">
+			<div
+				class="menu-container round"
+				title="main menu"
+				@click="onToggleMenu"
+			>
 				<img
 					class="svg menu-svg"
 					src="../assets/icon/burger.svg"
@@ -73,6 +77,9 @@ export default {
 		onLogout() {
 			this.$store.dispatch({ type: 'logout' })
 			this.$router.push('/')
+		},
+		onToggleMenu() {
+			this.$emit('toggleMenu')
 		},
 	},
 	computed: {

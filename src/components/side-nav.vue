@@ -1,13 +1,18 @@
 <template>
 	<nav
-		class="side-nav"
+		class="side-nav flex"
 		@mouseover="isHover = true"
 		@mouseleave="isHover = false"
-		:class="{ open: isHover, close: !isHover }"
+		:class="{
+			open: isHover && !isMenuOpen,
+			close: !isHover && !isMenuOpen,
+			'open-by-btn': isMenuOpen,
+		}"
 	>
 		<div
 			class="page-btn btn flex"
 			v-for="page in pages"
+			:class="{ active: page.name === this.chosenPage }"
 			@click="onGoTo(page.name)"
 		>
 			<img class="img" :src="page.svg" alt="svg" />
@@ -18,9 +23,13 @@
 <script>
 export default {
 	name: 'side-nav',
+	props: {
+		isMenuOpen: Boolean,
+	},
 	data() {
 		return {
 			isHover: false,
+			chosenPage: 'notes',
 			pages: [
 				{
 					name: 'notes',
@@ -44,6 +53,7 @@ export default {
 	methods: {
 		onGoTo(page) {
 			this.$emit('changePage', page)
+			this.chosenPage = page
 		},
 	},
 }

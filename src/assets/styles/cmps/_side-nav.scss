@@ -1,5 +1,71 @@
 .side-nav {
-	// background-color: lightblue;
-	// position: fixed;
-	// top: 14p;
+	height: 100%;
+	transition: 0.4s;
+	padding-top: 8px;
+	position: fixed;
+	z-index: 100;
+	background-color: $clr2;
+	flex-direction: column;
+
+	.page-btn {
+		height: 48px;
+		align-items: center;
+		cursor: pointer;
+
+		.img {
+			height: 20px;
+			width: 20px;
+			// filter: ;
+		}
+
+		&.active {
+			background-color: $clr7;
+			&:hover {
+				background-color: $clr7;
+			}
+		}
+
+		&:hover {
+			background-color: $clr8;
+		}
+	}
+
+	&.close {
+		align-items: center;
+		// justify-content: center;
+		width: 73px;
+		.page-btn {
+			border-radius: 50%;
+			width: 48px;
+
+			justify-content: center;
+			align-items: center;
+
+			.name {
+				display: none;
+			}
+		}
+	}
+
+	&.open,
+	&.open-by-btn {
+		width: 280px;
+		.page-btn {
+			border-radius: 0 25px 25px 0;
+			padding-left: 25px;
+
+			.name {
+				margin-left: 20px;
+				text-transform: capitalize;
+			}
+		}
+	}
+
+	&.open {
+		box-shadow: $shadow;
+	}
+
+	&.open-by-btn {
+		position: relative;
+	}
 }
