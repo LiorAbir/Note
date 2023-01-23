@@ -111,7 +111,7 @@ export default {
 			if (this.isClrPlt === true) {
 				return
 			} else {
-				this.$router.push('/note')
+				this.$router.push('/notes')
 			}
 		},
 		updateNote() {

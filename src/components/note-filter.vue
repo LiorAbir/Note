@@ -17,12 +17,22 @@ export default {
 		return {
 			filterBy: {
 				txt: '',
+				location: '',
 			},
 		}
 	},
 	methods: {
 		setFilterBy() {
 			this.$emit('setFilterBy', this.filterBy)
+		},
+	},
+	watch: {
+		'$route.params.type': {
+			handler(type) {
+				this.filterBy.location = type
+				this.$emit('setFilterBy', this.filterBy)
+			},
+			immediate: true,
 		},
 	},
 }

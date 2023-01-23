@@ -94,7 +94,9 @@ export default {
 	},
 	methods: {
 		removeNote() {
-			this.$emit('removeNote', this.note._id)
+			this.noteCopy.location = 'trash'
+			this.save(this.noteCopy)
+			// this.$emit('removeNote', this.note._id)
 		},
 		pinNote() {
 			this.noteCopy.isPinned = !this.noteCopy.isPinned

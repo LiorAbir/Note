@@ -2,23 +2,31 @@ import { noteService } from '../../services/note-service.js'
 
 export default {
 	state: {
-		notes: null,
+		notes: [],
 		noteInfo: null,
 		filter: {
 			txt: '',
+			location: '',
 		},
 	},
 	getters: {
 		notes(state) {
 			return state.notes
 		},
-		notesToDisplay(state) {
-			let { txt } = state.filter
-			if (!txt) return state.notes
+		notesToDisplay({ filter, notes }) {
+			let { txt, location } = filter
+			// console.log(state.filter)
+			// if (!txt) return state.notes
+
+			//LOCATION
+			let filteredNotes = notes.filter((note) => {
+				return note.location === location
+			})
+
+			// console.log(filtered);
 
 			const regexTst = new RegExp(txt, 'i')
-
-			let filteredNotes = state.notes.filter((note) => {
+			filteredNotes = filteredNotes.filter((note) => {
 				if (note.type === 'note-txt') {
 					return (
 						regexTst.test(note.info.txt) ||
@@ -30,8 +38,6 @@ export default {
 					})
 				}
 			})
-
-			console.log(filteredNotes)
 			return filteredNotes
 		},
 		emptyNote() {
@@ -40,8 +46,9 @@ export default {
 	},
 	mutations: {
 		setNotes(state, { notes }) {
-			state.notes = notes.noteList
-			state.noteInfo = notes
+			// state.notes = notes
+			state.notes = notes[0].noteList
+			state.noteInfo = notes[0]
 		},
 		removeNote(state, { id }) {
 			const idx = state.notes.findIndex((note) => note._id === id)
@@ -56,14 +63,13 @@ export default {
 		},
 		setFilter(state, { filterBy }) {
 			state.filter = filterBy
-			console.log(state.filter)
 		},
 	},
 	actions: {
 		async loadNotes({ commit }) {
 			try {
 				const notes = await noteService.query()
-				commit({ type: 'setNotes', notes: notes[0] })
+				commit({ type: 'setNotes', notes })
 			} catch (err) {
 				console.log('cannot load notes')
 			}
@@ -85,9 +91,9 @@ export default {
 				console.log('cannot save note')
 			}
 		},
-		async setFilterBy({ commit }, { filterBy }) {
-			const copyFilter = JSON.parse(JSON.stringify(filterBy))
-			commit({ type: 'setFilter', filterBy: copyFilter })
+		async setFilterBy({ commit, dispatch }, { filterBy }) {
+			commit({ type: 'setFilter', filterBy })
+			dispatch({ type: 'loadNotes' })
 		},
 	},
 }

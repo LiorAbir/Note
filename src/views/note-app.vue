@@ -13,7 +13,7 @@
 					@removeNote="removeNote"
 					@save="save"
 				></component>
-				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" />  -->
+				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
 		</div>
 	</section>
@@ -42,7 +42,6 @@ export default {
 			isMenuOpen: false,
 			showModal: false,
 			loggedInUser: null,
-			notes: null,
 			pageType: 'notes',
 		}
 	},
@@ -57,8 +56,11 @@ export default {
 			this.loggedInUser = this.$store.getters.loggedInUser
 
 			if (this.loggedInUser) {
-				await this.$store.dispatch({ type: 'loadNotes' })
-				this.notes = await this.$store.getters.notes
+				await this.$store.dispatch({
+					type: 'loadNotes',
+					pageType: this.pageType,
+				})
+				// await this.$store.getters.notesToDisplay
 			} else {
 				this.$router.push('/login')
 				window.alert('Login first')
@@ -70,17 +72,18 @@ export default {
 
 		toggleModal() {
 			this.showModal = !this.showModal
-			this.$router.push('/note')
+			this.$router.push(`/${this.page}`)
 		},
 		setFilterBy(filterBy) {
-			this.$store.dispatch({ type: 'setFilterBy', filterBy })
+			filterBy = JSON.parse(JSON.stringify(filterBy))
+			this.$store.commit({ type: 'setFilter', filterBy })
+			// this.$store.dispatch({ type: 'setFilterBy', filterBy: copyFilter })
 		},
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
-			this.$router.push(`/${this.type}`)
+			// this.$router.push()
 		},
 		changePage(page) {
-			// this.$router.push()
 			this.$router.push(`/${page}`)
 			this.pageType = page
 		},
@@ -89,17 +92,14 @@ export default {
 		},
 	},
 	computed: {
-		// notes() {
-		// 	return this.$store.getters.notesToDisplay
-		// },
-		// goToNotes() {
-		// 	this.$router.push('/note')
-		// },
+		notes() {
+			return this.$store.getters.notesToDisplay
+		},
 	},
 	watch: {
 		$route: {
 			immediate: true,
-			handler: function (newVal) {
+			handler: function (newVal, oldVal) {
 				this.showModal = newVal.meta && newVal.meta.showModal
 			},
 		},

@@ -50,6 +50,10 @@ export default {
 			],
 		}
 	},
+	created() {
+		const { type } = this.$route.params
+		this.chosenPage = type
+	},
 	methods: {
 		onGoTo(page) {
 			this.$emit('changePage', page)

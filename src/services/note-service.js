@@ -63,6 +63,8 @@ function getEmptyNote() {
 			title: '',
 			imgs: [],
 		},
+		location: 'notes',
+		labels: [],
 	}
 }
 
@@ -92,6 +94,7 @@ function _getNotes() {
 						imgs: [],
 						txt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti exercitationem nisi nulla repellendus, iure fuga quas voluptatibus eligendi ipsum fugit ...',
 					},
+					location: 'notes',
 				},
 				{
 					_id: 'n108',
@@ -108,6 +111,7 @@ function _getNotes() {
 							{ txt: 'tusday', doneAt: 187111111 },
 						],
 					},
+					location: 'notes',
 				},
 				{
 					_id: 'n103',
@@ -123,6 +127,7 @@ function _getNotes() {
 							{ txt: 'Coding power', doneAt: 187111111 },
 						],
 					},
+					location: 'notes',
 				},
 				{
 					_id: 'n105',
@@ -142,6 +147,7 @@ function _getNotes() {
 							{ txt: 'Sleepp', doneAt: 187111111 },
 						],
 					},
+					location: 'notes',
 				},
 				{
 					_id: 'n106',
@@ -154,6 +160,7 @@ function _getNotes() {
 						imgs: [],
 						txt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti exercitationem nisi nulla repellendus, iure fuga quas voluptatibus eligendi ipsum fugit ut inventore harum quibusdam ratione et reprehenderit temporibus sapiente?',
 					},
+					location: 'notes',
 				},
 				{
 					_id: 'n101',
@@ -165,6 +172,7 @@ function _getNotes() {
 						title: 'story time',
 						txt: `Once upon a time, a very long time ago now, about last Friday, Winnie-the-Pooh lived in a forest all by himself under the name of Sanders. ("What does 'under the name' mean?" asked Christopher Robin. "It means he had the name over the door in gold letters, and lived under it." "Winnie-the-Pooh wasn't quite sure," said Christopher Robin. "Now I am," said a growly voice. "Then I will go on," said I.) One day when he was out walking, he came to an open place in the middle of the forest, and in the middle of this place was a large oak-tree, and, from the top of the tree, there came a loud buzzing-noise.`,
 					},
+					location: 'notes',
 				},
 			],
 		},
