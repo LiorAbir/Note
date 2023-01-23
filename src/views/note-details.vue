@@ -39,12 +39,15 @@
 			<!-- @updateNote="updateNote" -->
 		</div>
 
-		<noteActions
-			:note="note"
-			@deletNote="deleteNote"
-			@toggleClrPlt="toggleClrPlt"
-			@save="save"
-		/>
+		<div class="actions-container flex">
+			<noteActions
+				:note="note"
+				@deletNote="deleteNote"
+				@toggleClrPlt="toggleClrPlt"
+				@save="save"
+			/>
+			<button class="btn close-btn">close</button>
+		</div>
 		<backgroundPallete v-if="isClrPlt" @setBackground="setBackground" />
 	</div>
 </template>

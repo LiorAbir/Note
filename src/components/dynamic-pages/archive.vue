@@ -1,6 +1,10 @@
 <template>
 	<div class="archive note-list">
-		<ul class="clean-list" ref="grid">
+		<div class="empty" v-if="!notes || !notes.length">
+			<img src="../../assets/icon/archive-in.svg" alt="" />
+			<h1>No Notes In Archivs</h1>
+		</div>
+		<ul class="clean-list" ref="grid" v-else>
 			<li class="note-container" v-for="note in notes" :key="note._id">
 				<notePreview :note="note" @save="save" />
 				<div class="actions"></div>

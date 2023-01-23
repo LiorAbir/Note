@@ -1,24 +1,31 @@
 <template>
 	<section class="note-list">
-		<ul class="clean-list pinned-list" ref="grid2">
-			<li
-				class="pinned-note-container"
-				v-for="note in pinnedNotes"
-				:key="note._id"
-			>
-				<notePreview :note="note" @save="save" />
-			</li>
-		</ul>
+		<div class="empty" v-if="!notes || !notes.length">
+			<img src="../../assets/icon/lightbulb.svg" alt="" />
+			<h1>Notes you add appear here</h1>
+		</div>
 
-		<ul class="clean-list" ref="grid">
-			<li
-				class="note-container"
-				v-for="note in notPinnedNotes"
-				:key="note._id"
-			>
-				<notePreview :note="note" @save="save" />
-			</li>
-		</ul>
+		<div v-else>
+			<ul class="clean-list pinned-list" ref="grid2">
+				<li
+					class="pinned-note-container"
+					v-for="note in pinnedNotes"
+					:key="note._id"
+				>
+					<notePreview :note="note" @save="save" />
+				</li>
+			</ul>
+
+			<ul class="clean-list" ref="grid">
+				<li
+					class="note-container"
+					v-for="note in notPinnedNotes"
+					:key="note._id"
+				>
+					<notePreview :note="note" @save="save" />
+				</li>
+			</ul>
+		</div>
 	</section>
 </template>
 

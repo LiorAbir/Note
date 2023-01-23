@@ -17,6 +17,15 @@
 		gap: 5px;
 	}
 
+	.actions-container {
+		justify-content: space-between;
+		align-items: center;
+
+		.close-btn {
+			padding: 5px 10px;
+		}
+	}
+
 	.actions {
 		justify-content: space-between;
 		align-items: center;

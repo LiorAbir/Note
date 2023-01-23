@@ -2,7 +2,7 @@ import { noteService } from '../../services/note-service.js'
 
 export default {
 	state: {
-		notes: [],
+		notes: null,
 		noteInfo: null,
 		filter: {
 			txt: '',
@@ -14,6 +14,7 @@ export default {
 			return state.notes
 		},
 		notesToDisplay({ filter, notes }) {
+			if (!notes) return
 			let { txt, location } = filter
 			// console.log(state.filter)
 			// if (!txt) return state.notes

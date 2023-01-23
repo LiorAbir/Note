@@ -1,6 +1,10 @@
 <template>
 	<div class="trash note-list">
-		<ul class="clean-list" ref="grid">
+		<div class="empty" v-if="!notes || !notes.length">
+			<img src="../../assets/icon/trash.svg" alt="" />
+			<h1>No Notes In Trash</h1>
+		</div>
+		<ul class="clean-list" ref="grid" v-else>
 			<li class="note-container" v-for="note in notes" :key="note._id">
 				<notePreview :note="note" @deleteNote="deleteNote" @save="save" />
 			</li>
