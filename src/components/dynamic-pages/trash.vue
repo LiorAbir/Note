@@ -2,7 +2,7 @@
 	<div class="trash note-list">
 		<ul class="clean-list" ref="grid">
 			<li class="note-container" v-for="note in notes" :key="note._id">
-				<notePreview :note="note" @removeNote="removeNote" @save="save" />
+				<notePreview :note="note" @deleteNote="deleteNote" @save="save" />
 			</li>
 		</ul>
 	</div>
@@ -29,8 +29,8 @@ export default {
 		})
 	},
 	methods: {
-		removeNote(id) {
-			this.$emit('removeNote', id)
+		deleteNote(id) {
+			this.$emit('deleteNote', id)
 		},
 		save(note) {
 			this.$emit('save', note)

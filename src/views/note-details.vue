@@ -35,39 +35,16 @@
 				:is="note.type"
 				:info="note.info"
 				class="note-content"
-				@updateNote="updateNote"
 			></component>
+			<!-- @updateNote="updateNote" -->
 		</div>
-		<div class="actions-container flex">
-			<img
-				src="../assets/icon/pinned.svg"
-				alt="pinned"
-				class="btn pin-btn"
-				@click="pinNote()"
-			/>
-			<div class="actions-container flex">
-				<img
-					src="../assets/icon/trash.svg"
-					alt="trash"
-					title="delete"
-					@click="removeNote"
-				/>
-				<img
-					src="../assets/icon/color.svg"
-					alt="color"
-					title="choose background color"
-					@click="isClrPlt = !isClrPlt"
-				/>
-				<addImg @addImgUrl="addImgUrl" />
-				<img
-					src="../assets/icon/copy.svg"
-					alt="copy"
-					title="copy note"
-					@click="copyNote"
-				/>
-			</div>
-			<button class="btn close-btn">Close</button>
-		</div>
+
+		<noteActions
+			:note="note"
+			@deletNote="deleteNote"
+			@toggleClrPlt="toggleClrPlt"
+			@save="save"
+		/>
 		<backgroundPallete v-if="isClrPlt" @setBackground="setBackground" />
 	</div>
 </template>
@@ -78,6 +55,7 @@ import noteTodos from '../components/dynamic/note-todos.vue'
 import noteTxt from '../components/dynamic/note-txt.vue'
 import backgroundPallete from '../components/background-pallete.vue'
 import addImg from '../components/add-img.vue'
+import noteActions from '../components/note-actions.vue'
 
 export default {
 	name: 'note-details',
@@ -97,13 +75,14 @@ export default {
 		}
 	},
 	methods: {
+		deleteNote(id) {
+			this.$store.dispatch({ type: 'removeNote', id })
+		},
+		toggleClrPlt() {
+			this.isClrPlt = !this.isClrPlt
+		},
 		setBackground(fill, type) {
 			this.note[type] = fill
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.save(editedNote)
-		},
-		pinNote() {
-			this.note.isPinned = !this.note.isPinned
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
 		},
@@ -113,15 +92,6 @@ export default {
 			} else {
 				this.$router.push('/notes')
 			}
-		},
-		updateNote() {
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.save(editedNote)
-		},
-		copyNote() {
-			const noteToCopy = JSON.parse(JSON.stringify(this.note))
-			noteToCopy._id = ''
-			this.save(noteToCopy)
 		},
 		deleteImg(index) {
 			this.note.info.imgs.splice(index, 1)
@@ -151,7 +121,39 @@ export default {
 		noteTxt,
 		backgroundPallete,
 		addImg,
+		noteActions,
 	},
 }
 </script>
 <style></style>
+
+<!-- <div class="actions-container flex">
+	<img
+		src="../assets/icon/pinned.svg"
+		alt="pinned"
+		class="btn pin-btn"
+		@click="pinNote()"
+	/>
+	<div class="actions-container flex">
+		<img
+			src="../assets/icon/trash.svg"
+			alt="trash"
+			title="delete"
+			@click="removeNote"
+		/>
+		<img
+			src="../assets/icon/color.svg"
+			alt="color"
+			title="choose background color"
+			@click="isClrPlt = !isClrPlt"
+		/>
+		<addImg @addImgUrl="addImgUrl" />
+		<img
+			src="../assets/icon/copy.svg"
+			alt="copy"
+			title="copy note"
+			@click="copyNote"
+		/>
+	</div> -->
+<!-- <button class="btn close-btn">Close</button>
+</div> -->

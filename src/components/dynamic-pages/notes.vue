@@ -6,7 +6,7 @@
 				v-for="note in pinnedNotes"
 				:key="note._id"
 			>
-				<notePreview :note="note" @removeNote="removeNote" @save="save" />
+				<notePreview :note="note" @save="save" />
 			</li>
 		</ul>
 
@@ -16,7 +16,7 @@
 				v-for="note in notPinnedNotes"
 				:key="note._id"
 			>
-				<notePreview :note="note" @removeNote="removeNote" @save="save" />
+				<notePreview :note="note" @save="save" />
 			</li>
 		</ul>
 	</section>
@@ -50,9 +50,6 @@ export default {
 		})
 	},
 	methods: {
-		removeNote(id) {
-			this.$emit('removeNote', id)
-		},
 		save(note) {
 			this.$emit('save', note)
 		},

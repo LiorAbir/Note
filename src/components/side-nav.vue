@@ -41,7 +41,7 @@ export default {
 				// },
 				{
 					name: 'archive',
-					svg: 'src/assets/icon/archive.svg',
+					svg: 'src/assets/icon/archive-in.svg',
 				},
 				{
 					name: 'trash',

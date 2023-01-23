@@ -2,7 +2,7 @@
 	<div class="archive note-list">
 		<ul class="clean-list" ref="grid">
 			<li class="note-container" v-for="note in notes" :key="note._id">
-				<notePreview :note="note" @removeNote="removeNote" @save="save" />
+				<notePreview :note="note" @save="save" />
 				<div class="actions"></div>
 			</li>
 		</ul>

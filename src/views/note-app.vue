@@ -10,7 +10,7 @@
 					:is="pageType"
 					:notes="notes"
 					class="notes-container"
-					@removeNote="removeNote"
+					@deleteNote="deleteNote"
 					@save="save"
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
@@ -66,7 +66,7 @@ export default {
 				window.alert('Login first')
 			}
 		},
-		removeNote(id) {
+		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
 
