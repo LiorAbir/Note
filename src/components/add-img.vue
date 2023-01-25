@@ -1,5 +1,5 @@
 <template>
-	<label>
+	<label class="add-img">
 		<img src="../assets/icon/image.svg" alt="image" title="add image to note" />
 		<input type="file" :style="{ display: 'none' }" @change="handleFile" />
 	</label>

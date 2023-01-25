@@ -1,6 +1,6 @@
 <template>
 	<section class="note-list">
-		<div class="empty" v-if="!notes || !notes.length">
+		<div class="no-notes" v-if="!notes || !notes.length">
 			<img src="../../assets/icon/lightbulb.svg" alt="" />
 			<h1>Notes you add appear here</h1>
 		</div>

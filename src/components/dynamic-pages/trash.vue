@@ -1,6 +1,6 @@
 <template>
 	<div class="trash note-list">
-		<div class="empty" v-if="!notes || !notes.length">
+		<div class="no-notes" v-if="!notes || !notes.length">
 			<img src="../../assets/icon/trash.svg" alt="" />
 			<h1>No Notes In Trash</h1>
 		</div>

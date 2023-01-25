@@ -35,10 +35,10 @@ export default {
 					name: 'notes',
 					svg: 'src/assets/icon/lightbulb.svg',
 				},
-				// {
-				// 	name: 'reminders',
-				// 	svg: 'src/assets/icon/trash.svg',
-				// },
+				{
+					name: 'edit labels',
+					svg: 'src/assets/icon/pencil.svg',
+				},
 				{
 					name: 'archive',
 					svg: 'src/assets/icon/archive-in.svg',

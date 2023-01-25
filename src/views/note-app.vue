@@ -16,11 +16,15 @@
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
 		</div>
+		<div class="edit-labels modal">
+			<h1>Edit labels</h1>
+		</div>
 	</section>
 	<div v-if="showModal" class="modal-background">
-		<div class="modal-content">
-			<router-view></router-view>
-		</div>
+		<!-- <div class="modal-content"> -->
+		<router-view></router-view>
+
+		<!-- </div> -->
 	</div>
 </template>
 
@@ -84,8 +88,12 @@ export default {
 			// this.$router.push()
 		},
 		changePage(page) {
-			this.$router.push(`/${page}`)
-			this.pageType = page
+			if (page === 'edit labels') {
+				console.log('Edit')
+			} else {
+				this.$router.push(`/${page}`)
+				this.pageType = page
+			}
 		},
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen

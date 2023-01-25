@@ -1,6 +1,6 @@
 <template>
 	<div class="archive note-list">
-		<div class="empty" v-if="!notes || !notes.length">
+		<div class="no-notes" v-if="!notes || !notes.length">
 			<img src="../../assets/icon/archive-in.svg" alt="" />
 			<h1>No Notes In Archivs</h1>
 		</div>

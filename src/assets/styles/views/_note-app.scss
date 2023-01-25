@@ -9,24 +9,8 @@
 		.notes-content {
 			flex-grow: 1;
 			margin-top: 32px;
-			// margin-left: 80px;
 		}
 	}
-	// .no-notes {
-	// 	height: 70%;
-	// 	flex-direction: column;
-	// 	justify-content: center;
-	// 	align-items: center;
-
-	// 	img {
-	// 		margin-top: 1.5rem;
-	// 		width: 30%;
-	// 	}
-
-	// 	h1 {
-	// 		color: $clr3;
-	// 	}
-	// }
 }
 
 .modal-background {
@@ -41,6 +25,17 @@
 }
 
 .modal-content {
+	// width: 50%;
+	// position: absolute;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%, -50%);
+	// background: white;
+	// border-radius: 8px;
+	// transition: 0.2s;
+}
+
+.edit-labels {
 	width: 50%;
 	position: absolute;
 	top: 50%;

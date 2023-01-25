@@ -1,8 +1,8 @@
 <template>
 	<div
+		class="note-details"
 		v-if="note"
 		v-clickOutSide="closeModal"
-		class="note-details"
 		:style="{
 			backgroundColor: note.bgClr,
 			border: noteBorder,
