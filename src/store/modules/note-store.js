@@ -13,6 +13,9 @@ export default {
 		notes(state) {
 			return state.notes
 		},
+		noteInfo(state) {
+			return state.noteInfo
+		},
 		notesToDisplay({ filter, notes }) {
 			if (!notes) return
 			let { txt, location } = filter

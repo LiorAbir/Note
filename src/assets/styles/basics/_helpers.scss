@@ -124,3 +124,19 @@
 		cursor: pointer;
 	}
 }
+
+.svg-btn {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 18px 18px;
+	border-radius: 50%;
+	border: 1px solid rgb(0 0 0 / 0%);
+	height: 24px;
+	opacity: 0.54;
+	width: 24px;
+
+	&:hover {
+		opacity: 0.87;
+		background-color: rgb(95 99 104 / 16%);
+	}
+}

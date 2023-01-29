@@ -17,7 +17,28 @@
 			</div>
 		</div>
 		<div class="edit-labels modal">
-			<h1>Edit labels</h1>
+			{{ noteInfo.labels }}
+			<div class="content">
+				<h3 class="title">Edit labels</h3>
+				<div class="add-label flex" :class="{ active: isInputFocus }">
+					<button
+						class="xmark-btn svg-btn"
+						@click="isInputFocus = !isInputFocus"
+					></button>
+					<input
+						type="text"
+						placeholder="Add new label"
+						@focus="isInputFocus = true"
+						v-model="newLabel"
+					/>
+					<button class="add-btn svg-btn" @click="onAddLabel"></button>
+				</div>
+				<div class="labels-container"></div>
+			</div>
+
+			<div class="btns-container flex">
+				<button class="btn">Done</button>
+			</div>
 		</div>
 	</section>
 	<div v-if="showModal" class="modal-background">
@@ -44,9 +65,11 @@ export default {
 	data() {
 		return {
 			isMenuOpen: false,
-			showModal: false,
+			showModal: true,
+			isInputFocus: false,
 			loggedInUser: null,
 			pageType: 'notes',
+			newLabel: '',
 		}
 	},
 	async created() {
@@ -85,7 +108,6 @@ export default {
 		},
 		save(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
-			// this.$router.push()
 		},
 		changePage(page) {
 			if (page === 'edit labels') {
@@ -98,10 +120,16 @@ export default {
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
 		},
+		onAddLabel() {
+			console.log(this.newLabel)
+		},
 	},
 	computed: {
 		notes() {
 			return this.$store.getters.notesToDisplay
+		},
+		noteInfo() {
+			return this.$store.getters.noteInfo
 		},
 	},
 	watch: {

@@ -1,6 +1,7 @@
 .note-app {
 	flex-direction: column;
 	height: 100vh;
+	position: relative;
 
 	.content-container {
 		position: relative;
@@ -36,12 +37,73 @@
 }
 
 .edit-labels {
-	width: 50%;
+	background-color: white;
+	box-shadow: 0 0 2px 0px #00000061;
+	width: 300px;
+	z-index: 200;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background: white;
-	border-radius: 8px;
 	transition: 0.2s;
+
+	.content {
+		padding: 15px;
+		border-bottom: 1px solid rgb(218 220 224);
+
+		.title {
+			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+			margin-bottom: 1rem;
+		}
+
+		.add-label {
+			align-items: center;
+			justify-content: space-between;
+			height: 45px;
+
+			.xmark-btn {
+				background-image: url('/src/assets/icon/plus.svg');
+			}
+
+			input {
+				padding: 0;
+				border-radius: 0;
+				flex-grow: 1;
+				margin: 0 15px;
+				font-size: 14px;
+
+				&::placeholder {
+					font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+				}
+			}
+
+			&.active {
+				.add-btn {
+					background-image: url('/src/assets/icon/check.svg');
+				}
+
+				.xmark-btn {
+					background-image: url('/src/assets/icon/xmark.svg');
+				}
+
+				input {
+					border-bottom: 1px solid gray;
+				}
+			}
+		}
+	}
+
+	.btns-container {
+		justify-content: end;
+		padding: 15px 10px;
+
+		.btn {
+			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+			padding: 8px 24px;
+
+			&:hover {
+				background-color: rgb(95 99 104 / 4%);
+			}
+		}
+	}
 }
