@@ -23,8 +23,9 @@ const router = createRouter({
 					name: 'note-details',
 					component: noteDetails,
 					meta: {
-						showModal: true,
+						isShowModal: true,
 					},
+					alias: 'NOTE/:id',
 				},
 			],
 		},

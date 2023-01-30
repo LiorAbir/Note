@@ -128,35 +128,3 @@ export default {
 	},
 }
 </script>
-<style></style>
-
-<!-- <div class="actions-container flex">
-	<img
-		src="../assets/icon/pinned.svg"
-		alt="pinned"
-		class="btn pin-btn"
-		@click="pinNote()"
-	/>
-	<div class="actions-container flex">
-		<img
-			src="../assets/icon/trash.svg"
-			alt="trash"
-			title="delete"
-			@click="removeNote"
-		/>
-		<img
-			src="../assets/icon/color.svg"
-			alt="color"
-			title="choose background color"
-			@click="isClrPlt = !isClrPlt"
-		/>
-		<addImg @addImgUrl="addImgUrl" />
-		<img
-			src="../assets/icon/copy.svg"
-			alt="copy"
-			title="copy note"
-			@click="copyNote"
-		/>
-	</div> -->
-<!-- <button class="btn close-btn">Close</button>
-</div> -->

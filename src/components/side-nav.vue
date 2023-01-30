@@ -25,11 +25,12 @@ export default {
 	name: 'side-nav',
 	props: {
 		isMenuOpen: Boolean,
+		chosenPage: String,
 	},
 	data() {
 		return {
 			isHover: false,
-			chosenPage: 'notes',
+			// chosenPage: 'notes',
 			pages: [
 				{
 					name: 'notes',
@@ -51,13 +52,22 @@ export default {
 		}
 	},
 	created() {
+		console.log(this.chosenPage)
 		const { type } = this.$route.params
-		this.chosenPage = type
+		this.$emit('changePage', type)
 	},
 	methods: {
 		onGoTo(page) {
 			this.$emit('changePage', page)
-			this.chosenPage = page
+		},
+	},
+	watch: {
+		$route: {
+			immediate: true,
+			deep: true,
+			handler: function (newVal, oldVal) {
+				this.$emit('changePage', newVal.params.type)
+			},
 		},
 	},
 }

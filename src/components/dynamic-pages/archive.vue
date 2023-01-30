@@ -5,7 +5,12 @@
 			<h1>No Notes In Archivs</h1>
 		</div>
 		<ul class="clean-list" ref="grid" v-else>
-			<li class="note-container" v-for="note in notes" :key="note._id">
+			<li
+				class="note-container"
+				v-for="note in notes"
+				:key="note._id"
+				@toggleModal="toggleModal"
+			>
 				<notePreview :note="note" @save="save" />
 				<div class="actions"></div>
 			</li>

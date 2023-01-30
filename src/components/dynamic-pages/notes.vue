@@ -60,6 +60,9 @@ export default {
 		save(note) {
 			this.$emit('save', note)
 		},
+		toggleModal() {
+			this.$emit('toggleModal')
+		},
 	},
 	computed: {
 		pinnedNotes() {

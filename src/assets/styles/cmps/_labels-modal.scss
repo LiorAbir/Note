@@ -1,0 +1,93 @@
+.labels-modal {
+	background-color: white;
+	box-shadow: 0 0 2px 0px #00000061;
+	width: 300px;
+	z-index: 200;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: 0.2s;
+
+	input {
+		padding: 0;
+		border-radius: 0;
+		flex-grow: 1;
+		margin: 0 15px;
+		font-size: 14px;
+		font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+		height: 25px;
+
+		&:focus {
+			border-bottom: 1px solid rgb(0 0 0 / 20%);
+		}
+	}
+
+	.content {
+		padding: 15px;
+		border-bottom: 1px solid rgb(218 220 224);
+
+		.title {
+			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+			margin-bottom: 1rem;
+		}
+
+		.add-label {
+			align-items: center;
+			justify-content: space-between;
+			height: 45px;
+
+			.xmark-btn {
+				background-image: url('/src/assets/icon/plus.svg');
+			}
+
+			&.active {
+				.add-btn {
+					background-image: url('/src/assets/icon/check.svg');
+				}
+
+				.xmark-btn {
+					background-image: url('/src/assets/icon/xmark.svg');
+				}
+			}
+		}
+	}
+
+	.label-container {
+		align-items: center;
+		justify-content: space-between;
+		height: 45px;
+
+		.delete-btn {
+			background-image: url('/src/assets/icon/label.svg');
+
+			&:hover {
+				background-image: url('/src/assets/icon/trash-full.svg');
+			}
+		}
+
+		.edit-btn {
+			background-image: url('/src/assets/icon/pencil.svg');
+		}
+
+		&.active {
+			.delete-btn {
+				background-image: url('/src/assets/icon/trash-full.svg');
+			}
+		}
+	}
+
+	.btns-container {
+		justify-content: end;
+		padding: 15px 10px;
+
+		.btn {
+			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+			padding: 8px 24px;
+
+			&:hover {
+				background-color: rgb(95 99 104 / 4%);
+			}
+		}
+	}
+}

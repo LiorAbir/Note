@@ -2,7 +2,11 @@
 	<section class="note-app flex">
 		<listHeader @setFilterBy="setFilterBy" @toggleMenu="toggleMenu" />
 		<div class="content-container flex">
-			<sideNav @changePage="changePage" :isMenuOpen="isMenuOpen" />
+			<sideNav
+				@changePage="changePage"
+				:isMenuOpen="isMenuOpen"
+				:chosenPage="pageType"
+			/>
 
 			<div class="notes-content" v-if="notes">
 				<noteAdd />
@@ -15,36 +19,13 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-		</div>
-		<div class="edit-labels modal">
-			{{ noteInfo.labels }}
-			<div class="content">
-				<h3 class="title">Edit labels</h3>
-				<div class="add-label flex" :class="{ active: isInputFocus }">
-					<button
-						class="xmark-btn svg-btn"
-						@click="isInputFocus = !isInputFocus"
-					></button>
-					<input
-						type="text"
-						placeholder="Add new label"
-						@focus="isInputFocus = true"
-						v-model="newLabel"
-					/>
-					<button class="add-btn svg-btn" @click="onAddLabel"></button>
-				</div>
-				<div class="labels-container"></div>
-			</div>
-
-			<div class="btns-container flex">
-				<button class="btn">Done</button>
-			</div>
+			{{ isShowModal }}
 		</div>
 	</section>
-	<div v-if="showModal" class="modal-background">
+	<div v-if="isShowModal" class="modal-background">
 		<!-- <div class="modal-content"> -->
 		<router-view></router-view>
-
+		<labelsModal @closeLabelModal="closeLabelModal" v-if="isLabelModal" />
 		<!-- </div> -->
 	</div>
 </template>
@@ -54,6 +35,7 @@ import listHeader from '../components/list-header.vue'
 import noteList from '../components/note-list.vue'
 import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
+import labelsModal from '../components/labels-modal.vue'
 
 //Dynamic
 import notes from '../components/dynamic-pages/notes.vue'
@@ -65,11 +47,10 @@ export default {
 	data() {
 		return {
 			isMenuOpen: false,
-			showModal: true,
-			isInputFocus: false,
+			isShowModal: false,
 			loggedInUser: null,
 			pageType: 'notes',
-			newLabel: '',
+			isLabelModal: false,
 		}
 	},
 	async created() {
@@ -96,11 +77,6 @@ export default {
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
-
-		toggleModal() {
-			this.showModal = !this.showModal
-			this.$router.push(`/${this.page}`)
-		},
 		setFilterBy(filterBy) {
 			filterBy = JSON.parse(JSON.stringify(filterBy))
 			this.$store.commit({ type: 'setFilter', filterBy })
@@ -111,7 +87,8 @@ export default {
 		},
 		changePage(page) {
 			if (page === 'edit labels') {
-				console.log('Edit')
+				this.isShowModal = true
+				this.isLabelModal = true
 			} else {
 				this.$router.push(`/${page}`)
 				this.pageType = page
@@ -120,8 +97,12 @@ export default {
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
 		},
-		onAddLabel() {
-			console.log(this.newLabel)
+		closeLabelModal() {
+			this.isShowModal = false
+			this.isLabelModal = false
+			this.changePage(this.pageType)
+			// console.log(this.pageType)
+			// this.$router.push(`/${this.pageType}`)
 		},
 	},
 	computed: {
@@ -136,7 +117,7 @@ export default {
 		$route: {
 			immediate: true,
 			handler: function (newVal, oldVal) {
-				this.showModal = newVal.meta && newVal.meta.showModal
+				this.isShowModal = newVal.meta && newVal.meta.isShowModal
 			},
 		},
 	},
@@ -148,6 +129,7 @@ export default {
 		archive,
 		notes,
 		trash,
+		labelsModal,
 	},
 }
 </script>
