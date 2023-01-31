@@ -1,13 +1,10 @@
 <template>
 	<div v-clickOutSide="onCloseModal" class="labels-modal modal">
+		{{ labels }}
 		<div class="content">
 			<h3 class="title">Edit labels</h3>
 
-			<form
-				class="add-label flex"
-				:class="{ active: isAddLabelFocus }"
-				@submit="onAddLabel"
-			>
+			<div class="add-label flex" :class="{ active: isAddLabelFocus }">
 				<button
 					class="xmark-btn svg-btn"
 					@click="isAddLabelFocus = !isAddLabelFocus"
@@ -17,10 +14,10 @@
 					placeholder="Add new label"
 					@focus="isAddLabelFocus = true"
 					v-model="newLabel"
+					v-on:keyup.enter="onAddLabel"
 				/>
 				<button class="add-btn svg-btn" @click="onAddLabel"></button>
-			</form>
-
+			</div>
 			<div
 				class="label-container flex"
 				:class="{ active: isEditLabelFocus }"
@@ -45,24 +42,26 @@
 <script>
 export default {
 	name: 'labels-modal',
+	props: {
+		labels: Array,
+	},
 	data() {
 		return {
-			labels: [],
 			isAddLabelFocus: false,
 			isEditLabelFocus: false,
 			newLabel: '',
 		}
 	},
 	methods: {
-		onAddLabel(ev) {
-			ev.preventDefault()
-
-			this.labels.push(this.newLabel)
-			this.newLabel = ''
+		onAddLabel() {
+			const labelsCopy = this.labels.slice()
+			console.log(this.labels)
+			// this.labelsCopy.push(this.newLabel)
+			// this.$emit('updateLabels', this.labelsCopy)
+			// this.newLabel = ''
 		},
 		onCloseModal() {
 			this.$emit('closeLabelModal')
-			// this.$router.push('')
 		},
 	},
 }

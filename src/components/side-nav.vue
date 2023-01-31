@@ -52,7 +52,6 @@ export default {
 		}
 	},
 	created() {
-		console.log(this.chosenPage)
 		const { type } = this.$route.params
 		this.$emit('changePage', type)
 	},

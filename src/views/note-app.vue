@@ -19,14 +19,21 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			{{ isShowModal }}
+			<pre>
+
+				{{ board }}
+			</pre
+			>
 		</div>
 	</section>
 	<div v-if="isShowModal" class="modal-background">
-		<!-- <div class="modal-content"> -->
 		<router-view></router-view>
-		<labelsModal @closeLabelModal="closeLabelModal" v-if="isLabelModal" />
-		<!-- </div> -->
+		<labelsModal
+			v-if="isLabelModal"
+			:labels="board.labels"
+			@closeLabelModal="closeLabelModal"
+			@updateLabels="updateLabels"
+		/>
 	</div>
 </template>
 
@@ -64,11 +71,7 @@ export default {
 			this.loggedInUser = this.$store.getters.loggedInUser
 
 			if (this.loggedInUser) {
-				await this.$store.dispatch({
-					type: 'loadNotes',
-					pageType: this.pageType,
-				})
-				// await this.$store.getters.notesToDisplay
+				await this.$store.dispatch({ type: 'loadBoard' })
 			} else {
 				this.$router.push('/login')
 				window.alert('Login first')
@@ -101,16 +104,19 @@ export default {
 			this.isShowModal = false
 			this.isLabelModal = false
 			this.changePage(this.pageType)
-			// console.log(this.pageType)
-			// this.$router.push(`/${this.pageType}`)
+		},
+		updateLabels(labels) {
+			const boardCopy = JSON.parse(JSON.stringify(this.board))
+			boardCopy.labels = labels
+			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 	},
 	computed: {
 		notes() {
 			return this.$store.getters.notesToDisplay
 		},
-		noteInfo() {
-			return this.$store.getters.noteInfo
+		board() {
+			return this.$store.getters.board
 		},
 	},
 	watch: {
