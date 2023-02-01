@@ -12,24 +12,29 @@
 				<input
 					type="text"
 					placeholder="Add new label"
-					@focus="isAddLabelFocus = true"
+					@focus=";(isAddLabelFocus = true), (isEditLabelFocus = false)"
 					v-model="newLabel"
 					v-on:keyup.enter="onAddLabel"
 				/>
 				<button class="add-btn svg-btn" @click="onAddLabel"></button>
 			</div>
 			<div
+				v-for="(label, index) in labels"
 				class="label-container flex"
-				:class="{ active: isEditLabelFocus }"
-				v-for="label in labels"
+				:key="label + index"
 			>
-				<button class="delete-btn svg-btn"></button>
+				<!-- :class="{ active: isEditLabelFocus }" -->
+				<button
+					class="delete-btn svg-btn"
+					@click="onDeleteLabel(label)"
+				></button>
 				<input
 					type="text"
+					:value="label"
 					:placeholder="label"
-					@focus="isEditLabelFocus = true"
-					@focusout="isEditLabelFocus = false"
+					@input="onEditLabel($event, index)"
 				/>
+				<!-- @focus="isEditLabelFocus = true" -->
 				<button class="edit-btn svg-btn"></button>
 			</div>
 		</div>
@@ -50,15 +55,28 @@ export default {
 			isAddLabelFocus: false,
 			isEditLabelFocus: false,
 			newLabel: '',
+			labelEdit: '',
 		}
 	},
 	methods: {
 		onAddLabel() {
 			const labelsCopy = this.labels.slice()
-			console.log(this.labels)
-			// this.labelsCopy.push(this.newLabel)
-			// this.$emit('updateLabels', this.labelsCopy)
-			// this.newLabel = ''
+			labelsCopy.unshift(this.newLabel)
+			this.$emit('updateLabels', labelsCopy)
+			this.newLabel = ''
+		},
+		onDeleteLabel(label) {
+			const labelsCopy = this.labels.slice()
+			const idx = labelsCopy.findIndex((l) => l === label)
+			labelsCopy.splice(idx, 1)
+			this.$emit('updateLabels', labelsCopy)
+		},
+		onEditLabel(ev, idx) {
+			console.log('jj')
+			const labelsCopy = this.labels.slice()
+			labelsCopy.splice(idx, 1, ev.target.value)
+			// this.$emit('updateLabels', labelsCopy)
+			// this.isEditLabelFocus = true
 		},
 		onCloseModal() {
 			this.$emit('closeLabelModal')

@@ -12,6 +12,7 @@ export default {
 	mutations: {
 		setBoard(state, { board }) {
 			state.board = board
+			state.labels = board.labels
 		},
 		updateBoard(state, { board }) {
 			state.board = board
@@ -28,14 +29,12 @@ export default {
 			}
 		},
 		async saveBoard({ commit }, { board }) {
-			// let type = board._id ? 'editNote' : 'addNote'
-			console.log(board)
-			// try {
-			// 	const savedBoard = await boardService.save(board)
-			// 	commit({ type: 'updateBoard', board: savedNote })
-			// } catch (err) {
-			// 	console.log('cannot save note')
-			// }
+			try {
+				await boardService.save(board)
+				commit({ type: 'updateBoard', board })
+			} catch (err) {
+				console.log('cannot save board')
+			}
 		},
 	},
 }

@@ -106,8 +106,10 @@ export default {
 			this.changePage(this.pageType)
 		},
 		updateLabels(labels) {
+			// console.log(this.board)
 			const boardCopy = JSON.parse(JSON.stringify(this.board))
 			boardCopy.labels = labels
+			// console.log(boardCopy)
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 	},

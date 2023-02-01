@@ -76,6 +76,7 @@ export default {
 			this.$emit('deleteNote', id)
 		},
 		goToDetails() {
+			console.log(this.note._id)
 			this.$router.push(`/NOTE/${this.note._id}`)
 		},
 		closeClrPlt() {

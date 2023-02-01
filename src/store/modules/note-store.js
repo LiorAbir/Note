@@ -3,7 +3,6 @@ import { noteService } from '../../services/note-service.js'
 export default {
 	state: {
 		notes: null,
-		noteInfo: null,
 		filter: {
 			txt: '',
 			location: '',
@@ -12,9 +11,6 @@ export default {
 	getters: {
 		notes(state) {
 			return state.notes
-		},
-		noteInfo(state) {
-			return state.noteInfo
 		},
 		notesToDisplay({ filter, notes }) {
 			if (!notes) return
