@@ -29,6 +29,7 @@ export default {
 	watch: {
 		'$route.params.type': {
 			handler(type) {
+				if (this.$route.params.id) return
 				this.filterBy.location = type
 				this.$emit('setFilterBy', this.filterBy)
 			},

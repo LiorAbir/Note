@@ -70,6 +70,7 @@ export default {
 	},
 	async created() {
 		const { id } = this.$route.params
+
 		try {
 			const currNote = await noteService.getById(id)
 			this.note = JSON.parse(JSON.stringify(currNote))

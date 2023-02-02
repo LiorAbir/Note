@@ -61,13 +61,20 @@ export default {
 		},
 	},
 	watch: {
-		$route: {
-			immediate: true,
-			deep: true,
-			handler: function (newVal, oldVal) {
-				this.$emit('changePage', newVal.params.type)
+		'$route.params.type': {
+			handler(type) {
+				if (this.$route.params.id) return
+				this.$emit('changePage', type)
 			},
+			immediate: true,
 		},
+		// $route: {
+		// 	immediate: true,
+		// 	// deep: true,
+		// 	handler: function (newVal, oldVal) {
+		// 		this.$emit('changePage', newVal.params.type)
+		// 	},
+		// },
 	},
 }
 </script>

@@ -10,20 +10,18 @@
 
 			<div class="notes-content" v-if="notes">
 				<noteAdd />
+
 				<component
 					:is="pageType"
 					:notes="notes"
 					class="notes-container"
+					@save="saveNote"
 					@deleteNote="deleteNote"
-					@save="save"
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			<pre>
-
-				{{ board }}
-			</pre
-			>
+			<button @click="tryy">Try</button>
+			<pre>{{ board }}</pre>
 		</div>
 	</section>
 	<div v-if="isShowModal" class="modal-background">
@@ -55,9 +53,9 @@ export default {
 		return {
 			isMenuOpen: false,
 			isShowModal: false,
+			isLabelModal: false,
 			loggedInUser: null,
 			pageType: 'notes',
-			isLabelModal: false,
 		}
 	},
 	async created() {
@@ -66,6 +64,9 @@ export default {
 		this.pageType = type
 	},
 	methods: {
+		tryy() {
+			this.$router.push(`/notes/2f3iRuQv8f`)
+		},
 		async loadUser() {
 			await this.$store.dispatch({ type: 'loadLoggedInUser' })
 			this.loggedInUser = this.$store.getters.loggedInUser
@@ -85,16 +86,19 @@ export default {
 			this.$store.commit({ type: 'setFilter', filterBy })
 			// this.$store.dispatch({ type: 'setFilterBy', filterBy: copyFilter })
 		},
-		save(note) {
+		saveNote(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
 		changePage(page) {
 			if (page === 'edit labels') {
+				console.log(this.isShowModal)
 				this.isShowModal = true
+				console.log(this.isShowModal)
 				this.isLabelModal = true
 			} else {
 				this.$router.push(`/${page}`)
 				this.pageType = page
+				this.isShowModal = false
 			}
 		},
 		toggleMenu() {
@@ -106,10 +110,8 @@ export default {
 			this.changePage(this.pageType)
 		},
 		updateLabels(labels) {
-			// console.log(this.board)
 			const boardCopy = JSON.parse(JSON.stringify(this.board))
 			boardCopy.labels = labels
-			// console.log(boardCopy)
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 	},
@@ -125,7 +127,9 @@ export default {
 		$route: {
 			immediate: true,
 			handler: function (newVal, oldVal) {
-				this.isShowModal = newVal.meta && newVal.meta.isShowModal
+				if (newVal.meta && newVal.meta.isShowModal) {
+					this.isShowModal = newVal.meta && newVal.meta.isShowModal
+				}
 			},
 		},
 	},

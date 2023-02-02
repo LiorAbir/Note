@@ -46,7 +46,7 @@
 			<div class="info flex">
 				<h1 class="user-img">{{ user.fullname[0] }}</h1>
 				<h4>{{ user.fullname }}</h4>
-				<!-- <h5>{{ user.email }}</h5> -->
+				<h5>{{ user.email }}</h5>
 			</div>
 			<button class="btn logout-btn" @click="onLogout">Logout</button>
 		</div>

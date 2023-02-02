@@ -16,16 +16,15 @@ const router = createRouter({
 			path: '/:type/:label?',
 			name: 'note-app',
 			component: noteApp,
-
 			children: [
 				{
 					path: ':id',
 					name: 'note-details',
 					component: noteDetails,
+					props: true,
 					meta: {
 						isShowModal: true,
 					},
-					alias: 'NOTE/:id',
 				},
 			],
 		},
