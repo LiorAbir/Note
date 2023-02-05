@@ -24,6 +24,7 @@
 				class="clean-list"
 				drag-class="drag"
 				ghost-class="ghost"
+				@change="onChangeNote"
 			>
 				<template #item="{ element }">
 					<li class="note-container">
@@ -81,6 +82,11 @@ export default {
 		},
 		toggleModal() {
 			this.$emit('toggleModal')
+		},
+		onChangeNote(ev) {
+			let notesCopy = this.notes.slice()
+			this.$emit('updateNotesOrder', notesCopy)
+			// this.$emit('saveBoard')
 		},
 	},
 	computed: {

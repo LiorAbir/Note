@@ -17,6 +17,7 @@
 					class="notes-container"
 					@save="saveNote"
 					@deleteNote="deleteNote"
+					@updateNotesOrder="updateNotesOrder"
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
@@ -110,6 +111,11 @@ export default {
 		updateLabels(labels) {
 			const boardCopy = JSON.parse(JSON.stringify(this.board))
 			boardCopy.labels = labels
+			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
+		},
+		updateNotesOrder(notes) {
+			const boardCopy = JSON.parse(JSON.stringify(this.board))
+			boardCopy.noteList = notes
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 	},
