@@ -16,7 +16,25 @@
 				</li>
 			</ul>
 
-			<ul class="clean-list" ref="grid">
+			<draggable
+				v-model="notes"
+				group="notes"
+				item-key="id"
+				tag="ul"
+				class="clean-list"
+				drag-class="drag"
+				ghost-class="ghost"
+			>
+				<template #item="{ element }">
+					<li class="note-container">
+						<div>
+							<notePreview :note="element" @save="save" />
+						</div>
+					</li>
+				</template>
+			</draggable>
+
+			<!-- <ul class="clean-list" ref="grid">
 				<li
 					class="note-container"
 					v-for="note in notPinnedNotes"
@@ -24,13 +42,14 @@
 				>
 					<notePreview :note="note" @save="save" />
 				</li>
-			</ul>
+			</ul> -->
 		</div>
 	</section>
 </template>
 
 <script>
 import notePreview from '../note-preview.vue'
+import draggable from 'vuedraggable'
 import Masonry from 'masonry-layout'
 
 export default {
@@ -81,6 +100,7 @@ export default {
 	},
 	components: {
 		notePreview,
+		draggable,
 	},
 }
 </script>

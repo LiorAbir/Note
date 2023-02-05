@@ -15,6 +15,7 @@ export default {
 			state.labels = board.labels
 		},
 		updateBoard(state, { board }) {
+			console.log(board)
 			state.board = board
 		},
 	},

@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { noteService } from '../services/note-service.js'
+// import { noteService } from '../services/note-service.js'
 import noteTodos from '../components/dynamic/note-todos.vue'
 import noteTxt from '../components/dynamic/note-txt.vue'
 import backgroundPallete from '../components/background-pallete.vue'
@@ -70,18 +70,16 @@ export default {
 	},
 	async created() {
 		const { id } = this.$route.params
-
-		try {
-			const currNote = await noteService.getById(id)
-			this.note = JSON.parse(JSON.stringify(currNote))
-		} catch (err) {
-			console.log('cannot find note')
-		}
+		// const currNote = await noteService.getById(id)
+		const currNote = await this.$store.dispatch({ type: 'getById', id })
+		// this.note = currNote
+		this.note = JSON.parse(JSON.stringify(currNote))
 	},
 	methods: {
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
+		updateNote() {},
 		toggleClrPlt() {
 			this.isClrPlt = !this.isClrPlt
 		},

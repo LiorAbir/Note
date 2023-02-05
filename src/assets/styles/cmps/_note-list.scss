@@ -2,6 +2,25 @@
 	width: 80%;
 	margin: 0 auto;
 
+	.drag {
+		div {
+			// transform: rotate(5deg);
+			.note-preview {
+				background-color: white;
+			}
+		}
+		// border: 5px solid black;
+	}
+
+	.ghost {
+		// background-color: lightblue;
+		// border-radius: 6px;
+
+		div {
+			visibility: hidden;
+		}
+	}
+
 	.pinned-list {
 		// border-bottom: 1px solid rgb(194 189 189 / 46%);
 		// margin-bottom: 2rem;

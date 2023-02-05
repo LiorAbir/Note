@@ -20,8 +20,8 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			<button @click="tryy">Try</button>
-			<pre>{{ board }}</pre>
+			<!-- <button @click="tryy">Try</button> -->
+			<!-- <pre>{{ board }}</pre> -->
 		</div>
 	</section>
 	<div v-if="isShowModal" class="modal-background">
@@ -91,9 +91,7 @@ export default {
 		},
 		changePage(page) {
 			if (page === 'edit labels') {
-				console.log(this.isShowModal)
 				this.isShowModal = true
-				console.log(this.isShowModal)
 				this.isLabelModal = true
 			} else {
 				this.$router.push(`/${page}`)

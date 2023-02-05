@@ -93,5 +93,13 @@ export default {
 			commit({ type: 'setFilter', filterBy })
 			dispatch({ type: 'loadNotes' })
 		},
+		async getById({ commit }, { id }) {
+			try {
+				const note = await noteService.getById(id)
+				return note
+			} catch (err) {
+				console.log('cannot get note')
+			}
+		},
 	},
 }

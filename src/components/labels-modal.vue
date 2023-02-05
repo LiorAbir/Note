@@ -18,25 +18,29 @@
 				/>
 				<button class="add-btn svg-btn" @click="onAddLabel"></button>
 			</div>
-			<div
-				v-for="(label, index) in labels"
-				class="label-container flex"
-				:key="label + index"
-			>
-				<!-- :class="{ active: isEditLabelFocus }" -->
-				<button
-					class="delete-btn svg-btn"
-					@click="onDeleteLabel(label)"
-				></button>
-				<input
-					type="text"
-					:value="label"
-					:placeholder="label"
-					@input="onEditLabel($event, index)"
-				/>
-				<!-- @focus="isEditLabelFocus = true" -->
-				<button class="edit-btn svg-btn"></button>
-			</div>
+
+			<ul class="labels-list clean-list">
+				<li
+					v-for="(label, i) in labels"
+					:key="label + i"
+					class="label-container flex"
+					:class="{ active: isEditLabelFocus }"
+				>
+					<button
+						class="delete-btn svg-btn"
+						@click="onDeleteLabel(i)"
+					></button>
+					<input
+						type="text"
+						:placeholder="label"
+						@change="onEditLabel($event, index)"
+						@focus="
+							;(isEditLabelFocus = true), (isAddLabelFocus = false)
+						"
+					/>
+					<button class="edit-btn svg-btn"></button>
+				</li>
+			</ul>
 		</div>
 
 		<div class="btns-container flex">
@@ -65,9 +69,10 @@ export default {
 			this.$emit('updateLabels', labelsCopy)
 			this.newLabel = ''
 		},
-		onDeleteLabel(label) {
+		onDeleteLabel(idx) {
+			// console.log(label)
 			const labelsCopy = this.labels.slice()
-			const idx = labelsCopy.findIndex((l) => l === label)
+			// const idx = labelsCopy.findIndex((l) => l === label)
 			labelsCopy.splice(idx, 1)
 			this.$emit('updateLabels', labelsCopy)
 		},
