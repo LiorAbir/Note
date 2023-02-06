@@ -1,6 +1,13 @@
 <template>
 	<div class="actions flex" v-if="note.location === 'trash'">
-		<img
+		<button
+			v-for="action in trashActions"
+			class="btn svg-btn"
+			:class="action.name"
+			:style="{ backgroundImage: `url(${action.img})` }"
+		></button>
+		<!-- @click="action.func" -->
+		<!-- <img
 			src="../assets/icon/delete.svg"
 			class="btn delet-btn"
 			alt="delete"
@@ -11,7 +18,7 @@
 			class="btn restoration-btn"
 			alt="restoration"
 			@click="onUpdateLocation('notes')"
-		/>
+		/> -->
 	</div>
 
 	<div class="actions flex" v-else>
@@ -66,6 +73,25 @@ export default {
 	data() {
 		return {
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
+			trashActions: [
+				{
+					name: 'delete-btn',
+					img: '/src/assets/icon/delete.svg',
+					// func: onUpdateLocation('notes'),
+				},
+				{
+					name: 'restoration-btn',
+					img: '/src/assets/icon/restoration.svg',
+					func: 'onDeleteNote()',
+				},
+			],
+			actions: [
+				// {
+				// 	name: 'pin-btn',
+				// 	img: '../assets/icon/pinned.svg',
+				// 	func: 'onPinNote',
+				// },
+			],
 		}
 	},
 	methods: {

@@ -1,6 +1,6 @@
 <template>
 	<div v-clickOutSide="onCloseModal" class="labels-modal modal">
-		{{ labels }}
+		<!-- {{ labels }} -->
 		<div class="content">
 			<h3 class="title">Edit labels</h3>
 

@@ -3,19 +3,9 @@
 	margin: 0 auto;
 
 	.drag {
-		div {
-			// transform: rotate(5deg);
-			.note-preview {
-				background-color: white;
-			}
-		}
-		// border: 5px solid black;
 	}
 
 	.ghost {
-		// background-color: lightblue;
-		// border-radius: 6px;
-
 		div {
 			visibility: hidden;
 		}
@@ -25,6 +15,19 @@
 		// border-bottom: 1px solid rgb(194 189 189 / 46%);
 		// margin-bottom: 2rem;
 		// padding-bottom: 1rem;
+	}
+
+	ul {
+		width: 100%;
+		margin: auto;
+
+		li {
+			// float: left;
+		}
+
+		// .note-preview {
+		// 	float: left;
+		// }
 	}
 
 	.no-notes {
@@ -40,10 +43,5 @@
 			margin-bottom: 1.5rem;
 			filter: $svg-ligthgray;
 		}
-	}
-
-	ul {
-		width: 100%;
-		margin: auto;
 	}
 }

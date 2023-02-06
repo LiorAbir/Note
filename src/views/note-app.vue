@@ -26,7 +26,12 @@
 		</div>
 	</section>
 	<div v-if="isShowModal" class="modal-background">
-		<router-view></router-view>
+		<router-view v-slot="{ Component }">
+			<transition name="grow-in">
+				<component :is="Component" :key="$route.path"></component>
+			</transition>
+		</router-view>
+
 		<labelsModal
 			v-if="isLabelModal"
 			:labels="board.labels"
@@ -35,6 +40,32 @@
 		/>
 	</div>
 </template>
+
+<style>
+.grow-in-enter-active,
+.grow-in-leave-active {
+	/* transition: opacity 1s, transform 1s; */
+	/* transform: translateX(-30%); */
+	transition: 0.3s ease-out;
+}
+
+.grow-in-enter-from,
+.grow-in-leave-to {
+	opacity: 0;
+	transform: scale(0.3);
+}
+/* .grow-in-enter-active,
+.grow-in-leave-active {
+	transition: opacity 1s, transform 1s;
+}
+
+.grow-in-enter-from,
+.grow-in-leave-to {
+	transition: opacity 1s, transform 1s;
+	opacity: 0;
+	transform: translateX(-30%);
+} */
+</style>
 
 <script>
 import listHeader from '../components/list-header.vue'
@@ -65,9 +96,6 @@ export default {
 		this.pageType = type
 	},
 	methods: {
-		tryy() {
-			this.$router.push(`/notes/2f3iRuQv8f`)
-		},
 		async loadUser() {
 			await this.$store.dispatch({ type: 'loadLoggedInUser' })
 			this.loggedInUser = this.$store.getters.loggedInUser

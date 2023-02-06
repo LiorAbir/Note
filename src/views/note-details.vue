@@ -53,12 +53,12 @@
 </template>
 
 <script>
-// import { noteService } from '../services/note-service.js'
 import noteTodos from '../components/dynamic/note-todos.vue'
 import noteTxt from '../components/dynamic/note-txt.vue'
 import backgroundPallete from '../components/background-pallete.vue'
 import addImg from '../components/add-img.vue'
 import noteActions from '../components/note-actions.vue'
+import { eventBus } from '../services/eventBus-service'
 
 export default {
 	name: 'note-details',
@@ -70,9 +70,7 @@ export default {
 	},
 	async created() {
 		const { id } = this.$route.params
-		// const currNote = await noteService.getById(id)
 		const currNote = await this.$store.dispatch({ type: 'getById', id })
-		// this.note = currNote
 		this.note = JSON.parse(JSON.stringify(currNote))
 	},
 	methods: {
@@ -93,6 +91,7 @@ export default {
 				return
 			} else {
 				this.$router.push('/notes')
+				eventBus.emit('updateOpacity', 1)
 			}
 		},
 		deleteImg(index) {

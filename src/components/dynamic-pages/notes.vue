@@ -5,8 +5,8 @@
 			<h1>Notes you add appear here</h1>
 		</div>
 
-		<div v-else>
-			<ul class="clean-list pinned-list" ref="grid2">
+		<div class="notes" v-else>
+			<!-- <ul class="clean-list pinned-list" ref="masonry">
 				<li
 					class="pinned-note-container"
 					v-for="note in pinnedNotes"
@@ -14,20 +14,20 @@
 				>
 					<notePreview :note="note" @save="save" />
 				</li>
-			</ul>
+			</ul> -->
 
 			<draggable
 				v-model="notes"
 				group="notes"
 				item-key="id"
 				tag="ul"
-				class="clean-list"
+				class="clean-list masonry grid"
 				drag-class="drag"
 				ghost-class="ghost"
 				@change="onChangeNote"
 			>
 				<template #item="{ element }">
-					<li class="note-container">
+					<li class="note-container item">
 						<div>
 							<notePreview :note="element" @save="save" />
 						</div>
@@ -63,16 +63,10 @@ export default {
 		},
 	},
 	mounted() {
-		const gridEl = this.$refs.grid
-		const masonry = new Masonry(gridEl, {
+		let elem = document.querySelector('.masonry')
+		let masonry = new Masonry(elem, {
 			itemSelector: '.note-preview',
-			// getter: 10,
-			fitWidth: true,
-		})
-		const gridEl2 = this.$refs.grid2
-		const masonry2 = new Masonry(gridEl2, {
-			itemSelector: '.note-preview',
-			// getter: 10,
+			getter: 10,
 			fitWidth: true,
 		})
 	},

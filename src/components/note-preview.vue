@@ -7,6 +7,7 @@
 			backgroundColor: note.bgClr,
 			border: noteBorder,
 			'background-image': `url(${note.bgImg})`,
+			opacity: opacityStyle,
 		}"
 	>
 		<div @click="goToDetails">
@@ -57,6 +58,7 @@ import noteVideo from './dynamic/note-video.vue'
 import backgroundPallete from './background-pallete.vue'
 import addImg from './add-img.vue'
 import noteActions from './note-actions.vue'
+import { eventBus } from '../services/eventBus-service'
 
 export default {
 	name: 'note-preview',
@@ -69,13 +71,22 @@ export default {
 			isClrPlt: false,
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
 			isLoading: false,
+			opacityStyle: 1,
 		}
+	},
+	mounted() {
+		this.opacityStyle = 1
+
+		eventBus.on('updateOpacity', () => {
+			this.opacityStyle = 1
+		})
 	},
 	methods: {
 		deleteNote(id) {
 			this.$emit('deleteNote', id)
 		},
 		goToDetails() {
+			this.opacityStyle = 0
 			this.$router.push(`/NOTE/${this.note._id}`)
 		},
 		closeClrPlt() {

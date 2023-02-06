@@ -28,6 +28,21 @@
 		.notes-content {
 			flex-grow: 1;
 			margin-top: 32px;
+
+			display: flex;
+			flex-direction: column;
+
+			.note-list {
+				flex-grow: 1;
+
+				// 	.notes {
+				// 		height: 100%;
+
+				// 		ul {
+				// 			height: 100%;
+				// 		}
+				// 	}
+			}
 		}
 	}
 }
