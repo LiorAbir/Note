@@ -1,5 +1,21 @@
 .note-filter {
+	width: 100%;
+	@include from-mini-layout() {
+		width: 75%;
+	}
+
 	.filter-input {
-		background-color: $clr4;
+		width: 100%;
+		margin: auto;
+		transition: 0.2s;
+
+		@include from-mini-layout() {
+			background-color: $clr4;
+			height: 46px;
+			&:focus {
+				background-color: white;
+				box-shadow: 0px 0px 2px 0px #8e8787;
+			}
+		}
 	}
 }

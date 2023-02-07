@@ -1,7 +1,7 @@
 <template>
 	<nav
 		class="side-nav flex"
-		@mouseover="isHover = true"
+		@mouseover="checkWindowWidth()"
 		@mouseleave="isHover = false"
 		:class="{
 			open: isHover && !isMenuOpen,
@@ -9,6 +9,18 @@
 			'open-by-btn': isMenuOpen,
 		}"
 	>
+		<router-link to="/">
+			<div class="logo flex">
+				<img
+					class="svg logo-svg"
+					src="../assets/img/favicon.png"
+					alt="logo"
+					title="home page"
+				/>
+				<h2>Noted<span>.</span></h2>
+			</div>
+		</router-link>
+
 		<div
 			class="page-btn btn flex"
 			v-for="page in pages"
@@ -59,6 +71,10 @@ export default {
 		onGoTo(page) {
 			this.$emit('changePage', page)
 		},
+		checkWindowWidth() {
+			if (window.innerWidth < 520) return
+			this.isHover = true
+		},
 	},
 	watch: {
 		'$route.params.type': {
@@ -68,13 +84,6 @@ export default {
 			},
 			immediate: true,
 		},
-		// $route: {
-		// 	immediate: true,
-		// 	// deep: true,
-		// 	handler: function (newVal, oldVal) {
-		// 		this.$emit('changePage', newVal.params.type)
-		// 	},
-		// },
 	},
 }
 </script>

@@ -31,18 +31,6 @@
 
 			display: flex;
 			flex-direction: column;
-
-			.note-list {
-				flex-grow: 1;
-
-				// 	.notes {
-				// 		height: 100%;
-
-				// 		ul {
-				// 			height: 100%;
-				// 		}
-				// 	}
-			}
 		}
 	}
 }
@@ -54,6 +42,32 @@
 	top: 0;
 	left: 0;
 	background: rgb(0 0 0 / 46%);
-	z-index: 1000;
+	z-index: 200;
 	transition: 0.2s;
+}
+
+.logo {
+	justify-content: center;
+	align-items: center;
+
+	.logo-svg {
+		height: 35px;
+		width: 35px;
+		margin-right: 14px;
+		margin-left: 5px;
+	}
+	span {
+		margin-left: 7px;
+	}
+}
+
+.grow-in-enter-active,
+.grow-in-leave-active {
+	transition: 0.3s ease-out;
+}
+
+.grow-in-enter-from,
+.grow-in-leave-to {
+	opacity: 0;
+	transform: scale(0.3);
 }

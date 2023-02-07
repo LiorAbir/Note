@@ -8,6 +8,12 @@
 }
 
 //MEDIA Q
+@mixin only-mini-layout {
+	@media (max-width: $mini-breakpoint) {
+		@content;
+	}
+}
+
 @mixin from-mini-layout {
 	@media (min-width: $mini-breakpoint) {
 		@content;

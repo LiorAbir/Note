@@ -63,8 +63,14 @@ export default {
 			isDetailsOpen: false,
 		}
 	},
+	created() {
+		window.addEventListener('resize', this.handleScroll)
+		if (window.innerWidth < 520) return (this.shadow = '0px 0px 2px 0px #8e8787')
+	},
 	methods: {
 		handleScroll() {
+			if (window.innerWidth < 520)
+				return (this.shadow = '0px 0px 2px 0px #8e8787')
 			if (window.scrollY === 0) {
 				this.shadow = 'inset 0 -1px 0 0 #dadce0'
 			} else {

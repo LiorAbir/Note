@@ -25,7 +25,7 @@
 			<!-- <pre>{{ board }}</pre> -->
 		</div>
 	</section>
-	<div v-if="isShowModal" class="modal-background">
+	<div v-if="isShowModal" class="modal-background" @click="onCloseSideNav()">
 		<router-view v-slot="{ Component }">
 			<transition name="grow-in">
 				<component :is="Component" :key="$route.path"></component>
@@ -40,32 +40,6 @@
 		/>
 	</div>
 </template>
-
-<style>
-.grow-in-enter-active,
-.grow-in-leave-active {
-	/* transition: opacity 1s, transform 1s; */
-	/* transform: translateX(-30%); */
-	transition: 0.3s ease-out;
-}
-
-.grow-in-enter-from,
-.grow-in-leave-to {
-	opacity: 0;
-	transform: scale(0.3);
-}
-/* .grow-in-enter-active,
-.grow-in-leave-active {
-	transition: opacity 1s, transform 1s;
-}
-
-.grow-in-enter-from,
-.grow-in-leave-to {
-	transition: opacity 1s, transform 1s;
-	opacity: 0;
-	transform: translateX(-30%);
-} */
-</style>
 
 <script>
 import listHeader from '../components/list-header.vue'
@@ -119,6 +93,7 @@ export default {
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
 		changePage(page) {
+			this.onCloseSideNav()
 			if (page === 'edit labels') {
 				this.isShowModal = true
 				this.isLabelModal = true
@@ -130,6 +105,7 @@ export default {
 		},
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
+			if (window.innerWidth < 520) this.isShowModal = !this.isShowModal
 		},
 		closeLabelModal() {
 			this.isShowModal = false
@@ -145,6 +121,11 @@ export default {
 			const boardCopy = JSON.parse(JSON.stringify(this.board))
 			boardCopy.noteList = notes
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
+		},
+		onCloseSideNav() {
+			if (window.innerWidth > 520) return
+			this.isMenuOpen = false
+			this.isShowModal = false
 		},
 	},
 	computed: {

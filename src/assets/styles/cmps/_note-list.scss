@@ -1,6 +1,19 @@
 .note-list {
-	width: 80%;
+	width: 97%;
+	flex-grow: 1;
+
+	@include from-mini-layout() {
+		width: 80%;
+	}
 	margin: 0 auto;
+
+	.notes {
+		width: 100%;
+
+		// ul {
+		// 	width: 100vw;
+		// }
+	}
 
 	.drag {
 	}
@@ -11,23 +24,11 @@
 		}
 	}
 
-	.pinned-list {
-		// border-bottom: 1px solid rgb(194 189 189 / 46%);
-		// margin-bottom: 2rem;
-		// padding-bottom: 1rem;
-	}
-
 	ul {
-		width: 100%;
+		width: 95%;
 		margin: auto;
-
-		li {
-			// float: left;
-		}
-
-		// .note-preview {
-		// 	float: left;
-		// }
+		// width: 90%;
+		// margin: auto;
 	}
 
 	.no-notes {
