@@ -1,36 +1,42 @@
 <template>
 	<section class="background-pallete">
-		<div class="clr-pallete flex">
-			<div
-				class="color"
-				v-for="clr in clrs"
-				:key="clr"
-				:style="{ backgroundColor: clr }"
-				@click="setBackground(clr, 'bgClr')"
-			></div>
-			<img
-				src="../assets/icon/no-clr.svg"
-				alt="ni color"
-				class="empty"
-				title="default"
-				@click="setBackground('#ffffff', 'bgClr')"
-			/>
+		<div class="exp">Color</div>
+		<div class="list">
+			<div class="clr-pallete">
+				<div
+					class="color"
+					v-for="clr in clrs"
+					:key="clr"
+					:style="{ backgroundColor: clr }"
+					@click="setBackground(clr, 'bgClr')"
+				></div>
+				<img
+					src="../assets/icon/no-clr.svg"
+					alt="ni color"
+					class="empty"
+					title="default"
+					@click="setBackground('#ffffff', 'bgClr')"
+				/>
+			</div>
 		</div>
-		<div class="img-pallete">
-			<img
-				:src="img"
-				v-for="img in imgs"
-				alt="background image"
-				class="bg-img"
-				@click="setBackground(img, 'bgImg')"
-			/>
-			<img
-				src="../assets/icon/eye-slash.svg"
-				alt=""
-				class="empty"
-				title="default"
-				@click="setBackground('', 'bgImg')"
-			/>
+		<div class="exp">Background</div>
+		<div class="list">
+			<div class="img-pallete">
+				<img
+					:src="img"
+					v-for="img in imgs"
+					alt="background image"
+					class="bg-img"
+					@click="setBackground(img, 'bgImg')"
+				/>
+				<img
+					src="../assets/icon/eye-slash.svg"
+					alt=""
+					class="empty"
+					title="default"
+					@click="setBackground('', 'bgImg')"
+				/>
+			</div>
 		</div>
 	</section>
 </template>

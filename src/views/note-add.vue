@@ -15,13 +15,16 @@
 	</div>
 	<!--  -->
 	<div
-		class="note-add"
+		class="note-add full-page"
 		v-if="isFocus"
 		v-clickOutSide="closeAddNote"
 		:style="{
 			backgroundColor: newNote.bgClr,
 		}"
 	>
+		<div class="actions-mobile flex">
+			<button class="btn back-btn" @click="closeAddNote">Back</button>
+		</div>
 		<div class="add-note-input">
 			<div
 				class="content-input flex"
@@ -71,7 +74,11 @@
 				<button @click="save">Save</button>
 			</div>
 		</div>
-		<backgroundPallete v-if="isClrPlt" @setBackground="setBackground" />
+		<backgroundPallete
+			v-if="isClrPlt"
+			@setBackground="setBackground"
+			v-clickOutSide="closeClrPlt"
+		/>
 	</div>
 </template>
 <script>
@@ -134,6 +141,9 @@ export default {
 		},
 		deleteImg(index) {
 			this.newNote.info.imgs.splice(index, 1)
+		},
+		closeClrPlt() {
+			this.isClrPlt = false
 		},
 	},
 	computed: {

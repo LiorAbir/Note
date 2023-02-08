@@ -2,6 +2,7 @@
 	flex-direction: column;
 	height: 100vh;
 	position: relative;
+	// overflow-y: hidden;
 
 	&::-webkit-scrollbar-thumb {
 		background-color: rgb(0 0 0 / 20%);

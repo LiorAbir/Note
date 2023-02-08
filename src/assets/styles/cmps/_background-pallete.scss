@@ -1,29 +1,66 @@
 .background-pallete {
 	background-color: $clr2;
 	position: absolute;
-	border-radius: $radius;
 	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
 	z-index: 500;
 
-	.clr-pallete,
-	.img-pallete {
-		padding: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+	@include only-mini-layout() {
+		bottom: 0;
 	}
 
-	.empty {
-		filter: $svg-clr1;
+	@include from-mini-layout() {
+		border-radius: $radius;
+	}
+
+	.exp {
+		font-size: 13px;
+		padding: 10px;
+
+		@include from-mini-layout() {
+			display: none;
+		}
+	}
+
+	.list {
+		max-width: 100vw;
+		overflow: auto;
+
+		.clr-pallete,
+		.img-pallete {
+			display: grid;
+			grid-template-columns: repeat(20, 1fr);
+			overflow-x: auto;
+			padding: 5px;
+			@include from-mini-layout() {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.empty {
+				filter: $svg-clr1;
+			}
+		}
+	}
+
+	.color {
+		display: inline-block;
 	}
 
 	.color,
 	.bg-img,
 	.empty {
-		width: 30px;
-		height: 30px;
+		width: 60px;
+		height: 60px;
 		border-radius: 50%;
-		margin-right: 5px;
+		margin: 10px;
+
+		@include from-mini-layout() {
+			margin: 0;
+			margin-right: 5px;
+			width: 30px;
+			height: 30px;
+		}
 
 		&:hover {
 			box-shadow: 0 0 1px 1px black;
