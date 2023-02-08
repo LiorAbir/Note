@@ -1,8 +1,8 @@
 <template>
 	<div class="note-add" v-if="isFocus === false" @click="isFocus = true">
 		<div class="add-container flex">
-			<h4>Add note...</h4>
-			<div class="types flex">
+			<h4 class="title">Add note...</h4>
+			<div class="types round flex">
 				<img
 					src="../assets/icon/list.svg"
 					alt="list"

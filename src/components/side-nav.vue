@@ -75,6 +75,9 @@ export default {
 			if (window.innerWidth < 520) return
 			this.isHover = true
 		},
+		onClose() {
+			this.$emit('close')
+		},
 	},
 	watch: {
 		'$route.params.type': {

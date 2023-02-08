@@ -1,15 +1,50 @@
 .note-add {
-	width: 40%;
-	margin: 0 auto 16px auto;
-	box-shadow: 0 0 5px 0px rgb(0 0 0 / 37%);
-	border-radius: 8px;
-	transition: 0.5s;
+	position: fixed;
+	bottom: 0;
 	background-color: $clr2;
+	z-index: 100;
+	width: 100%;
+	box-shadow: 0 0 5px 0px rgb(0 0 0 / 37%);
+	transition: 0.5s;
+
+	@include from-mini-layout() {
+		position: relative;
+		width: 70%;
+		margin: 0 auto 16px auto;
+		border-radius: 8px;
+
+		.background-pallete {
+			right: -60px;
+			top: 107px;
+		}
+	}
+
+	@media (min-width: 600px) {
+		.background-pallete {
+			right: -4px;
+		}
+	}
+
+	@media (min-width: 670px) {
+		.background-pallete {
+			right: 28px;
+		}
+	}
+
+	@media (min-width: 990px) {
+		.background-pallete {
+			right: 150px;
+		}
+	}
+
+	@include from-mobile-layout() {
+		width: 50%;
+	}
 
 	.add-container {
 		justify-content: space-between;
 		align-items: center;
-		padding: 10px 15px;
+		padding: 15px;
 
 		.type-btn {
 			margin-left: 10px;
@@ -25,6 +60,8 @@
 			}
 		}
 	}
+
+	//
 
 	.add-note-input {
 		width: 100%;
@@ -66,8 +103,8 @@
 		}
 	}
 
-	.background-pallete {
-		right: 454px;
-		top: 198px;
-	}
+	// .background-pallete {
+	// 	right: 28px;
+	// 	top: 107px;
+	// }
 }

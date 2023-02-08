@@ -6,6 +6,7 @@
 				@changePage="changePage"
 				:isMenuOpen="isMenuOpen"
 				:chosenPage="pageType"
+				@close="closeSideNav"
 			/>
 
 			<div class="notes-content" v-if="notes">
@@ -25,7 +26,7 @@
 			<!-- <pre>{{ board }}</pre> -->
 		</div>
 	</section>
-	<div v-if="isShowModal" class="modal-background" @click="onCloseSideNav()">
+	<div v-if="isShowModal" class="modal-background" @click="closeSideNav()">
 		<router-view v-slot="{ Component }">
 			<transition name="grow-in">
 				<component :is="Component" :key="$route.path"></component>
@@ -93,7 +94,7 @@ export default {
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
 		changePage(page) {
-			this.onCloseSideNav()
+			this.closeSideNav()
 			if (page === 'edit labels') {
 				this.isShowModal = true
 				this.isLabelModal = true
@@ -122,10 +123,12 @@ export default {
 			boardCopy.noteList = notes
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
-		onCloseSideNav() {
+		closeSideNav() {
 			if (window.innerWidth > 520) return
-			this.isMenuOpen = false
-			this.isShowModal = false
+			if (this.isMenuOpen) {
+				this.isMenuOpen = false
+				this.isShowModal = false
+			}
 		},
 	},
 	computed: {

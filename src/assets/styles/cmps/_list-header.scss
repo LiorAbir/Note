@@ -109,18 +109,4 @@
 			filter: $svg-clr1;
 		}
 	}
-
-	.round {
-		border-radius: 50%;
-		cursor: pointer;
-		justify-content: center;
-		align-items: center;
-		transition: 0.2s;
-
-		@include from-mini-layout() {
-			&:hover {
-				background-color: rgb(60 64 67 / 8%);
-			}
-		}
-	}
 }
