@@ -42,13 +42,20 @@
 		<div class="actions-container flex">
 			<noteActions
 				:note="note"
+				:isClrPlt="isClrPlt"
 				@deletNote="deleteNote"
 				@toggleClrPlt="toggleClrPlt"
+				@setBackground="setBackground"
 				@save="save"
 			/>
 			<button class="btn close-btn">close</button>
 		</div>
-		<backgroundPallete v-if="isClrPlt" @setBackground="setBackground" />
+		<!-- {{ isClrPlt }} -->
+		<!-- <backgroundPallete
+			v-if="isClrPlt"
+			@setBackground="setBackground"
+			v-clickOutSide="closeClrPlt"
+		/> -->
 	</div>
 </template>
 
@@ -82,17 +89,22 @@ export default {
 			this.isClrPlt = !this.isClrPlt
 		},
 		setBackground(fill, type) {
+			console.log('Set', fill, type)
 			this.note[type] = fill
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)
 		},
 		closeModal() {
-			if (this.isClrPlt === true) {
-				return
-			} else {
-				this.$router.push('/notes')
-				eventBus.emit('updateOpacity', 1)
-			}
+			if (this.isClrPlt) return
+			this.$router.push('/notes')
+			eventBus.emit('updateOpacity', 1)
+			// if (this.isClrPlt === true) {
+			// 	return
+			// } else {
+			// }
+		},
+		closeClrPlt() {
+			this.isClrPlt = false
 		},
 		deleteImg(index) {
 			this.note.info.imgs.splice(index, 1)

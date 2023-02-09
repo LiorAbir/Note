@@ -1,12 +1,32 @@
-.actions {
+.note-actions {
 	justify-content: space-between;
 	align-items: center;
+
+	.clr-btn-container {
+		position: relative;
+		.clr-btn {
+			background-image: url('/src/assets/icon/color.svg');
+			position: relative;
+		}
+		.background-pallete {
+			left: -90px;
+
+			@include only-mini-layout() {
+				bottom: -383px;
+			}
+
+			@include from-mini-layout() {
+				left: -60px;
+				top: 25px;
+			}
+		}
+	}
 
 	img {
 		// filter: $svg-clr3;
 		height: 19px;
 		transition: 0.2s;
-		filter: $svg-clr4;
+		// filter: $svg-clr4;
 
 		&:hover {
 			cursor: pointer;
@@ -20,13 +40,5 @@
 		top: 7px;
 		left: 10px;
 		cursor: pointer;
-	}
-
-	.add-img {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
 	}
 }

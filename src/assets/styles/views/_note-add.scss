@@ -15,20 +15,12 @@
 	.add-container {
 		justify-content: space-between;
 		align-items: center;
-		padding: 15px;
+		padding: 5px 10px;
 
 		.type-btn {
-			margin-left: 10px;
-		}
-
-		img {
-			filter: $svg-clr1;
-			height: 20px;
-
-			&:hover {
-				cursor: pointer;
-				filter: $svg-clr4;
-			}
+			height: 30px;
+			width: 30px;
+			background-image: url('/src/assets/icon/list.svg');
 		}
 	}
 
@@ -80,15 +72,9 @@
 			bottom: 0;
 			width: 100%;
 
-			img {
-				filter: $svg-clr1;
-				height: 20px;
-				margin-right: 10px;
-
-				&:hover {
-					cursor: pointer;
-					filter: $svg-clr4;
-				}
+			.clr-btn {
+				background-image: url('/src/assets/icon/color.svg');
+				position: relative;
 			}
 		}
 	}
@@ -98,11 +84,6 @@
 		width: 70%;
 		margin: 0 auto 16px auto;
 		border-radius: 8px;
-
-		.background-pallete {
-			right: -60px;
-			top: 107px;
-		}
 
 		.add-note-input {
 			.note-title {
@@ -118,29 +99,4 @@
 	@include from-mobile-layout() {
 		width: 50%;
 	}
-
-	//
-
-	// .background-pallete {
-	// 	right: 28px;
-	// 	top: 107px;
-	// }
 }
-
-// @media (min-width: 600px) {
-// 	.background-pallete {
-// 		right: -4px;
-// 	}
-// }
-
-// @media (min-width: 670px) {
-// 	.background-pallete {
-// 		right: 28px;
-// 	}
-// }
-
-// @media (min-width: 990px) {
-// 	.background-pallete {
-// 		right: 150px;
-// 	}
-// }

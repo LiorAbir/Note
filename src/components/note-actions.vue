@@ -1,5 +1,5 @@
 <template>
-	<div class="actions flex" v-if="note.location === 'trash'">
+	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button
 			v-for="action in trashActions"
 			class="btn svg-btn"
@@ -21,7 +21,7 @@
 		/> -->
 	</div>
 
-	<div class="actions flex" v-else>
+	<div class="note-actions flex" v-else>
 		<img
 			src="../assets/icon/pinned.svg"
 			alt="pinned"
@@ -48,27 +48,42 @@
 			@click="onUpdateLocation('archive')"
 		/>
 		<addImg @addImgUrl="addImgUrl" />
-		<img
+		<div class="clr-btn-container">
+			<button
+				class="clr-btn svg-btn"
+				title="choose background color"
+				@click="onToggleClrPlt"
+			></button>
+			<backgroundPallete
+				v-if="isClrPlt"
+				@setBackground="setBackground"
+				v-clickOutSide="onToggleClrPlt"
+			/>
+		</div>
+		<!-- <img
 			src="../assets/icon/color.svg"
 			alt="color"
 			title="choose background color"
 			@click="onToggleClrPlt"
-		/>
+			/> -->
 		<img
 			src="../assets/icon/copy.svg"
 			alt="copy"
 			title="copy note"
 			@click="onCopyNote"
 		/>
+		<!-- {{ isClrPlt }} -->
 	</div>
 </template>
 <script>
 import addImg from './add-img.vue'
+import backgroundPallete from './background-pallete.vue'
 
 export default {
 	name: 'note-actions',
 	props: {
 		note: Object,
+		isClrPlt: Boolean,
 	},
 	data() {
 		return {
@@ -116,14 +131,19 @@ export default {
 			this.save(noteToCopy)
 		},
 		onToggleClrPlt() {
+			console.log(this.isClrPlt)
 			this.$emit('toggleClrPlt')
 		},
 		save(note) {
 			this.$emit('save', note)
 		},
+		setBackground(fill, type) {
+			this.$emit('setBackground', fill, type)
+		},
 	},
 	components: {
 		addImg,
+		backgroundPallete,
 	},
 }
 </script>

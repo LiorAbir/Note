@@ -43,7 +43,7 @@
 	top: 0;
 	left: 0;
 	background: rgb(0 0 0 / 46%);
-	z-index: 200;
+	z-index: 2000;
 	transition: 0.2s;
 }
 
@@ -84,5 +84,17 @@
 		&:hover {
 			background-color: rgb(60 64 67 / 8%);
 		}
+	}
+}
+
+.add-img {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	// width: 100%;
+	// height: 100%;
+
+	.img-btn {
+		background-image: url('/src/assets/icon/image.svg');
 	}
 }

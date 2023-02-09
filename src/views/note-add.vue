@@ -3,13 +3,14 @@
 		<div class="add-container flex">
 			<h4 class="title">Add note...</h4>
 			<div class="types round flex">
-				<img
+				<button class="btn type-btn svg-btn"></button>
+				<!-- <img
 					src="../assets/icon/list.svg"
 					alt="list"
 					class="btn type-btn"
 					title="list note"
 					@click="setNoteType('note-todos')"
-				/>
+				/> -->
 			</div>
 		</div>
 	</div>
@@ -63,22 +64,29 @@
 			<div class="actions flex">
 				<div class="flex">
 					<addImg @addImgUrl="addImgUrl" />
-					<img
+					<div class="clr-btn-container">
+						<button
+							class="clr-btn svg-btn"
+							title="choose background"
+							@click="isClrPlt = !isClrPlt"
+						></button>
+						<backgroundPallete
+							v-if="isClrPlt"
+							@setBackground="setBackground"
+							v-clickOutSide="closeClrPlt"
+						/>
+					</div>
+					<!-- <img
 						src="../assets/icon/color.svg"
 						alt="color"
 						class="btn clr-btn"
 						title="choose background"
 						@click="isClrPlt = !isClrPlt"
-					/>
+					/> -->
 				</div>
 				<button @click="save">Save</button>
 			</div>
 		</div>
-		<backgroundPallete
-			v-if="isClrPlt"
-			@setBackground="setBackground"
-			v-clickOutSide="closeClrPlt"
-		/>
 	</div>
 </template>
 <script>
@@ -127,10 +135,13 @@ export default {
 			this.isFocus = false
 		},
 		closeAddNote() {
-			if (this.isClrPlt === false) {
-				this.isFocus = false
-				this.getNewNote()
-			}
+			if (this.isClrPlt) return
+			// if (this.isClrPlt === false) {
+			// 	this.isFocus = false
+			// 	this.getNewNote()
+			// }
+			this.isFocus = false
+			this.getNewNote()
 			this.newNote.type = 'note-txt'
 		},
 		getNewNote() {

@@ -4,7 +4,7 @@
 	padding: 1px;
 	max-height: 80vh;
 
-	width: 50%;
+	width: 90%;
 	position: absolute;
 	top: 40%;
 	left: 50%;
@@ -12,6 +12,18 @@
 	background: white;
 	border-radius: 8px;
 	transition: 0.2s;
+
+	@include from-mini-layout() {
+		width: 80%;
+	}
+
+	@include from-mobile-layout() {
+		width: 60%;
+	}
+
+	@include from-narrow-layout() {
+		width: 40%;
+	}
 
 	.content {
 		border-radius: 8px;
@@ -35,9 +47,5 @@
 		.close-btn {
 			padding: 5px 10px;
 		}
-	}
-
-	.background-pallete {
-		left: 55px;
 	}
 }
