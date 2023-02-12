@@ -1,0 +1,51 @@
+.user-msg {
+	align-items: center;
+	justify-content: space-between;
+
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width: 300px;
+
+	@include from-mobile-layout() {
+		bottom: 30px;
+		top: auto;
+	}
+
+	padding: 20px;
+	border-radius: 5px;
+
+	background-color: rgb(50 50 50);
+	color: $clr2;
+	// background-color: $clr7;
+
+	p {
+		margin: 0;
+	}
+
+	&.success {
+		background-color: rgb(177 224 123);
+	}
+
+	&.error {
+		background-color: rgb(255 110 100);
+	}
+}
+
+.msg-enter-from {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.msg-enter-active {
+	transition: all 0.3s ease;
+}
+
+.msg-leave-to {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.msg-leave-active {
+	transition: all 0.3s ease;
+}

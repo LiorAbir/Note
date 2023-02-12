@@ -78,6 +78,7 @@
 <script>
 import addImg from './add-img.vue'
 import backgroundPallete from './background-pallete.vue'
+import { showUserMsg } from '../services/eventBus-service'
 
 export default {
 	name: 'note-actions',
@@ -116,6 +117,7 @@ export default {
 		onUpdateLocation(location) {
 			this.noteCopy.location = location
 			this.save(this.noteCopy)
+			showUserMsg(`Note moved to ${location}`)
 		},
 		onPinNote() {
 			this.noteCopy.isPinned = !this.note.isPinned
