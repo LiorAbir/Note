@@ -30,6 +30,10 @@
 			width: 35%;
 		}
 
+		@include from-wide-layout() {
+			width: 27%;
+		}
+
 		& > * {
 			display: flex;
 			flex-direction: column;
@@ -52,6 +56,10 @@
 			flex-direction: column;
 			flex-grow: 1;
 			position: relative;
+
+			@include only-mini-layout() {
+				min-height: 45vh;
+			}
 
 			input {
 				border-radius: 4px;
@@ -82,9 +90,14 @@
 		.move-to {
 			color: $google-blue;
 			font-family: 'roboto-medium';
-			position: absolute;
+			margin-top: 2rem;
+			// position: absolute;
 			bottom: 0;
 			left: 0;
+
+			@include from-mobile-layout() {
+				position: absolute;
+			}
 		}
 	}
 }

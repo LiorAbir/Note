@@ -7,29 +7,38 @@
 			<div class="login" v-if="isLogin">
 				<h1 class="title">Login</h1>
 				<form @submit="onLogin">
-					<!-- {{ credentials }} -->
 					<input
 						type="text"
 						v-model="credentials.username"
+						autocomplete="username"
 						required
 						placeholder="Enter Username"
 					/>
 					<input
-						type="text"
+						:type="inputType"
 						v-model="credentials.password"
+						autocomplete="current-password"
 						required
 						placeholder="Enter Password"
 					/>
-					<button class="btn login-btn" @click="onLogin">Sign in</button>
+					<label class="flex">
+						<input
+							type="checkBox"
+							@change="onChangeInput($event)"
+						/><span>Show password</span>
+					</label>
+					<button class="btn login-btn">Sign in</button>
 				</form>
 
 				<button class="move-to" @click="this.isLogin = false">
 					Dont have an acount yet?
 				</button>
 			</div>
+
+			<!--  -->
 			<div class="signup" v-else>
 				<h1 class="title">Signup</h1>
-				<!-- {{ signUpInfo }} -->
+
 				<form @submit="onSignup">
 					<input
 						type="text"
@@ -50,12 +59,18 @@
 						placeholder="Email"
 					/>
 					<input
-						type="text"
+						:type="inputType"
 						v-model="signUpInfo.password"
 						required
 						placeholder="Password"
 					/>
-					<button class="btn login-btn" @click="onSignup">Sign up</button>
+					<label class="flex">
+						<input
+							type="checkBox"
+							@change="onChangeInput($event)"
+						/><span>Show password</span>
+					</label>
+					<button class="btn login-btn">Sign up</button>
 				</form>
 
 				<button class="move-to" @click="this.isLogin = true">
@@ -72,36 +87,42 @@ export default {
 	data() {
 		return {
 			isLogin: true,
+			inputType: 'password',
 			loggedInUser: null,
 			credentials: {
 				username: '',
 				password: '',
 			},
 			signUpInfo: {
-				fullname: 'Lior Abir',
-				username: 'liorabir',
-				email: 'lior@gmail.com',
-				password: '123456',
+				fullname: '',
+				username: '',
+				email: '',
+				password: '',
 			},
 		}
 	},
 	methods: {
 		async onLogin(ev) {
 			ev.preventDefault()
-			this.$store.dispatch({
+			await this.$store.dispatch({
 				type: 'login',
 				credentials: this.credentials,
 			})
+			this.$router.push('/notes')
 		},
-		onSignup(ev) {
+		async onSignup(ev) {
 			ev.preventDefault()
-			this.$store.dispatch({
+			await this.$store.dispatch({
 				type: 'signup',
 				signupInfo: this.signUpInfo,
 			})
+			this.$router.push('/notes')
 		},
 		onLogout() {
 			this.$store.dispatch({ type: 'logout' })
+		},
+		onChangeInput(ev) {
+			this.inputType = ev.target.checked ? 'text' : 'password'
 		},
 	},
 }
