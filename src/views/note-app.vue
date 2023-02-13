@@ -74,13 +74,13 @@ export default {
 		async loadUser() {
 			await this.$store.dispatch({ type: 'loadLoggedInUser' })
 			this.loggedInUser = this.$store.getters.loggedInUser
+			await this.$store.dispatch({ type: 'loadBoard' })
 
-			if (this.loggedInUser) {
-				await this.$store.dispatch({ type: 'loadBoard' })
-			} else {
-				this.$router.push('/login')
-				window.alert('Login first')
-			}
+			// if (this.loggedInUser) {
+			// } else {
+			// 	this.$router.push('/login')
+			// 	window.alert('Login first')
+			// }
 		},
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })

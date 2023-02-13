@@ -42,7 +42,7 @@
 				{{ user.fullname[0] }}
 			</button>
 		</div>
-		<div class="user-details modal flex" v-if="isDetailsOpen">
+		<div class="user-details modal flex" v-if="isDetailsOpen && user">
 			<div class="info flex">
 				<h1 class="user-img">{{ user.fullname[0] }}</h1>
 				<h4>{{ user.fullname }}</h4>
@@ -80,9 +80,9 @@ export default {
 		setFilterBy(filterBy) {
 			this.$emit('setFilterBy', filterBy)
 		},
-		onLogout() {
-			this.$store.dispatch({ type: 'logout' })
-			this.$router.push('/')
+		async onLogout() {
+			await this.$store.dispatch({ type: 'logout' })
+			this.$router.push('/login')
 		},
 		onToggleMenu() {
 			this.$emit('toggleMenu')

@@ -3,12 +3,12 @@
 	height: 100%;
 	transition: 0.4s;
 	padding-top: 8px;
-
-	position: fixed;
 	z-index: 300;
+	position: fixed;
 	flex-direction: column;
 
 	@include only-mini-layout() {
+		z-index: 3000;
 		top: 0px;
 	}
 
@@ -90,7 +90,8 @@
 		}
 
 		&.open {
-			box-shadow: $shadow;
+			box-shadow: 0 16px 10px 0 rgb(0 0 0 / 14%),
+				0 11px 18px 0 rgb(0 0 0 / 12%), 0 13px 5px -1px rgb(0 0 0 / 20%);
 		}
 
 		&.open-by-btn {

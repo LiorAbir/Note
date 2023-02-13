@@ -90,8 +90,8 @@ export default {
 			inputType: 'password',
 			loggedInUser: null,
 			credentials: {
-				username: '',
-				password: '',
+				username: 'liorabir',
+				password: '123456',
 			},
 			signUpInfo: {
 				fullname: '',
@@ -120,6 +120,7 @@ export default {
 		},
 		onLogout() {
 			this.$store.dispatch({ type: 'logout' })
+			this.$router.push('/login')
 		},
 		onChangeInput(ev) {
 			this.inputType = ev.target.checked ? 'text' : 'password'

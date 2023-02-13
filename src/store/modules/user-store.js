@@ -1,4 +1,5 @@
 import { userService } from '../../services/user-service'
+import { showUserMsg } from '../../services/eventBus-service'
 
 export default {
 	state: {
@@ -30,6 +31,7 @@ export default {
 				return Promise.resolve()
 			} catch (err) {
 				console.log('Cannot login')
+				showUserMsg('username or password is incorrect')
 			}
 		},
 		async signup({ commit }, { signupInfo }) {
@@ -38,6 +40,7 @@ export default {
 				commit({ type: 'setUser', user })
 			} catch (err) {
 				console.log('Cannot signup')
+				showUserMsg('Cannot signup. Please try again')
 			}
 		},
 		async logout({ commit }) {
