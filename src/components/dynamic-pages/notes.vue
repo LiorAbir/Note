@@ -16,7 +16,7 @@
 				</li>
 			</ul> -->
 
-			<draggable
+			<!-- <draggable
 				v-model="notes"
 				group="notes"
 				item-key="id"
@@ -33,9 +33,9 @@
 						</div>
 					</li>
 				</template>
-			</draggable>
+			</draggable> -->
 
-			<!-- <ul class="clean-list" ref="grid">
+			<ul class="clean-list masonry" ref="grid">
 				<li
 					class="note-container"
 					v-for="note in notPinnedNotes"
@@ -43,7 +43,7 @@
 				>
 					<notePreview :note="note" @save="save" />
 				</li>
-			</ul> -->
+			</ul>
 		</div>
 	</section>
 </template>

@@ -1,52 +1,29 @@
 <template>
 	<div class="note-actions flex" v-if="note.location === 'trash'">
+		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
 		<button
-			v-for="action in trashActions"
-			class="btn svg-btn"
-			:class="action.name"
-			:style="{ backgroundImage: `url(${action.img})` }"
-		></button>
-		<!-- @click="action.func" -->
-		<!-- <img
-			src="../assets/icon/delete.svg"
-			class="btn delet-btn"
-			alt="delete"
-			@click="onDeleteNote()"
-		/>
-		<img
-			src="../assets/icon/restoration.svg"
-			class="btn restoration-btn"
-			alt="restoration"
+			class="btn restore-btn svg-btn"
 			@click="onUpdateLocation('notes')"
-		/> -->
+		></button>
 	</div>
 
 	<div class="note-actions flex" v-else>
-		<img
-			src="../assets/icon/pinned.svg"
-			alt="pinned"
-			class="btn pin-btn"
-			@click="onPinNote()"
-		/>
-		<img
-			src="../assets/icon/trash.svg"
-			alt="trash"
+		<button class="btn pin-btn svg-btn" @click="onPinNote()"></button>
+		<button
+			class="btn trash-btn svg-btn"
 			@click="onUpdateLocation('trash')"
-		/>
-		<img
+		></button>
+
+		<button
 			v-if="note.location === 'archive'"
-			src="../assets/icon/archive-out.svg"
-			alt="archive"
-			class="btn archive-btn"
+			class="btn out-archive-btn svg-btn"
 			@click="onUpdateLocation('notes')"
-		/>
-		<img
+		></button>
+		<button
 			v-else
-			src="../assets/icon/archive-in.svg"
-			alt="archive"
-			class="btn archive-btn"
+			class="btn in-archive-btn svg-btn"
 			@click="onUpdateLocation('archive')"
-		/>
+		></button>
 		<addImg @addImgUrl="addImgUrl" />
 		<div class="clr-btn-container">
 			<button
@@ -60,19 +37,7 @@
 				v-clickOutSide="onToggleClrPlt"
 			/>
 		</div>
-		<!-- <img
-			src="../assets/icon/color.svg"
-			alt="color"
-			title="choose background color"
-			@click="onToggleClrPlt"
-			/> -->
-		<img
-			src="../assets/icon/copy.svg"
-			alt="copy"
-			title="copy note"
-			@click="onCopyNote"
-		/>
-		<!-- {{ isClrPlt }} -->
+		<button class="btn copy-btn svg-btn" @click="onCopyNote"></button>
 	</div>
 </template>
 <script>
@@ -89,25 +54,6 @@ export default {
 	data() {
 		return {
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
-			trashActions: [
-				{
-					name: 'delete-btn',
-					img: '/src/assets/icon/delete.svg',
-					// func: onUpdateLocation('notes'),
-				},
-				{
-					name: 'restoration-btn',
-					img: '/src/assets/icon/restoration.svg',
-					func: 'onDeleteNote()',
-				},
-			],
-			actions: [
-				// {
-				// 	name: 'pin-btn',
-				// 	img: '../assets/icon/pinned.svg',
-				// 	func: 'onPinNote',
-				// },
-			],
 		}
 	},
 	methods: {
@@ -149,3 +95,30 @@ export default {
 	},
 }
 </script>
+
+<!-- <img
+	src="../assets/icon/pinned.svg"
+	alt="pinned"
+	class="btn pin-btn"
+	@click="onPinNote()"
+	/> -->
+<!-- <img
+		src="../assets/icon/trash.svg"
+		alt="trash"
+		@click="onUpdateLocation('trash')"
+		/> -->
+
+<!-- <img
+			v-if="note.location === 'archive'"
+			src="../assets/icon/archive-out.svg"
+			alt="archive"
+			class="btn archive-btn"
+			@click="onUpdateLocation('notes')"
+		/>
+		<img
+			v-else
+			src="../assets/icon/archive-in.svg"
+			alt="archive"
+			class="btn archive-btn"
+			@click="onUpdateLocation('archive')"
+		/> -->

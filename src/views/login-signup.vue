@@ -78,7 +78,7 @@
 				</button>
 			</div>
 		</section>
-		<button @click="onLogout">logout</button>
+		<!-- <button @click="onLogout">logout</button> -->
 	</section>
 </template>
 <script>
@@ -90,8 +90,8 @@ export default {
 			inputType: 'password',
 			loggedInUser: null,
 			credentials: {
-				username: 'liorabir',
-				password: '123456',
+				username: '',
+				password: '',
 			},
 			signUpInfo: {
 				fullname: '',
@@ -118,10 +118,10 @@ export default {
 			})
 			this.$router.push('/notes')
 		},
-		onLogout() {
-			this.$store.dispatch({ type: 'logout' })
-			this.$router.push('/login')
-		},
+		// onLogout() {
+		// 	this.$store.dispatch({ type: 'logout' })
+		// 	this.$router.push('/login')
+		// },
 		onChangeInput(ev) {
 			this.inputType = ev.target.checked ? 'text' : 'password'
 		},

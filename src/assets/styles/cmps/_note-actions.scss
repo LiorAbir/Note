@@ -1,15 +1,22 @@
 .note-actions {
-	justify-content: space-between;
-	align-items: center;
+	justify-content: center;
+	align-items: baseline;
+
+	.btn {
+		margin: 0 3px;
+	}
 
 	.clr-btn-container {
-		position: relative;
+		@include from-mini-layout() {
+			position: relative;
+		}
 		.clr-btn {
 			background-image: url('/src/assets/icon/color.svg');
 			position: relative;
 		}
+
 		.background-pallete {
-			left: -90px;
+			left: 0px;
 
 			@include only-mini-layout() {
 				bottom: -383px;
@@ -22,23 +29,39 @@
 		}
 	}
 
-	img {
-		// filter: $svg-clr3;
-		height: 19px;
-		transition: 0.2s;
-		// filter: $svg-clr4;
+	.pin-btn {
+		background-size: 24px 24px;
+		position: absolute;
+		left: 2px;
+		top: 3px;
+	}
 
-		&:hover {
-			cursor: pointer;
-		}
+	//btns svg
+	.delete-btn {
+		background-image: url('/src/assets/icon/delete.svg');
+	}
+
+	.restore-btn {
+		background-image: url('/src/assets/icon/restoration.svg');
 	}
 
 	.pin-btn {
-		width: 23px;
-		height: 23px;
-		position: absolute;
-		top: 7px;
-		left: 10px;
-		cursor: pointer;
+		background-image: url('/src/assets/icon/pinned.svg');
+	}
+
+	.trash-btn {
+		background-image: url('/src/assets/icon/trash.svg');
+	}
+
+	.in-archive-btn {
+		background-image: url('/src/assets/icon/archive-in.svg');
+	}
+
+	.out-archive-btn {
+		background-image: url('/src/assets/icon/archive-out.svg');
+	}
+
+	.copy-btn {
+		background-image: url('/src/assets/icon/copy.svg');
 	}
 }
