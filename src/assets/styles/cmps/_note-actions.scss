@@ -7,33 +7,25 @@
 	}
 
 	.clr-btn-container {
-		@include from-mini-layout() {
-			position: relative;
-		}
+		position: relative;
+		// @include from-mini-layout() {
+		// 	position: static;
+		// }
 		.clr-btn {
 			background-image: url('/src/assets/icon/color.svg');
-			position: relative;
-		}
-
-		.background-pallete {
-			left: 0px;
-
-			@include only-mini-layout() {
-				bottom: -383px;
-			}
-
-			@include from-mini-layout() {
-				left: -60px;
-				top: 25px;
-			}
 		}
 	}
 
 	.pin-btn {
+		position: fixed;
 		background-size: 24px 24px;
-		position: absolute;
-		left: 2px;
+		right: 2px;
 		top: 3px;
+
+		@include from-mini-layout() {
+			position: absolute;
+			left: 2px;
+		}
 	}
 
 	//btns svg

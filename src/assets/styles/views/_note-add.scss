@@ -1,16 +1,38 @@
 .note-add {
 	position: fixed;
 	bottom: 0;
+	right: 0;
+	left: 0;
+
 	background-color: $clr2;
 	z-index: 100;
-	width: 100%;
 	box-shadow: 0 0 5px 0px rgb(0 0 0 / 37%);
 	transition: 0.5s;
 
 	&.full-page {
-		height: 100%;
+		top: 0;
 	}
 
+	@include from-mini-layout() {
+		position: relative;
+		width: 70%;
+		margin: 0 auto 16px auto;
+		border-radius: 8px;
+
+		.add-note-input {
+			.note-title {
+				font-size: 14px;
+			}
+
+			.actions {
+				position: relative;
+			}
+		}
+	}
+
+	@include from-mobile-layout() {
+		width: 50%;
+	}
 	//
 	.add-container {
 		justify-content: space-between;
@@ -72,31 +94,14 @@
 			bottom: 0;
 			width: 100%;
 
+			@include from-mini-layout() {
+				position: static;
+			}
+
 			.clr-btn {
 				background-image: url('/src/assets/icon/color.svg');
 				position: relative;
 			}
 		}
-	}
-
-	@include from-mini-layout() {
-		position: relative;
-		width: 70%;
-		margin: 0 auto 16px auto;
-		border-radius: 8px;
-
-		.add-note-input {
-			.note-title {
-				font-size: 14px;
-			}
-
-			.actions {
-				position: relative;
-			}
-		}
-	}
-
-	@include from-mobile-layout() {
-		width: 50%;
 	}
 }

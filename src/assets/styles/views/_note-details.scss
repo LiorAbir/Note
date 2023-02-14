@@ -1,19 +1,21 @@
 .note-details {
-	border-radius: 8px;
-	transition: 0.4s;
-	padding: 1px;
-	max-height: 80vh;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	right: 0;
+	left: 0;
 
-	width: 90%;
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background: white;
-	border-radius: 8px;
+	transition: 0.4s;
+	background: $clr2;
 	transition: 0.2s;
+	flex-direction: column;
 
 	@include from-mini-layout() {
+		border-radius: 8px;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		max-height: 80vh;
 		width: 80%;
 	}
 
@@ -25,27 +27,57 @@
 		width: 40%;
 	}
 
-	.content {
-		border-radius: 8px;
-		padding: 10px 15px;
+	.content-container {
+		margin-top: 28px;
+		flex-grow: 1;
 
 		.note-imgs {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			gap: 5px;
 		}
+
+		.note-title {
+			padding: 16px 15px 12px 15px;
+			input {
+				font-size: 22px;
+				width: 100%;
+				padding: 0;
+			}
+		}
+
+		.note-content {
+			padding: 4px 16px 12px 16px;
+		}
 	}
 
 	.actions-container {
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 
-		.actions {
-			width: 50%;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+
+		@include from-mini-layout() {
+			position: static;
+			justify-content: space-between;
+		}
+
+		.note-actions {
+			@include only-mini-layout() {
+				margin-bottom: 15px;
+			}
 		}
 
 		.close-btn {
 			padding: 5px 10px;
+			position: fixed;
+			left: 2px;
+			top: 3px;
+			@include from-mini-layout() {
+				position: static;
+			}
 		}
 	}
 }

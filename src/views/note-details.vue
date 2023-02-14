@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="note-details"
+		class="note-details flex"
 		v-if="note"
 		v-clickOutSide="closeModal"
 		:style="{
@@ -9,7 +9,7 @@
 		}"
 	>
 		<div
-			class="content"
+			class="content-container"
 			:style="{
 				'background-image': `url(${note.bgImg})`,
 			}"
@@ -48,14 +48,8 @@
 				@setBackground="setBackground"
 				@save="save"
 			/>
-			<button class="btn close-btn">close</button>
+			<button class="btn close-btn" @click="closeModal">close</button>
 		</div>
-		<!-- {{ isClrPlt }} -->
-		<!-- <backgroundPallete
-			v-if="isClrPlt"
-			@setBackground="setBackground"
-			v-clickOutSide="closeClrPlt"
-		/> -->
 	</div>
 </template>
 
