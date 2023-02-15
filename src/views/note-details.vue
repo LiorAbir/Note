@@ -53,7 +53,6 @@ export default {
 			this.isClrPlt = !this.isClrPlt
 		},
 		setBackground(fill, type) {
-			console.log('Set', fill, type)
 			this.note[type] = fill
 			let editedNote = JSON.parse(JSON.stringify(this.note))
 			this.save(editedNote)

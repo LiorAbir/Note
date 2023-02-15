@@ -70,14 +70,12 @@ export default {
 			this.newLabel = ''
 		},
 		onDeleteLabel(idx) {
-			// console.log(label)
 			const labelsCopy = this.labels.slice()
 			// const idx = labelsCopy.findIndex((l) => l === label)
 			labelsCopy.splice(idx, 1)
 			this.$emit('updateLabels', labelsCopy)
 		},
 		onEditLabel(ev, idx) {
-			console.log('jj')
 			const labelsCopy = this.labels.slice()
 			labelsCopy.splice(idx, 1, ev.target.value)
 			// this.$emit('updateLabels', labelsCopy)

@@ -42,7 +42,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	if (to.matched.some((record) => record.meta.requiresAuth)) {
 		if (!store.getters.loggedInUser) {
-			console.log('hh')
 			next('/login')
 			return
 		}
@@ -59,36 +58,6 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next()
 	}
-	// if (to.matched.some((record) => record.meta.requiresAuth)) {
-	// 	console.log('requir')
-	// 	if (!store.getters.loggedInUser) {
-	// 		next('/login')
-	// 		return
-	// 	}
-	// 	next()
-	// } else if (
-	// 	!to.matched.some((record) => record.meta.requiresAuth) &&
-	// 	store.getters.loggedInUser
-	// ) {
-	// 	next('/notes')
-	// 	console.log(to.meta)
-	// } else {
-	// 	next()
-	// }
-
-	// if (to.meta.requiresAuth && !store.getters.loggedInUser) {
-	// 	console.log(to.meta)
-	// 	next('/login')
-	// } else if (
-	// 	!to.matched.some((record) => record.meta.requiresAuth) &&
-	// 	store.getters.loggedInUser
-	// ) {
-	// 	console.log(to.meta)
-	// 	next('/notes')
-	// } else {
-	// 	console.log(to.meta)
-	// 	next()
-	// }
 })
 
 export default router
