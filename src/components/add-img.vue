@@ -1,8 +1,8 @@
 <template>
-	<label class="add-img" for="file">
-		<button class="img-btn svg-btn" title="add image to note"></button>
+	<label class="add-img svg-btn" for="file">
+		<!-- <button class="img-btn svg-btn" title="add image to note"></button> -->
 		<!-- <img
-			class="img-btn svg-btn"
+			class="img-btn"
 			src="../assets/icon/image.svg"
 			alt="image"
 			title="add image to note"

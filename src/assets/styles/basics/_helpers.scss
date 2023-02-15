@@ -92,13 +92,13 @@
 	text-align: center;
 }
 
-.site-block {
-	margin-bottom: rem(20px);
-}
+// .site-block {
+// 	margin-bottom: rem(20px);
+// }
 
-.actions {
-	padding: 10px 15px;
-}
+// .actions {
+// 	padding: 10px 15px;
+// }
 
 .img-container {
 	position: relative;
@@ -129,6 +129,8 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 18px 18px;
+	cursor: pointer;
+
 	border-radius: 50%;
 	border: 1px solid rgb(0 0 0 / 0%);
 	opacity: 0.54;
