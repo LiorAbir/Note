@@ -31,11 +31,13 @@
 				title="choose background color"
 				@click="onToggleClrPlt"
 			></button>
-			<backgroundPallete
-				v-if="isClrPlt"
-				@setBackground="setBackground"
-				v-clickOutSide="onToggleClrPlt"
-			/>
+			<transition name="msg">
+				<backgroundPallete
+					v-if="isClrPlt"
+					@setBackground="setBackground"
+					v-clickOutSide="onToggleClrPlt"
+				/>
+			</transition>
 		</div>
 		<button class="btn copy-btn svg-btn" @click="onCopyNote"></button>
 	</div>
@@ -70,6 +72,7 @@ export default {
 			this.save(this.noteCopy)
 		},
 		addImgUrl(url) {
+			console.log(url)
 			this.noteCopy.info.imgs.push(url)
 			this.save(this.noteCopy)
 		},
@@ -79,7 +82,6 @@ export default {
 			this.save(noteToCopy)
 		},
 		onToggleClrPlt() {
-			console.log(this.isClrPlt)
 			this.$emit('toggleClrPlt')
 		},
 		save(note) {
@@ -95,30 +97,3 @@ export default {
 	},
 }
 </script>
-
-<!-- <img
-	src="../assets/icon/pinned.svg"
-	alt="pinned"
-	class="btn pin-btn"
-	@click="onPinNote()"
-	/> -->
-<!-- <img
-		src="../assets/icon/trash.svg"
-		alt="trash"
-		@click="onUpdateLocation('trash')"
-		/> -->
-
-<!-- <img
-			v-if="note.location === 'archive'"
-			src="../assets/icon/archive-out.svg"
-			alt="archive"
-			class="btn archive-btn"
-			@click="onUpdateLocation('notes')"
-		/>
-		<img
-			v-else
-			src="../assets/icon/archive-in.svg"
-			alt="archive"
-			class="btn archive-btn"
-			@click="onUpdateLocation('archive')"
-		/> -->

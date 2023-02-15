@@ -25,10 +25,7 @@
 			<div v-else>
 				<h1>loading</h1>
 			</div> -->
-
-			<!-- <div class="note-title"> -->
 			<input class="note-title" type="text" v-model="note.info.title" />
-			<!-- </div> -->
 
 			<component
 				:is="note.type"

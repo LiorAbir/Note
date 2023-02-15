@@ -8,36 +8,7 @@
 			border: noteBorder,
 		}"
 	>
-		<div
-			class="content-container"
-			:style="{
-				'background-image': `url(${note.bgImg})`,
-			}"
-		>
-			<div class="note-imgs" v-if="note.info.imgs">
-				<div class="img-container" v-for="(img, i) in note.info.imgs">
-					<img :src="img" alt="upload" />
-					<img
-						class="delete-img-btn"
-						src="../assets/icon/trash.svg"
-						alt="trash"
-						title="Delete image"
-						@click="deleteImg(i)"
-					/>
-				</div>
-			</div>
-
-			<div class="note-title">
-				<input type="text" v-model="note.info.title" @input="updateNote" />
-			</div>
-
-			<component
-				:is="note.type"
-				:info="note.info"
-				class="note-content"
-			></component>
-			<!-- @updateNote="updateNote" -->
-		</div>
+		<noteContent :note="note" @save="save" />
 
 		<div class="actions-container flex">
 			<noteActions
@@ -54,10 +25,7 @@
 </template>
 
 <script>
-import noteTodos from '../components/dynamic/note-todos.vue'
-import noteTxt from '../components/dynamic/note-txt.vue'
-import backgroundPallete from '../components/background-pallete.vue'
-import addImg from '../components/add-img.vue'
+import noteContent from '../components/note-content.vue'
 import noteActions from '../components/note-actions.vue'
 import { eventBus } from '../services/eventBus-service'
 
@@ -78,7 +46,9 @@ export default {
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
 		},
-		updateNote() {},
+		updateNote() {
+			this.$store.dispatch({ type: 'save', note: this.note })
+		},
 		toggleClrPlt() {
 			this.isClrPlt = !this.isClrPlt
 		},
@@ -92,10 +62,6 @@ export default {
 			if (this.isClrPlt) return
 			this.$router.push('/notes')
 			eventBus.emit('updateOpacity', 1)
-			// if (this.isClrPlt === true) {
-			// 	return
-			// } else {
-			// }
 		},
 		closeClrPlt() {
 			this.isClrPlt = false
@@ -124,11 +90,44 @@ export default {
 		},
 	},
 	components: {
-		noteTodos,
-		noteTxt,
-		backgroundPallete,
-		addImg,
 		noteActions,
+		noteContent,
 	},
 }
 </script>
+
+<!-- <div
+	class="content-container"
+	:style="{
+		'background-image': `url(${note.bgImg})`,
+	}"
+>
+	<div class="note-imgs" v-if="note.info.imgs">
+		<div class="img-container" v-for="(img, i) in note.info.imgs">
+			<img :src="img" alt="upload" />
+			<img
+				class="delete-img-btn"
+				src="../assets/icon/trash.svg"
+				alt="trash"
+				title="Delete image"
+				@click="deleteImg(i)"
+			/>
+		</div>
+	</div>
+
+	<div class="note-title">
+		<input
+			type="text"
+			v-model="note.info.title"
+			placeholder="Add title"
+			@input="updateNote"
+		/>
+	</div> -->
+
+<!-- <component
+		:is="note.type"
+		:info="note.info"
+		class="note-content"
+		@updateNote="updateNote"
+		></component> -->
+<!-- </div> -->

@@ -8,9 +8,6 @@
 
 	.clr-btn-container {
 		position: relative;
-		// @include from-mini-layout() {
-		// 	position: static;
-		// }
 		.clr-btn {
 			background-image: url('/src/assets/icon/color.svg');
 		}
@@ -25,6 +22,18 @@
 		@include from-mini-layout() {
 			position: absolute;
 			left: 2px;
+		}
+	}
+
+	.add-img {
+		// display: flex;
+		// align-items: center;
+		// justify-content: center;
+
+		.img-btn {
+			// width: 18px;
+			// height: 18px;
+			background-image: url('/src/assets/icon/image.svg');
 		}
 	}
 

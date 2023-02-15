@@ -1,8 +1,19 @@
 <template>
-	<label class="add-img">
+	<label class="add-img" for="file">
 		<button class="img-btn svg-btn" title="add image to note"></button>
-		<!-- <img src="../assets/icon/image.svg" alt="image" title="add image to note" /> -->
-		<input type="file" :style="{ display: 'none' }" @change="handleFile" />
+		<!-- <img
+			class="img-btn svg-btn"
+			src="../assets/icon/image.svg"
+			alt="image"
+			title="add image to note"
+		/> -->
+		<input
+			type="file"
+			id="file"
+			name="file"
+			:style="{ display: 'none' }"
+			@change="handleFile"
+		/>
 	</label>
 </template>
 <script>
