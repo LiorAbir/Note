@@ -15,7 +15,6 @@ export default {
 		notesToDisplay({ filter, notes }) {
 			if (!notes) return
 			let { txt, location } = filter
-			// console.log(state.filter)
 			// if (!txt) return state.notes
 
 			//LOCATION

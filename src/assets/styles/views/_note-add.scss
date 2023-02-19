@@ -93,9 +93,14 @@
 			position: fixed;
 			bottom: 0;
 			width: 100%;
+			padding: 10px 15px;
 
 			@include from-mini-layout() {
 				position: static;
+			}
+
+			.add-img {
+				background-image: url('/src/assets/icon/image.svg');
 			}
 
 			.clr-btn {

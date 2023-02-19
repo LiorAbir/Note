@@ -1,8 +1,7 @@
 //DAMMY BACEND
-// import { storageService } from './storage.service'
+import { storageService } from './storage.service'
 const LOGGEDIN_KEY = 'loggedinUser'
-// const USERS_KEY = 'users_DB'
-// _createUsers()
+const USERS_KEY = 'users_DB'
 
 //BACKEND
 import { httpService } from './http.service'
@@ -20,7 +19,11 @@ export const userService = {
 
 async function login(credentials) {
 	// const users = await storageService.query(USERS_KEY)
-	// const user = users.find((user) => user.username === credentials.username)
+	// const user = users.find(
+	// 	(user) =>
+	// 		user.username === credentials.username &&
+	// 		user.password === credentials.password
+	// )
 	// return _saveLocalUser(user)
 
 	const user = await httpService.post(`${prmStr}/login`, credentials)
@@ -29,21 +32,24 @@ async function login(credentials) {
 
 async function logout() {
 	sessionStorage.removeItem(LOGGEDIN_KEY)
-	return await httpService.post(`${prmStr}/logout`)
+	// return await httpService.post(`${prmStr}/logout`)
 }
 
 async function signUp(signupInfo) {
 	// const { fullName, username, email, password } = signupInfo
+	// const users = await storageService.query(USERS_KEY)
+	// const userExist = users.find((user) => user.username === username)
+	// if (userExist) return Promise.reject('Username already taken')
+
 	// const user = {
 	// 	_id: _makeId(),
 	// 	fullName,
 	// 	username,
 	// 	email,
 	// 	password,
-	// notesId,
 	// }
 
-	// const user = await storageService.post(USERS_KEY)
+	// await storageService.post(USERS_KEY, user)
 	// return _saveLocalUser(user)
 
 	const user = await httpService.post(`${prmStr}/signup`, signupInfo)
@@ -80,25 +86,25 @@ function _saveLocalUser(user) {
 }
 
 //WITH DUMMY BACKEND
-function _createUsers() {
-	let users = JSON.parse(localStorage.getItem(USERS_KEY))
-	if (!users || !users.length) {
-		users = _getUsers()
-		localStorage.setItem(USERS_KEY, JSON.stringify(users))
-	}
-	return users
-}
+// function _createUsers() {
+// 	let users = JSON.parse(localStorage.getItem(USERS_KEY))
+// 	if (!users || !users.length) {
+// 		users = _getUsers()
+// 		localStorage.setItem(USERS_KEY, JSON.stringify(users))
+// 	}
+// 	return users
+// }
 
-function _getUsers() {
-	return [
-		{
-			id: 'user1',
-			fullName: 'Lior Abir',
-			username: 'liorabir',
-			email: 'liorabir@gmail.com',
-			password: '123456',
-			isAdmin: true,
-			notesId: '',
-		},
-	]
-}
+// function _getUsers() {
+// 	return [
+// 		{
+// 			id: 'user1',
+// 			fullName: 'Lior Abir',
+// 			username: 'liorabir',
+// 			email: 'liorabir@gmail.com',
+// 			password: '123456',
+// 			isAdmin: true,
+// 			notesId: '',
+// 		},
+// 	]
+// }
