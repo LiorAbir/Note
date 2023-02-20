@@ -27,6 +27,7 @@
 					@updateNotesOrder="updateNotesOrder"
 					@setFilterBy="setFilterBy"
 				></component>
+
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
 			<!-- <noteFilter v-if="isFilterModal" /> -->

@@ -1,18 +1,18 @@
 <template>
 	<section class="note-filter">
 		<!-- <input
-			class="filter-input"
-			type="text"
-			@input="setFilterBy"
-			v-model="filterBy.txt"
-			placeholder="Search"
-		/> -->
+				class="filter-input"
+				type="text"
+				@input="setFilterBy"
+				v-model="filterBy.txt"
+				placeholder="Search"
+				/> -->
 		<!-- {{ notes }} -->
 
 		<div
 			class="note-list"
 			v-if="filter.color || filter.label || filter.type || filter.txt"
-			:style="{ display: 'flex' }"
+			:style="{ float: 'right' }"
 		>
 			<div v-if="!notes.length">Cannot find notes</div>
 			<notePreview v-for="note in notes" :note="note" />

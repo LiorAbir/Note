@@ -2,12 +2,12 @@
 	<div
 		class="note-content"
 		:style="{
-			'background-image': `url(${noteToEdit.bgImg})`,
+			'background-image': `url(${note.bgImg})`,
 		}"
-		v-if="noteToEdit"
+		v-if="note"
 	>
-		<div class="note-imgs" v-if="noteToEdit.info.imgs">
-			<div class="img-container" v-for="(img, i) in noteToEdit.info.imgs">
+		<div class="note-imgs" v-if="note.info.imgs">
+			<div class="img-container" v-for="(img, i) in note.info.imgs">
 				<img :src="img" alt="upload" />
 				<img
 					class="delete-img-btn"
@@ -21,13 +21,13 @@
 		<input
 			type="text"
 			class="note-title"
-			v-model="noteToEdit.info.title"
+			v-model="note.info.title"
 			placeholder="Add title"
 			@input="updateNote"
 		/>
 
 		<div class="main-content" contenteditable="true" @input="updateNoteInfo">
-			{{ noteToEdit.info.txt }}
+			{{ note.info.txt }}
 		</div>
 
 		<div class="labels-container flex">
@@ -44,21 +44,17 @@ export default {
 	props: {
 		note: Object,
 	},
-	data() {
-		return {
-			noteToEdit: null,
-		}
-	},
-	created() {
-		this.noteToEdit = this.note
-	},
 	methods: {
 		updateNoteInfo(el) {
-			this.noteToEdit.info.txt = el.target.innerText
+			this.note.info.txt = el.target.innerText
+			this.updateNote()
+		},
+		deleteImg(idx) {
+			this.note.info.imgs.splice(idx, 1)
 			this.updateNote()
 		},
 		updateNote() {
-			this.$emit('save', this.noteToEdit)
+			this.$emit('save', this.note)
 		},
 	},
 }

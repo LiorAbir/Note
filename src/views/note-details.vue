@@ -13,6 +13,7 @@
 		<div class="actions-container flex">
 			<noteActions
 				:note="note"
+				:labels="board.labels"
 				:isClrPlt="isClrPlt"
 				@deletNote="deleteNote"
 				@toggleClrPlt="toggleClrPlt"
@@ -86,6 +87,9 @@ export default {
 			} else {
 				return `1px solid ${this.note.bgClr}70`
 			}
+		},
+		board() {
+			return this.$store.getters.board
 		},
 	},
 	components: {

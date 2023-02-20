@@ -1,5 +1,5 @@
 <template>
-	<label class="add-img svg-btn" for="file">
+	<label class="add-img svg-btn">
 		<!-- <button class="img-btn svg-btn" title="add image to note"></button> -->
 		<!-- <img
 			class="img-btn"
@@ -9,7 +9,6 @@
 		/> -->
 		<input
 			type="file"
-			id="file"
 			name="file"
 			:style="{ display: 'none' }"
 			@change="handleFile"
@@ -26,10 +25,10 @@ export default {
 			this.uploadFile(file)
 		},
 		async uploadFile(file) {
-			this.$emit('setIsLoading', true)
 			const res = await uploadImg(file)
 			this.$emit('addImgUrl', res.url)
-			this.$emit('setIsLoading', false)
+			// this.$emit('setIsLoading', true)
+			// this.$emit('setIsLoading', false)
 		},
 	},
 }

@@ -78,7 +78,8 @@ export default {
 	},
 	data() {
 		return {
-			noteCopy: JSON.parse(JSON.stringify(this.note)),
+			noteCopy: this.note,
+			// noteCopy: JSON.parse(JSON.stringify(this.note)),
 			isLabelModal: false,
 		}
 	},
@@ -96,6 +97,8 @@ export default {
 			this.save(this.noteCopy)
 		},
 		addImgUrl(url) {
+			// console.log(url)
+			// console.log(this.noteCopy.info.title)
 			this.noteCopy.info.imgs.push(url)
 			this.save(this.noteCopy)
 		},

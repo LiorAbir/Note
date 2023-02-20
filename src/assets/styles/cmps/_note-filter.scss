@@ -36,12 +36,14 @@
 
 					display: flex;
 					justify-content: center;
+					margin-right: 25px;
 
 					@include from-mini-layout() {
 						width: 150px;
 						height: 150px;
 						background-color: rgb(245 245 245);
 						border-radius: 0;
+						margin: 0;
 					}
 
 					.filter-name {
@@ -62,6 +64,10 @@
 						background-repeat: no-repeat;
 						background-position: center;
 						background-size: 30px;
+
+						@include only-mini-layout() {
+							opacity: 0.7;
+						}
 
 						@include from-mini-layout() {
 							background-size: 40px;

@@ -14,7 +14,7 @@
 			<noteContent :note="note" @save="save" />
 		</div>
 		<noteActions
-			:note="note"
+			:note="noteCopy"
 			:labels="labels"
 			@deletNote="deleteNote"
 			@toggleClrPlt="toggleClrPlt"
@@ -49,17 +49,19 @@ export default {
 		return {
 			hover: false,
 			isClrPlt: false,
-			noteCopy: JSON.parse(JSON.stringify(this.note)),
+			noteCopy: null,
 			isLoading: false,
 			opacityStyle: 1,
 		}
 	},
 	mounted() {
 		this.opacityStyle = 1
-
 		eventBus.on('updateOpacity', () => {
 			this.opacityStyle = 1
 		})
+	},
+	created() {
+		this.noteCopy = JSON.parse(JSON.stringify(this.note))
 	},
 	methods: {
 		deleteNote(id) {
