@@ -47,6 +47,7 @@
 			:labels="board.labels"
 			@closeLabelModal="closeLabelModal"
 			@updateLabels="updateLabels"
+			@updateNotesLabels="updateNotesLabels"
 		/>
 	</div>
 </template>
@@ -122,6 +123,16 @@ export default {
 			// 	this.isFilterModal = false
 			// }
 		},
+		updateNotesLabels(label) {
+			this.notes.map((note) => {
+				if (note.labels.includes(label)) {
+					let idx = note.labels.findIndex((l) => l === label)
+					const noteCopy = JSON.parse(JSON.stringify(note))
+					noteCopy.labels.splice(idx, 1)
+					this.saveNote(noteCopy)
+				}
+			})
+		},
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
 			if (window.innerWidth < 520) this.isShowModal = !this.isShowModal
@@ -164,7 +175,6 @@ export default {
 		$route: {
 			immediate: true,
 			handler: function (newVal, oldVal) {
-				console.log()
 				if (newVal.meta && newVal.meta.isShowModal) {
 					this.isShowModal = newVal.meta && newVal.meta.isShowModal
 				}

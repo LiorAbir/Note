@@ -97,8 +97,6 @@ export default {
 			this.save(this.noteCopy)
 		},
 		addImgUrl(url) {
-			// console.log(url)
-			// console.log(this.noteCopy.info.title)
 			this.noteCopy.info.imgs.push(url)
 			this.save(this.noteCopy)
 		},

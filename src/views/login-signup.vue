@@ -78,6 +78,7 @@
 				</button>
 			</div>
 		</section>
+		<button class="guest" @click="onLoginAsGuest">Try as guest</button>
 		<!-- <button @click="onLogout">logout</button> -->
 	</section>
 </template>
@@ -115,6 +116,13 @@ export default {
 			await this.$store.dispatch({
 				type: 'signup',
 				signupInfo: this.signUpInfo,
+			})
+			this.$router.push('/notes')
+		},
+		async onLoginAsGuest() {
+			await this.$store.dispatch({
+				type: 'login',
+				credentials: { username: 'guest', password: 'guest1234' },
 			})
 			this.$router.push('/notes')
 		},

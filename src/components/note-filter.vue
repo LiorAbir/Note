@@ -10,8 +10,8 @@
 		<!-- {{ notes }} -->
 
 		<div
-			class="note-list"
 			v-if="filter.color || filter.label || filter.type || filter.txt"
+			class="note-list"
 			:style="{ float: 'right' }"
 		>
 			<div v-if="!notes.length">Cannot find notes</div>
@@ -87,13 +87,13 @@ export default {
 			clrsStack.push(note.bgClr)
 		})
 		this.boardColors = clrsStack
-
-		// this.filterBy = this.filter
 	},
 	methods: {
 		onUpdateFilter(type, val) {
 			this.filter[type] = val
 			this.setFilterBy()
+			// this.$router.push(`/serach/${type}%253D${val}`)
+			// this.$router.push(`/serach/${type}%253D${val}`)
 		},
 		setFilterBy() {
 			this.$emit('setFilterBy', this.filter)

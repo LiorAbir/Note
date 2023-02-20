@@ -14,7 +14,7 @@ const router = createRouter({
 			component: homePage,
 		},
 		{
-			path: '/:type/:label?',
+			path: '/:type/:val?',
 			name: 'note-app',
 			component: noteApp,
 			meta: { requiresAuth: true },

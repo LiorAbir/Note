@@ -28,7 +28,7 @@
 				>
 					<button
 						class="delete-btn svg-btn"
-						@click="onDeleteLabel(i)"
+						@click="onDeleteLabel(i, label)"
 					></button>
 					<input
 						type="text"
@@ -38,6 +38,7 @@
 							;(isEditLabelFocus = true), (isAddLabelFocus = false)
 						"
 					/>
+					<!-- v-model="label" -->
 					<button class="edit-btn svg-btn"></button>
 				</li>
 			</ul>
@@ -69,17 +70,15 @@ export default {
 			this.$emit('updateLabels', labelsCopy)
 			this.newLabel = ''
 		},
-		onDeleteLabel(idx) {
+		onDeleteLabel(idx, label) {
 			const labelsCopy = this.labels.slice()
-			// const idx = labelsCopy.findIndex((l) => l === label)
 			labelsCopy.splice(idx, 1)
 			this.$emit('updateLabels', labelsCopy)
+			this.$emit('updateNotesLabels', label)
 		},
 		onEditLabel(ev, idx) {
 			const labelsCopy = this.labels.slice()
 			labelsCopy.splice(idx, 1, ev.target.value)
-			// this.$emit('updateLabels', labelsCopy)
-			// this.isEditLabelFocus = true
 		},
 		onCloseModal() {
 			this.$emit('closeLabelModal')

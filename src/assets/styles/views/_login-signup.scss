@@ -1,6 +1,6 @@
 .login-signup {
 	min-height: 100vh;
-
+	text-align: center;
 	.logo {
 		padding: 1rem;
 		font-size: 30px;
@@ -98,6 +98,21 @@
 			@include from-mobile-layout() {
 				position: absolute;
 			}
+		}
+	}
+
+	.guest {
+		background-color: $google-blue;
+		color: $clr2;
+		padding: 12px;
+		border-radius: 4px;
+		padding: 12px;
+		margin: 5px;
+		transition: 0.2s;
+
+		&:hover {
+			background-color: $clr8;
+			color: $google-blue;
 		}
 	}
 }
