@@ -1,7 +1,6 @@
 <template>
 	<section class="note-app flex">
 		<listHeader @setFilterBy="setFilterBy" @toggleMenu="toggleMenu" />
-		<button @click="this.isFilterModal = !isFilterModal">bdjbc</button>
 		<div class="content-container flex">
 			<sideNav
 				@changePage="changePage"
@@ -10,13 +9,12 @@
 				@close="closeSideNav"
 			/>
 
-			<div class="notes-content" v-if="notes && !isFilterModal">
-				<noteAdd />
-				{{ notes }}
-
+			<div class="notes-content" v-if="notes">
+				<noteAdd v-if="this.pageType === 'notes'" />
 				<component
 					:is="pageType"
 					:notes="notes"
+					:board="board"
 					class="notes-container"
 					@save="saveNote"
 					@deleteNote="deleteNote"
@@ -24,7 +22,7 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			<noteFilter v-if="isFilterModal" />
+			<!-- <noteFilter v-if="isFilterModal" /> -->
 		</div>
 	</section>
 
@@ -51,7 +49,7 @@ import noteList from '../components/note-list.vue'
 import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
 import labelsModal from '../components/labels-modal.vue'
-import noteFilter from '../components/note-filter.vue'
+import search from '../components/note-filter.vue'
 
 //Dynamic
 import notes from '../components/dynamic-pages/notes.vue'
@@ -67,7 +65,7 @@ export default {
 			isLabelModal: false,
 			isFilterModal: false,
 			loggedInUser: null,
-			pageType: 'notes',
+			pageType: 'noteFilter',
 		}
 	},
 	async created() {
@@ -94,15 +92,27 @@ export default {
 		},
 		changePage(page) {
 			this.closeSideNav()
-			if (page === 'edit labels') {
-				this.isShowModal = true
-				this.isLabelModal = true
-			} else {
-				this.$router.push(`/${page}`)
-				this.pageType = page
-				this.isShowModal = false
-				this.isFilterModal = false
+			switch (page) {
+				case 'edit labels':
+					this.isShowModal = true
+					this.isLabelModal = true
+					break
+				default:
+					this.$router.push(`/${page}`)
+					this.pageType = page
+					this.isShowModal = false
+					this.isFilterModal = false
+					break
 			}
+			// if (page === 'edit labels') {
+			// 	this.isShowModal = true
+			// 	this.isLabelModal = true
+			// } else {
+			// 	this.$router.push(`/${page}`)
+			// 	this.pageType = page
+			// 	this.isShowModal = false
+			// 	this.isFilterModal = false
+			// }
 		},
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
@@ -149,6 +159,19 @@ export default {
 			},
 		},
 	},
+
+	// watch: {
+	// 	'$route.params.type': {
+	// 		handler(type) {
+	// 			if (this.$route.params.id) return
+	// 			if (type === 'search') return
+	// 			this.filterBy.location = type
+	// 			console.log(this.filterBy)
+	// 			this.$emit('setFilterBy', this.filterBy)
+	// 		},
+	// 		immediate: true,
+	// 	},
+	// },
 	components: {
 		listHeader,
 		noteList,
@@ -158,7 +181,7 @@ export default {
 		notes,
 		trash,
 		labelsModal,
-		noteFilter,
+		search,
 	},
 }
 </script>

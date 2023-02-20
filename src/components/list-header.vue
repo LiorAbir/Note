@@ -31,7 +31,18 @@
 		</nav>
 
 		<div class="app-actions flex">
-			<!-- <noteFilter @setFilterBy="setFilterBy" /> -->
+			<div class="search-input flex" :class="{ focused: isFocused }">
+				<input
+					class="filter-input"
+					type="text"
+					@input="setFilterBy"
+					@focus="goTo('search')"
+					@blur="this.isFocused = false"
+					v-model="filterBy.txt"
+					placeholder="Search"
+				/>
+				<button class="btn svg-btn" @click="goTo('notes')"></button>
+			</div>
 		</div>
 
 		<div class="user-actions flex" v-if="user">
@@ -53,14 +64,17 @@
 	</header>
 </template>
 <script>
-import noteFilter from './note-filter.vue'
-
 export default {
 	name: 'ap-header',
 	data() {
 		return {
 			shadow: 'inset 0 -1px 0 0 #dadce0',
 			isDetailsOpen: false,
+			isFocused: false,
+			filterBy: {
+				txt: '',
+				location: '',
+			},
 		}
 	},
 	created() {
@@ -77,8 +91,8 @@ export default {
 				this.shadow = '-1px -2px 5px 5px #9c9ea3'
 			}
 		},
-		setFilterBy(filterBy) {
-			this.$emit('setFilterBy', filterBy)
+		setFilterBy() {
+			this.$emit('setFilterBy', this.filterBy)
 		},
 		async onLogout() {
 			await this.$store.dispatch({ type: 'logout' })
@@ -87,14 +101,36 @@ export default {
 		onToggleMenu() {
 			this.$emit('toggleMenu')
 		},
+		goTo(page) {
+			switch (page) {
+				case 'notes':
+					this.$router.push(`/${page}`)
+					this.isFocused = false
+					break
+				case 'search':
+					this.$router.push(`/${page}`)
+					this.isFocused = true
+
+				default:
+					break
+			}
+		},
 	},
 	computed: {
 		user() {
 			return this.$store.getters.loggedInUser
 		},
 	},
-	components: {
-		noteFilter,
+	watch: {
+		'$route.params.type': {
+			handler(type) {
+				if (this.$route.params.id) return
+				if (type === 'search') return
+				this.filterBy.location = type
+				this.$emit('setFilterBy', this.filterBy)
+			},
+			immediate: true,
+		},
 	},
 }
 </script>

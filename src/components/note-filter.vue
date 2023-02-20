@@ -40,7 +40,7 @@
 
 <script>
 export default {
-	name: 'note-filter',
+	name: 'search',
 	data() {
 		return {
 			filterBy: {
@@ -58,6 +58,7 @@ export default {
 		'$route.params.type': {
 			handler(type) {
 				if (this.$route.params.id) return
+				if (type === 'search') return
 				this.filterBy.location = type
 				this.$emit('setFilterBy', this.filterBy)
 			},

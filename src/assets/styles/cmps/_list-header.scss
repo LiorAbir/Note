@@ -37,6 +37,39 @@
 		justify-content: center;
 		align-items: center;
 		flex-grow: 1;
+
+		////
+		.search-input {
+			width: 90%;
+			margin: auto;
+			transition: 0.2s;
+
+			border-radius: 8px;
+			padding: 10px 15px;
+			background-color: inherit;
+
+			align-items: center;
+			justify-content: center;
+
+			input {
+				width: 100%;
+			}
+
+			.btn {
+				background-image: url('/src/assets/icon/xmark.svg');
+			}
+
+			@include from-mini-layout() {
+				width: 60%;
+				background-color: $clr4;
+				height: 46px;
+
+				&.focused {
+					background-color: white;
+					box-shadow: 0px 0px 2px 0px #8e8787;
+				}
+			}
+		}
 	}
 
 	.user-actions {
