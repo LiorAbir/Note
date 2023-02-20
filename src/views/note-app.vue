@@ -19,6 +19,7 @@
 					:is="pageType"
 					:notes="notes"
 					:board="board"
+					:labels="board.labels"
 					:filter="filter"
 					class="notes-container"
 					@save="saveNote"

@@ -41,7 +41,7 @@
 					v-for="note in notPinnedNotes"
 					:key="note._id"
 				>
-					<notePreview :note="note" :board="board" @save="save" />
+					<notePreview :note="note" :labels="labels" @save="save" />
 				</li>
 			</ul>
 		</div>
@@ -57,7 +57,7 @@ export default {
 	name: 'note-list',
 	props: {
 		notes: Array,
-		board: Object,
+		labels: Array,
 	},
 	mounted() {
 		let elem = document.querySelector('.masonry')

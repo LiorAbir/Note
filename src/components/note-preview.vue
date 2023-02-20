@@ -15,7 +15,7 @@
 		</div>
 		<noteActions
 			:note="note"
-			:labels="board.labels"
+			:labels="labels"
 			@deletNote="deleteNote"
 			@toggleClrPlt="toggleClrPlt"
 			@save="save"
@@ -43,7 +43,7 @@ export default {
 	name: 'note-preview',
 	props: {
 		note: Object,
-		board: Object,
+		labels: Array,
 	},
 	data() {
 		return {
