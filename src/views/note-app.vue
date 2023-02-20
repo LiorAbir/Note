@@ -22,8 +22,6 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			<!-- <button @click="tryy">Try</button> -->
-			<!-- <pre>{{ board }}</pre> -->
 		</div>
 	</section>
 	<div v-if="isShowModal" class="modal-background" @click="closeSideNav()">

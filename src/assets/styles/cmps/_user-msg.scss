@@ -32,21 +32,3 @@
 		background-color: rgb(255 110 100);
 	}
 }
-
-.msg-enter-from {
-	opacity: 0;
-	transform: translateY(30px);
-}
-
-.msg-enter-active {
-	transition: all 0.3s ease;
-}
-
-.msg-leave-to {
-	opacity: 0;
-	transform: translateY(30px);
-}
-
-.msg-leave-active {
-	transition: all 0.3s ease;
-}
