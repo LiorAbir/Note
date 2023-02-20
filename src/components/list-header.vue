@@ -31,7 +31,7 @@
 		</nav>
 
 		<div class="app-actions flex">
-			<noteFilter @setFilterBy="setFilterBy" />
+			<!-- <noteFilter @setFilterBy="setFilterBy" /> -->
 		</div>
 
 		<div class="user-actions flex" v-if="user">

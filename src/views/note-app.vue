@@ -1,6 +1,7 @@
 <template>
 	<section class="note-app flex">
 		<listHeader @setFilterBy="setFilterBy" @toggleMenu="toggleMenu" />
+		<button @click="this.isFilterModal = !isFilterModal">bdjbc</button>
 		<div class="content-container flex">
 			<sideNav
 				@changePage="changePage"
@@ -9,8 +10,9 @@
 				@close="closeSideNav"
 			/>
 
-			<div class="notes-content" v-if="notes">
+			<div class="notes-content" v-if="notes && !isFilterModal">
 				<noteAdd />
+				{{ notes }}
 
 				<component
 					:is="pageType"
@@ -22,8 +24,11 @@
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
+			<noteFilter v-if="isFilterModal" />
 		</div>
 	</section>
+
+	<!-- MODAL -->
 	<div v-if="isShowModal" class="modal-background" @click="closeSideNav()">
 		<router-view v-slot="{ Component }">
 			<transition name="grow-in">
@@ -46,6 +51,7 @@ import noteList from '../components/note-list.vue'
 import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
 import labelsModal from '../components/labels-modal.vue'
+import noteFilter from '../components/note-filter.vue'
 
 //Dynamic
 import notes from '../components/dynamic-pages/notes.vue'
@@ -59,6 +65,7 @@ export default {
 			isMenuOpen: false,
 			isShowModal: false,
 			isLabelModal: false,
+			isFilterModal: false,
 			loggedInUser: null,
 			pageType: 'notes',
 		}
@@ -73,12 +80,6 @@ export default {
 			await this.$store.dispatch({ type: 'loadLoggedInUser' })
 			this.loggedInUser = this.$store.getters.loggedInUser
 			await this.$store.dispatch({ type: 'loadBoard' })
-
-			// if (this.loggedInUser) {
-			// } else {
-			// 	this.$router.push('/login')
-			// 	window.alert('Login first')
-			// }
 		},
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
@@ -100,6 +101,7 @@ export default {
 				this.$router.push(`/${page}`)
 				this.pageType = page
 				this.isShowModal = false
+				this.isFilterModal = false
 			}
 		},
 		toggleMenu() {
@@ -156,6 +158,7 @@ export default {
 		notes,
 		trash,
 		labelsModal,
+		noteFilter,
 	},
 }
 </script>

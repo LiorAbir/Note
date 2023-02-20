@@ -1,7 +1,110 @@
 .note-filter {
 	width: 100%;
-	@include from-mini-layout() {
-		width: 75%;
+	flex-grow: 1;
+	z-index: 200;
+
+	.filters-container {
+		width: 95%;
+		margin: auto;
+		@include from-mini-layout() {
+			width: 75%;
+		}
+
+		.container {
+			margin-bottom: 2rem;
+			@include from-mini-layout() {
+				box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+					0 1px 3px 1px rgb(60 64 67 / 15%);
+				margin: 16px 80px;
+			}
+
+			.title {
+				padding: 10px;
+				font-family: 'roboto-regular';
+			}
+
+			.list {
+				.filter {
+					position: relative;
+					width: 110px;
+					height: 110px;
+					cursor: pointer;
+
+					border: 2px solid rgb(255 255 255);
+					background-color: rgb(204 214 255);
+					border-radius: 50%;
+
+					display: flex;
+					justify-content: center;
+
+					@include from-mini-layout() {
+						width: 150px;
+						height: 150px;
+						background-color: rgb(245 245 245);
+						border-radius: 0;
+					}
+
+					.filter-name {
+						position: absolute;
+						top: 105%;
+						z-index: 100;
+						padding: 0 5px;
+
+						@include from-mini-layout() {
+							top: 85%;
+						}
+					}
+
+					.filter-image {
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						background-repeat: no-repeat;
+						background-position: center;
+						background-size: 30px;
+
+						@include from-mini-layout() {
+							background-size: 40px;
+						}
+					}
+				}
+
+				.color {
+					background-color: lightblue;
+					width: 50px;
+					height: 50px;
+					margin: 15px;
+					border-radius: 50%;
+					border: 1px solid rgb(0 0 0 / 42%);
+				}
+
+				.list-filter {
+					.filter-image {
+						background-image: url('/src/assets/icon/list.svg');
+					}
+
+					@include from-mini-layout() {
+						.filter-name {
+							color: white;
+						}
+
+						.filter-image {
+							background-color: rgb(26 115 232);
+							background-image: url('/src/assets/icon/list2.svg');
+						}
+					}
+				}
+
+				.label-filter {
+					.filter-image {
+						background-image: url('/src/assets/icon/label.svg');
+						@include from-mini-layout() {
+							opacity: 0.54;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.filter-input {
