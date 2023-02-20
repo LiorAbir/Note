@@ -1,6 +1,11 @@
 <template>
 	<section class="note-app flex">
-		<listHeader @setFilterBy="setFilterBy" @toggleMenu="toggleMenu" />
+		<!-- {{ filter }} -->
+		<listHeader
+			@setFilterBy="setFilterBy"
+			@toggleMenu="toggleMenu"
+			:filter="filter"
+		/>
 		<div class="content-container flex">
 			<sideNav
 				@changePage="changePage"
@@ -15,10 +20,12 @@
 					:is="pageType"
 					:notes="notes"
 					:board="board"
+					:filter="filter"
 					class="notes-container"
 					@save="saveNote"
 					@deleteNote="deleteNote"
 					@updateNotesOrder="updateNotesOrder"
+					@setFilterBy="setFilterBy"
 				></component>
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
@@ -148,11 +155,15 @@ export default {
 		board() {
 			return this.$store.getters.board
 		},
+		filter() {
+			return this.$store.getters.filterBy
+		},
 	},
 	watch: {
 		$route: {
 			immediate: true,
 			handler: function (newVal, oldVal) {
+				console.log()
 				if (newVal.meta && newVal.meta.isShowModal) {
 					this.isShowModal = newVal.meta && newVal.meta.isShowModal
 				}

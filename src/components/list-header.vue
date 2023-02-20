@@ -4,6 +4,7 @@
 		v-scroll="handleScroll"
 		:style="{ boxShadow: shadow }"
 	>
+		<!-- {{ filter }} -->
 		<nav class="menu-nav flex">
 			<div
 				class="menu-container round"
@@ -38,7 +39,7 @@
 					@input="setFilterBy"
 					@focus="goTo('search')"
 					@blur="this.isFocused = false"
-					v-model="filterBy.txt"
+					v-model="this.filter.txt"
 					placeholder="Search"
 				/>
 				<button class="btn svg-btn" @click="goTo('notes')"></button>
@@ -66,15 +67,14 @@
 <script>
 export default {
 	name: 'ap-header',
+	props: {
+		filter: Object,
+	},
 	data() {
 		return {
 			shadow: 'inset 0 -1px 0 0 #dadce0',
 			isDetailsOpen: false,
 			isFocused: false,
-			filterBy: {
-				txt: '',
-				location: '',
-			},
 		}
 	},
 	created() {
@@ -92,7 +92,17 @@ export default {
 			}
 		},
 		setFilterBy() {
-			this.$emit('setFilterBy', this.filterBy)
+			this.$emit('setFilterBy', this.filter)
+		},
+		clearFilter() {
+			let emptyFilter = {
+				txt: '',
+				location: '',
+				label: '',
+				color: '',
+				type: '',
+			}
+			this.$emit('setFilterBy', emptyFilter)
 		},
 		async onLogout() {
 			await this.$store.dispatch({ type: 'logout' })
@@ -106,6 +116,7 @@ export default {
 				case 'notes':
 					this.$router.push(`/${page}`)
 					this.isFocused = false
+					this.clearFilter()
 					break
 				case 'search':
 					this.$router.push(`/${page}`)
@@ -125,9 +136,13 @@ export default {
 		'$route.params.type': {
 			handler(type) {
 				if (this.$route.params.id) return
-				if (type === 'search') return
-				this.filterBy.location = type
-				this.$emit('setFilterBy', this.filterBy)
+				if (type === 'search') {
+					this.filter.location = ''
+					this.$emit('setFilterBy', this.filter)
+					return
+				}
+				this.filter.location = type
+				this.$emit('setFilterBy', this.filter)
 			},
 			immediate: true,
 		},

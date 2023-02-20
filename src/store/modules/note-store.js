@@ -6,6 +6,9 @@ export default {
 		filter: {
 			txt: '',
 			location: '',
+			label: '',
+			color: '',
+			type: '',
 		},
 	},
 	getters: {
@@ -14,18 +17,11 @@ export default {
 		},
 		notesToDisplay({ filter, notes }) {
 			if (!notes) return
-			let { txt, location } = filter
-			// if (!txt || !location) return state.notes
+			let { txt, location, label, color, type } = filter
 
-			//LOCATION
-			let filteredNotes = notes.filter((note) => {
-				return note.location === location
-			})
-
-			// console.log(filtered);
-
+			//TEXT
 			const regexTst = new RegExp(txt, 'i')
-			filteredNotes = filteredNotes.filter((note) => {
+			let filteredNotes = notes.filter((note) => {
 				if (note.type === 'note-txt') {
 					return (
 						regexTst.test(note.info.txt) ||
@@ -37,7 +33,28 @@ export default {
 					})
 				}
 			})
+
+			//LOCATION
+			if (location) {
+				filteredNotes = notes.filter((note) => {
+					return note.location === location
+				})
+			}
+
+			//COLORS
+			if (color) {
+				filteredNotes = filteredNotes.filter((note) => {
+					return note.bgClr === color
+				})
+			}
+
+			//LABELS
+
 			return filteredNotes
+		},
+		filterBy({ filter }) {
+			return JSON.parse(JSON.stringify(filter))
+			// return filter
 		},
 		emptyNote() {
 			return noteService.getEmptyNote()
