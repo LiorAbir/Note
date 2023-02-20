@@ -39,7 +39,29 @@
 				/>
 			</transition>
 		</div>
+
 		<button class="btn copy-btn svg-btn" @click="onCopyNote"></button>
+		<div class="add-label-container">
+			<button class="btn label-btn svg-btn" @click="onToggleLabels"></button>
+			<transition name="msg">
+				<div
+					class="labels-list"
+					v-if="isLabelModal"
+					v-clickOutSide="onToggleLabels"
+				>
+					<h5 class="title">Notes labels</h5>
+					<label class="flex" v-for="label in labels">
+						<input
+							type="checkbox"
+							:value="label"
+							v-model="noteCopy.labels"
+							@change="save(noteCopy)"
+						/>
+						<h5>{{ label }}</h5>
+					</label>
+				</div>
+			</transition>
+		</div>
 	</div>
 </template>
 <script>
@@ -52,10 +74,12 @@ export default {
 	props: {
 		note: Object,
 		isClrPlt: Boolean,
+		labels: Array,
 	},
 	data() {
 		return {
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
+			isLabelModal: false,
 		}
 	},
 	methods: {
@@ -81,7 +105,11 @@ export default {
 			this.save(noteToCopy)
 		},
 		onToggleClrPlt() {
+			// this.isClrPlt = !this.isClrPlt
 			this.$emit('toggleClrPlt')
+		},
+		onToggleLabels() {
+			this.isLabelModal = !this.isLabelModal
 		},
 		save(note) {
 			this.$emit('save', note)

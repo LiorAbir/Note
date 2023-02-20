@@ -29,6 +29,13 @@
 		<div class="main-content" contenteditable="true" @input="updateNoteInfo">
 			{{ noteToEdit.info.txt }}
 		</div>
+
+		<div class="labels-container flex">
+			<div class="label" v-for="label in note.labels">
+				<p>{{ label }}</p>
+				<!-- <button class="delete-btn svg-btn"></button> -->
+			</div>
+		</div>
 	</div>
 </template>
 <script>

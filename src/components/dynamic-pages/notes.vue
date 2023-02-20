@@ -41,7 +41,7 @@
 					v-for="note in notPinnedNotes"
 					:key="note._id"
 				>
-					<notePreview :note="note" @save="save" />
+					<notePreview :note="note" :board="board" @save="save" />
 				</li>
 			</ul>
 		</div>
@@ -56,11 +56,8 @@ import Masonry from 'masonry-layout'
 export default {
 	name: 'note-list',
 	props: {
-		notes: {
-			type: Array,
-			requaired: true,
-			isPinnedNotes: false,
-		},
+		notes: Array,
+		board: Object,
 	},
 	mounted() {
 		let elem = document.querySelector('.masonry')

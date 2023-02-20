@@ -1,6 +1,5 @@
 <template>
 	<section class="note-app flex">
-		<!-- {{ filter }} -->
 		<listHeader
 			@setFilterBy="setFilterBy"
 			@toggleMenu="toggleMenu"

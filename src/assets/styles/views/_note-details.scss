@@ -46,6 +46,40 @@
 		.main-content {
 			padding: 16px 15px 12px 15px;
 		}
+
+		.labels-container {
+			padding: 5px 10px;
+			.label {
+				position: relative;
+				background-color: rgba(172, 168, 168, 0.438);
+				padding: 3px 5px;
+				border-radius: 10px;
+				margin: 3px;
+
+				&:hover {
+					.delete-btn {
+						display: block;
+					}
+				}
+
+				p {
+					font-size: 12px;
+					margin: 0;
+				}
+
+				.delete-btn {
+					display: none;
+					position: absolute;
+					top: 2px;
+					left: 0;
+					background-image: url('/src/assets/icon/xmark.svg');
+					background-size: 14px;
+					width: 14px;
+					height: 14px;
+					background-color: gray;
+				}
+			}
+		}
 	}
 
 	.actions-container {

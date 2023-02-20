@@ -13,6 +13,40 @@
 		}
 	}
 
+	.add-label-container {
+		position: relative;
+
+		.labels-list {
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			z-index: 200;
+
+			width: 225px;
+			left: -20px;
+			background-color: white;
+			border-radius: 2px;
+			box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%),
+				0 2px 6px 2px rgb(60 64 67 / 15%);
+
+			.title {
+				padding: 10px 5px;
+			}
+
+			label {
+				cursor: pointer;
+				padding: 5px;
+				width: 100%;
+				align-items: center;
+				transition: 0.2s;
+
+				&:hover {
+					background-color: rgba(211, 211, 211, 0.452);
+				}
+			}
+		}
+	}
+
 	.pin-btn {
 		position: fixed;
 		background-size: 24px 24px;
@@ -56,5 +90,9 @@
 
 	.copy-btn {
 		background-image: url('/src/assets/icon/copy.svg');
+	}
+
+	.label-btn {
+		background-image: url('/src/assets/icon/label.svg');
 	}
 }

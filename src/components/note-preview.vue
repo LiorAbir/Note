@@ -11,30 +11,11 @@
 		}"
 	>
 		<div @click="goToDetails">
-			<!-- <div v-if="!isLoading"> -->
-			<div class="note-imgs" v-if="note.info.imgs">
-				<img
-					v-for="img in note.info.imgs"
-					:key="img"
-					:src="img"
-					alt="upload"
-				/>
-			</div>
-			<!-- </div> -->
-			<!-- 
-			<div v-else>
-				<h1>loading</h1>
-			</div> -->
-			<input class="note-title" type="text" v-model="note.info.title" />
-
-			<component
-				:is="note.type"
-				:info="note.info"
-				class="note-content"
-			></component>
+			<noteContent :note="note" @save="save" />
 		</div>
 		<noteActions
 			:note="note"
+			:labels="board.labels"
 			@deletNote="deleteNote"
 			@toggleClrPlt="toggleClrPlt"
 			@save="save"
@@ -48,19 +29,21 @@
 </template>
 
 <script>
-import noteTxt from './dynamic/note-txt.vue'
-import noteImg from './dynamic/note-img.vue'
-import noteTodos from './dynamic/note-todos.vue'
-import noteVideo from './dynamic/note-video.vue'
+// import noteTxt from './dynamic/note-txt.vue'
+// import noteImg from './dynamic/note-img.vue'
+// import noteTodos from './dynamic/note-todos.vue'
+// import noteVideo from './dynamic/note-video.vue'
 import backgroundPallete from './background-pallete.vue'
 import addImg from './add-img.vue'
 import noteActions from './note-actions.vue'
 import { eventBus } from '../services/eventBus-service'
+import noteContent from './note-content.vue'
 
 export default {
 	name: 'note-preview',
 	props: {
 		note: Object,
+		board: Object,
 	},
 	data() {
 		return {
@@ -114,15 +97,34 @@ export default {
 		},
 	},
 	components: {
-		noteTxt,
-		noteTodos,
-		noteImg,
-		noteVideo,
 		backgroundPallete,
 		addImg,
 		noteActions,
+		noteContent,
 	},
 }
 </script>
 
 <style></style>
+
+<!-- <div v-if="!isLoading"> -->
+<!-- <div class="note-imgs" v-if="note.info.imgs">
+	<img
+		v-for="img in note.info.imgs"
+		:key="img"
+		:src="img"
+		alt="upload"
+	/>
+</div> -->
+<!-- </div> -->
+<!-- 
+<div v-else>
+	<h1>loading</h1>
+</div> -->
+<!-- <input class="note-title" type="text" v-model="note.info.title" />
+
+<component
+	:is="note.type"
+	:info="note.info"
+	class="note-content"
+></component> -->
