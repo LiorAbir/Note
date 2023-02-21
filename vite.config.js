@@ -5,7 +5,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: '/noted-frontend/',
+	// base: '/noted-frontend/',
+	base: '/',
 	plugins: [vue()],
 	resolve: {
 		alias: {
@@ -13,7 +14,7 @@ export default defineConfig({
 		},
 	},
 	build: {
-		// outDir: '../backend/public',
+		outDir: '../backend/public',
 		emptyOutDir: true,
 		assestsDir: './dist',
 	},

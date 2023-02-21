@@ -132,22 +132,47 @@ export default {
 			return this.$store.getters.loggedInUser
 		},
 	},
-	watch: {
-		'$route.params.type': {
-			handler(type) {
-				if (this.$route.params.id) return
-				if (type === 'search') {
-					this.filter.location = ''
-					this.$emit('setFilterBy', this.filter)
-					return
-				}
-				this.filter.location = type
-				this.$emit('setFilterBy', this.filter)
-			},
-			immediate: true,
-		},
-	},
 }
 </script>
 
+<!-- // watch: {
+// 	'$route.params.type': {
+// 		handler(type) {
+// 			// this.clearFilter()
+// 			// switch (type) {
+// 			// 	case 'label':
+// 			// 		this.filter.location = ''
+// 			// 		this.filter.label = this.$route.params.val
+// 			// 		this.$emit('setFilterBy', this.filter)
+// 			// 		break
+// 			// 	case 'search':
+// 			// 		this.filter.location = ''
+// 			// 		// this.filter.label = this.$route.params.val
+// 			// 		this.$emit('setFilterBy', this.filter)
+// 			// 		break
+// 			// 	default:
+// 			// 		this.filter.location = type
+// 			// 		this.filter.label = this.$route.params.val
+// 			// 		this.$emit('setFilterBy', this.filter)
+// 			// 		break
+// 			// }
+// 			if (this.$route.params.id) return
+// 			if (type === 'label') {
+// 				this.filter.label = this.$route.params.val
+// 				this.$emit('setFilterBy', this.filter)
+// 				console.log(this.$route.params)
+// 				return
+// 			}
+// 			if (type === 'search') {
+// 				this.filter.location = ''
+// 				this.$emit('setFilterBy', this.filter)
+// 				return
+// 			}
+// 			this.clearFilter()
+// 			this.filter.location = type
+// 			this.$emit('setFilterBy', this.filter)
+// 		},
+// 		immediate: true,
+// 	},
+// }, -->
 <style></style>

@@ -20,7 +20,7 @@ const router = createRouter({
 			meta: { requiresAuth: true },
 			children: [
 				{
-					path: ':id',
+					path: '/NOTE/:id',
 					name: 'note-details',
 					component: noteDetails,
 					props: true,

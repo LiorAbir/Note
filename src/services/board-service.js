@@ -1,12 +1,12 @@
 //WITHOUT BACKEND
-import { storageService } from './storage.service.js'
-import { userService } from './user-service.js'
-const BOARD_KEY = 'board_DB'
-_createBoards()
+// import { storageService } from './storage.service.js'
+// import { userService } from './user-service.js'
+// const BOARD_KEY = 'board-DB'
+// _createBoards()
 
 //WITH BACKEND
-// import { httpService } from './http.service.js'
-// const prmStr = 'board'
+import { httpService } from './http.service.js'
+const prmStr = 'board'
 
 export const boardService = {
 	query,
@@ -17,27 +17,27 @@ export const boardService = {
 }
 
 async function query() {
-	const loggedinUser = userService.getLoggedinUser()
-	const boards = await storageService.query(BOARD_KEY)
-	const userBoards = boards.filter((board) => {
-		return board.userId === loggedinUser._id
-	})
-	return userBoards
+	// const loggedinUser = userService.getLoggedinUser()
+	// const boards = await storageService.query(BOARD_KEY)
+	// const userBoards = boards.filter((board) => {
+	// 	return board.userId === loggedinUser._id
+	// })
+	// return userBoards
 
 	//WITH SERVER
-	// return await httpService.get(prmStr)
+	return await httpService.get(prmStr)
 }
 
 async function getById(id) {
-	await storageService.query(BOARD_KEY, id)
+	// await storageService.query(BOARD_KEY, id)
 
 	//WITH SERVER
-	// const board = await httpService.get(`${prmStr}/${id}`)
-	// return board
+	const board = await httpService.get(`${prmStr}/${id}`)
+	return board
 }
 
 async function remove(id) {
-	return storageService.remove(BOARD_KEY, id)
+	// return storageService.remove(BOARD_KEY, id)
 
 	//WITH SERVER
 	return await httpService.delete(`${prmStr}/${id}`)
@@ -45,17 +45,16 @@ async function remove(id) {
 
 async function save(board) {
 	if (board._id) {
-		return storageService.put(BOARD_KEY, board)
+		// return storageService.put(BOARD_KEY, board)
 
 		//WITH SERVER
-		// return await httpService.put(`${prmStr}/${board._id}`, board)
+		return await httpService.put(`${prmStr}/${board._id}`, board)
 	} else {
-		board._id = _makeId(10)
-		console.log(board)
-		return storageService.post(BOARD_KEY, board)
+		// board._id = _makeId(10)
+		// return storageService.post(BOARD_KEY, board)
 
 		//WITH SERVER
-		// return await httpService.post(prmStr, board)
+		return await httpService.post(prmStr, board)
 	}
 }
 

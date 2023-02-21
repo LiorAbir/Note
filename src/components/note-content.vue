@@ -54,7 +54,7 @@ export default {
 			this.updateNote()
 		},
 		updateNote() {
-			this.$emit('save', this.note)
+			this.$emit('save', JSON.parse(JSON.stringify(this.note)))
 		},
 	},
 }

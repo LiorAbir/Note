@@ -5,18 +5,25 @@
 			@toggleMenu="toggleMenu"
 			:filter="filter"
 		/>
+		<!-- {{ pageType }}
+		{{ filter }} -->
 		<div class="content-container flex">
 			<sideNav
-				@changePage="changePage"
 				:isMenuOpen="isMenuOpen"
 				:chosenPage="pageType"
+				:board="board"
+				@changePage="changePage"
 				@close="closeSideNav"
 			/>
-
 			<div class="notes-content" v-if="notes">
-				<noteAdd v-if="this.pageType === 'notes'" />
+				<noteAdd
+					v-if="
+						this.pageType.mainCat === 'notes' &&
+						this.pageType.subCat === ''
+					"
+				/>
 				<component
-					:is="pageType"
+					:is="pageType.mainCat"
 					:notes="notes"
 					:board="board"
 					:labels="board.labels"
@@ -24,13 +31,11 @@
 					class="notes-container"
 					@save="saveNote"
 					@deleteNote="deleteNote"
-					@updateNotesOrder="updateNotesOrder"
 					@setFilterBy="setFilterBy"
 				></component>
-
+				<!-- @updateNotesOrder="updateNotesOrder" -->
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
-			<!-- <noteFilter v-if="isFilterModal" /> -->
 		</div>
 	</section>
 
@@ -72,15 +77,17 @@ export default {
 			isMenuOpen: false,
 			isShowModal: false,
 			isLabelModal: false,
-			isFilterModal: false,
 			loggedInUser: null,
-			pageType: 'noteFilter',
+			pageType: {
+				mainCat: '',
+				subCat: '',
+			},
 		}
 	},
 	async created() {
 		this.loadUser()
 		const { type } = this.$route.params
-		this.pageType = type
+		this.pageType.mainCat = type
 	},
 	methods: {
 		async loadUser() {
@@ -94,34 +101,9 @@ export default {
 		setFilterBy(filterBy) {
 			filterBy = JSON.parse(JSON.stringify(filterBy))
 			this.$store.commit({ type: 'setFilter', filterBy })
-			// this.$store.dispatch({ type: 'setFilterBy', filterBy: copyFilter })
 		},
 		saveNote(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
-		},
-		changePage(page) {
-			this.closeSideNav()
-			switch (page) {
-				case 'edit labels':
-					this.isShowModal = true
-					this.isLabelModal = true
-					break
-				default:
-					this.$router.push(`/${page}`)
-					this.pageType = page
-					this.isShowModal = false
-					this.isFilterModal = false
-					break
-			}
-			// if (page === 'edit labels') {
-			// 	this.isShowModal = true
-			// 	this.isLabelModal = true
-			// } else {
-			// 	this.$router.push(`/${page}`)
-			// 	this.pageType = page
-			// 	this.isShowModal = false
-			// 	this.isFilterModal = false
-			// }
 		},
 		updateNotesLabels(label) {
 			this.notes.map((note) => {
@@ -140,16 +122,11 @@ export default {
 		closeLabelModal() {
 			this.isShowModal = false
 			this.isLabelModal = false
-			this.changePage(this.pageType)
+			this.changePage(this.pageType.mainCat)
 		},
 		updateLabels(labels) {
 			const boardCopy = JSON.parse(JSON.stringify(this.board))
 			boardCopy.labels = labels
-			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
-		},
-		updateNotesOrder(notes) {
-			const boardCopy = JSON.parse(JSON.stringify(this.board))
-			boardCopy.noteList = notes
 			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 		closeSideNav() {
@@ -157,6 +134,50 @@ export default {
 			if (this.isMenuOpen) {
 				this.isMenuOpen = false
 				this.isShowModal = false
+			}
+		},
+		changePage(page, label) {
+			this.closeSideNav()
+
+			switch (page) {
+				case 'edit labels':
+					this.isShowModal = true
+					this.isLabelModal = true
+					break
+				case 'label':
+					this.$router.push(`/${page}/${label}`)
+
+					this.pageType.mainCat = 'notes'
+					this.pageType.subCat = label
+
+					this.filter.location = ''
+					this.filter.label = label
+					this.setFilterBy(this.filter)
+
+					this.isShowModal = false
+					break
+				case 'search':
+					this.$router.push(`/${page}`)
+
+					this.pageType.mainCat = page
+					this.pageType.subCat = label
+
+					this.filter.location = ''
+					this.setFilterBy(this.filter)
+					break
+
+				default:
+					this.$router.push(`/${page}`)
+
+					this.pageType.mainCat = page
+					this.pageType.subCat = label
+
+					this.filter.location = page
+					this.filter.label = label
+					this.setFilterBy(this.filter)
+
+					this.isShowModal = false
+					break
 			}
 		},
 	},
@@ -178,22 +199,14 @@ export default {
 				if (newVal.meta && newVal.meta.isShowModal) {
 					this.isShowModal = newVal.meta && newVal.meta.isShowModal
 				}
+
+				if (newVal.params.id) return
+				let { type, val } = newVal.params
+				this.changePage(type, val)
 			},
 		},
 	},
 
-	// watch: {
-	// 	'$route.params.type': {
-	// 		handler(type) {
-	// 			if (this.$route.params.id) return
-	// 			if (type === 'search') return
-	// 			this.filterBy.location = type
-	// 			console.log(this.filterBy)
-	// 			this.$emit('setFilterBy', this.filterBy)
-	// 		},
-	// 		immediate: true,
-	// 	},
-	// },
 	components: {
 		listHeader,
 		noteList,
@@ -207,3 +220,9 @@ export default {
 	},
 }
 </script>
+
+<!-- updateNotesOrder(notes) {
+ 	const boardCopy = JSON.parse(JSON.stringify(this.board))
+ 	boardCopy.noteList = notes
+ 	this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
+ }, -->

@@ -1,5 +1,6 @@
 <template>
 	<nav
+		v-if="board"
 		class="side-nav flex"
 		@mouseover="checkWindowWidth()"
 		@mouseleave="isHover = false"
@@ -20,15 +21,27 @@
 				<h2>Noted<span>.</span></h2>
 			</div>
 		</router-link>
-
 		<div
 			class="page-btn btn flex"
 			v-for="page in pages"
-			:class="{ active: page.name === this.chosenPage }"
 			@click="onGoTo(page.name)"
+			:class="{
+				active:
+					page.name === this.chosenPage.mainCat && !this.chosenPage.subCat,
+			}"
 		>
 			<img class="img" :src="page.svg" alt="svg" />
 			<h3 class="name">{{ page.name }}</h3>
+		</div>
+
+		<div
+			v-for="label in board.labels"
+			:class="{ active: label === this.chosenPage.subCat }"
+			class="page-btn btn flex"
+			@click="onGoTo('label', label)"
+		>
+			<img class="img" src="../assets/icon/empty-label.svg" alt="svg" />
+			<h3 class="name">{{ label }}</h3>
 		</div>
 	</nav>
 </template>
@@ -37,12 +50,12 @@ export default {
 	name: 'side-nav',
 	props: {
 		isMenuOpen: Boolean,
-		chosenPage: String,
+		chosenPage: Object,
+		board: Object,
 	},
 	data() {
 		return {
 			isHover: false,
-			// chosenPage: 'notes',
 			pages: [
 				{
 					name: 'notes',
@@ -64,12 +77,12 @@ export default {
 		}
 	},
 	created() {
-		const { type } = this.$route.params
-		this.$emit('changePage', type)
+		const { type, val } = this.$route.params
+		this.$emit('changePage', type, val)
 	},
 	methods: {
-		onGoTo(page) {
-			this.$emit('changePage', page)
+		onGoTo(page, label) {
+			this.$emit('changePage', page, label)
 		},
 		checkWindowWidth() {
 			if (window.innerWidth < 520) return
@@ -79,14 +92,18 @@ export default {
 			this.$emit('close')
 		},
 	},
-	watch: {
-		'$route.params.type': {
-			handler(type) {
-				if (this.$route.params.id) return
-				this.$emit('changePage', type)
-			},
-			immediate: true,
-		},
-	},
 }
 </script>
+
+<!-- // watch: {
+// 	'$route.params.type': {
+// 		// handler(type) {
+// 		// 	if (this.$route.params.id) return
+// 		// 	// if (type === 'label') {
+// 		// 	// 	return
+// 		// 	// }
+// 		// 	this.$emit('changePage', type)
+// 		// },
+// 		// immediate: true,
+// 	},
+// }, -->

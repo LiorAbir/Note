@@ -115,21 +115,27 @@ export default {
 	components: {
 		notePreview,
 	},
-	watch: {
-		'$route.params.type': {
-			handler(type) {
-				if (this.$route.params.id) return
-				if (type === 'search') {
-					this.filter.location = ''
-					this.$emit('setFilterBy', this.filter)
-					return
-				}
-				this.filter.location = type
-				this.$emit('setFilterBy', this.filter)
-			},
-			immediate: true,
-		},
-	},
 }
 </script>
 <style></style>
+
+<!-- // watch: {
+// 	'$route.params.type': {
+// 		handler(type) {
+// 			// 	console.log('params in filter')
+// 			if (this.$route.params.id) return
+// 			if (type === 'label') {
+// 				console.log(this.$route.params)
+// 				return
+// 			}
+// 			if (type === 'search') {
+// 				this.filter.location = ''
+// 				this.$emit('setFilterBy', this.filter)
+// 				return
+// 			}
+// 			this.filter.location = type
+// 			this.$emit('setFilterBy', this.filter)
+// 		},
+// 		immediate: true,
+// 	},
+// }, -->

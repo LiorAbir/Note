@@ -79,9 +79,11 @@ export default {
 	data() {
 		return {
 			noteCopy: this.note,
-			// noteCopy: JSON.parse(JSON.stringify(this.note)),
 			isLabelModal: false,
 		}
+	},
+	created() {
+		// this.noteCopy = JSON.parse(JSON.stringify(this.note))
 	},
 	methods: {
 		onDeleteNote() {

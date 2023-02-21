@@ -1,12 +1,13 @@
 //DAMMY BACEND
-import { storageService } from './storage.service'
-import { boardService } from './board-service'
-const LOGGEDIN_KEY = 'loggedinUser'
-const USERS_KEY = 'users_DB'
-_createUsers()
+// import { storageService } from './storage.service'
+// import { boardService } from './board-service'
+// const LOGGEDIN_KEY = 'loggedinUser'
+// const USERS_KEY = 'users-DB'
+// _createUsers()
 
 //BACKEND
 import { httpService } from './http.service'
+const LOGGEDIN_KEY = 'loggedinUser'
 const prmStr = 'auth'
 
 export const userService = {
@@ -20,54 +21,54 @@ export const userService = {
 }
 
 async function login(credentials) {
-	const users = await storageService.query(USERS_KEY)
-	const user = users.find(
-		(user) =>
-			user.username === credentials.username &&
-			user.password === credentials.password
-	)
-	if (!user) return Promise.reject('No user')
-	return _saveLocalUser(user)
+	// const users = await storageService.query(USERS_KEY)
+	// const user = users.find(
+	// 	(user) =>
+	// 		user.username === credentials.username &&
+	// 		user.password === credentials.password
+	// )
+	// if (!user) return Promise.reject('No user')
+	// return _saveLocalUser(user)
 
 	//backend
-	// const user = await httpService.post(`${prmStr}/login`, credentials)
-	// if (user) return _saveLocalUser(user)
+	const user = await httpService.post(`${prmStr}/login`, credentials)
+	if (user) return _saveLocalUser(user)
 }
 
 async function logout() {
-	sessionStorage.removeItem(LOGGEDIN_KEY)
+	// sessionStorage.removeItem(LOGGEDIN_KEY)
 
 	//backend
-	// return await httpService.post(`${prmStr}/logout`)
+	return await httpService.post(`${prmStr}/logout`)
 }
 
 async function signUp(signupInfo) {
-	const { fullname, username, email, password } = signupInfo
-	const users = await storageService.query(USERS_KEY)
+	// const { fullname, username, email, password } = signupInfo
+	// const users = await storageService.query(USERS_KEY)
 
-	if (!username || !password || !fullname || !email)
-		return Promise.reject('Missing required signup information')
+	// if (!username || !password || !fullname || !email)
+	// 	return Promise.reject('Missing required signup information')
 
-	//Check if user exist
-	const userExist = users.find((user) => user.username === username)
-	if (userExist) return Promise.reject('Username already taken')
+	// //Check if user exist
+	// const userExist = users.find((user) => user.username === username)
+	// if (userExist) return Promise.reject('Username already taken')
 
-	//Add user and board to user
-	const savedUser = await _addUser(signupInfo)
-	login({ username, password })
+	// //Add user and board to user
+	// const savedUser = await _addUser(signupInfo)
+	// login({ username, password })
 
-	const newBoard = {
-		userId: savedUser._id,
-		labels: [],
-		noteOrder: [],
-		noteList: [],
-	}
-	boardService.save(newBoard)
-	return savedUser
+	// const newBoard = {
+	// 	userId: savedUser._id,
+	// 	labels: [],
+	// 	noteOrder: [],
+	// 	noteList: [],
+	// }
+	// boardService.save(newBoard)
+	// return savedUser
 
 	//backend
-	// const user = await httpService.post(`${prmStr}/signup`, signupInfo)
-	// return _saveLocalUser(user)
+	const user = await httpService.post(`${prmStr}/signup`, signupInfo)
+	return _saveLocalUser(user)
 }
 
 function getLoggedinUser() {
