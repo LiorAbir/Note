@@ -1,11 +1,12 @@
 //WITHOUT BACKEND
-// import { storageService } from './storage.service.js'
-// const BOARD_KEY = 'board_DB'
-// _createBoard()
+import { storageService } from './storage.service.js'
+import { userService } from './user-service.js'
+const BOARD_KEY = 'board_DB'
+_createBoards()
 
 //WITH BACKEND
-import { httpService } from './http.service.js'
-const prmStr = 'board'
+// import { httpService } from './http.service.js'
+// const prmStr = 'board'
 
 export const boardService = {
 	query,
@@ -16,22 +17,27 @@ export const boardService = {
 }
 
 async function query() {
-	// return storageService.query(BOARD_KEY)
+	const loggedinUser = userService.getLoggedinUser()
+	const boards = await storageService.query(BOARD_KEY)
+	const userBoards = boards.filter((board) => {
+		return board.userId === loggedinUser._id
+	})
+	return userBoards
 
 	//WITH SERVER
-	return await httpService.get(prmStr)
+	// return await httpService.get(prmStr)
 }
 
 async function getById(id) {
-	// return storageService.get(BOARD_KEY, id)
+	await storageService.query(BOARD_KEY, id)
 
 	//WITH SERVER
-	const board = await httpService.get(`${prmStr}/${id}`)
-	return board
+	// const board = await httpService.get(`${prmStr}/${id}`)
+	// return board
 }
 
 async function remove(id) {
-	// return storageService.remove(NOTE_KEY, id)
+	return storageService.remove(BOARD_KEY, id)
 
 	//WITH SERVER
 	return await httpService.delete(`${prmStr}/${id}`)
@@ -39,16 +45,17 @@ async function remove(id) {
 
 async function save(board) {
 	if (board._id) {
-		// return storageService.put(NOTE_KEY, note)
+		return storageService.put(BOARD_KEY, board)
 
 		//WITH SERVER
-		return await httpService.put(`${prmStr}/${board._id}`, board)
+		// return await httpService.put(`${prmStr}/${board._id}`, board)
 	} else {
-		// return storageService.post(NOTE_KEY, note)
+		board._id = _makeId(10)
+		console.log(board)
+		return storageService.post(BOARD_KEY, board)
 
 		//WITH SERVER
-		// board._id = _makeId(10)
-		return await httpService.post(prmStr, board)
+		// return await httpService.post(prmStr, board)
 	}
 }
 
@@ -57,9 +64,37 @@ function getEmptyBoard() {
 		userId: '',
 		labels: [],
 		noteList: [],
+		noteOrder: [],
 	}
 }
 
-function _createBoard() {
-	console.log('hh')
+//WITH DUMMY BACKEND
+function _createBoards() {
+	let boards = JSON.parse(localStorage.getItem(BOARD_KEY))
+	if (!boards || !boards.length) {
+		boards = _getBoards()
+		localStorage.setItem(BOARD_KEY, JSON.stringify(boards))
+	}
+	return boards
+}
+
+function _getBoards() {
+	return [
+		{
+			_id: 'board1',
+			userId: 'user1',
+			labels: [],
+			noteOrder: [],
+			noteList: [],
+		},
+	]
+}
+
+function _makeId(length = 8) {
+	var text = ''
+	var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	for (var i = 0; i < length; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length))
+	}
+	return text
 }

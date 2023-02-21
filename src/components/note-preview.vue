@@ -1,3 +1,4 @@
+<!-- 'background-image': `url(${note.bgImg})`, -->
 <template>
 	<section
 		class="note-preview"
@@ -6,7 +7,6 @@
 		:style="{
 			backgroundColor: note.bgClr,
 			border: noteBorder,
-			'background-image': `url(${note.bgImg})`,
 			opacity: opacityStyle,
 		}"
 	>

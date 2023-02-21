@@ -23,6 +23,7 @@
 	}
 
 	.note-content {
+		border-radius: 8px;
 		.note-imgs {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
