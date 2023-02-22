@@ -2,7 +2,7 @@
 	<div
 		class="note-details flex"
 		v-if="note"
-		v-clickOutSide="closeModal"
+		v-clickOutSide="onCloseModal"
 		:style="{
 			backgroundColor: note.bgClr,
 			border: noteBorder,
@@ -14,13 +14,14 @@
 			<noteActions
 				:note="note"
 				:labels="board.labels"
+				:isLabelModal="isLabelModal"
 				:isClrPlt="isClrPlt"
+				@toggleModal="toggleModal"
 				@deletNote="deleteNote"
-				@toggleClrPlt="toggleClrPlt"
-				@setBackground="setBackground"
 				@save="save"
 			/>
-			<button class="btn close-btn" @click="closeModal">close</button>
+			<!-- @setBackground="setBackground" -->
+			<button class="btn close-btn" @click="onCloseModal">close</button>
 		</div>
 	</div>
 </template>
@@ -36,47 +37,41 @@ export default {
 		return {
 			note: null,
 			isClrPlt: false,
+			isLabelModal: false,
 		}
 	},
 	async created() {
 		const { id } = this.$route.params
-		const currNote = await this.$store.dispatch({ type: 'getById', id })
-		this.note = JSON.parse(JSON.stringify(currNote))
+		this.note = await this.$store.dispatch({ type: 'getById', id })
+		// if (!id) {
+		// 	this.$router.go(-1)
+		// } else {
+		// 	this.$router.push(`/NOTE/${id}`)
+		// }
 	},
 	methods: {
 		deleteNote(id) {
 			this.$store.dispatch({ type: 'removeNote', id })
+			this.$router.go(-1)
 		},
-		updateNote() {
-			this.$store.dispatch({ type: 'save', note: this.note })
-		},
-		toggleClrPlt() {
-			this.isClrPlt = !this.isClrPlt
-		},
-		setBackground(fill, type) {
-			this.note[type] = fill
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.save(editedNote)
-		},
-		closeModal() {
-			if (this.isClrPlt) return
-			this.$router.push('/notes')
+		onCloseModal() {
+			if (this.isClrPlt || this.isLabelModal) return
+			this.$router.go(-1)
+			// this.$router.push('/notes')
 			eventBus.emit('updateOpacity', 1)
+		},
+		toggleModal(modalName) {
+			if (modalName === 'color') {
+				this.isClrPlt = !this.isClrPlt
+			} else {
+				this.isLabelModal = !this.isLabelModal
+			}
 		},
 		closeClrPlt() {
 			this.isClrPlt = false
 		},
-		deleteImg(index) {
-			this.note.info.imgs.splice(index, 1)
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.save(editedNote)
-		},
-		addImgUrl(url) {
-			this.note.info.imgs.push(url)
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			this.save(editedNote)
-		},
 		save(note) {
+			this.note = note
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
 	},
@@ -98,16 +93,31 @@ export default {
 	},
 }
 </script>
+<!-- updateNote() {
+	this.$store.dispatch({ type: 'save', note: this.note })
+}, -->
+<!-- deleteImg(index) {
+	this.note.info.imgs.splice(index, 1)
+	let editedNote = JSON.parse(JSON.stringify(this.note))
+	this.save(editedNote)
+}, -->
+<!-- addImgUrl(url) {
+	this.note.info.imgs.push(url)
+	let editedNote = JSON.parse(JSON.stringify(this.note))
+	this.save(editedNote)
+}, -->
+<!-- // setBackground(fill, type) { // this.note[type] = fill // let editedNote =
+	JSON.parse(JSON.stringify(this.note)) // this.save(editedNote) // }, -->
 
 <!-- <div
-	class="content-container"
-	:style="{
-		'background-image': `url(${note.bgImg})`,
-	}"
->
-	<div class="note-imgs" v-if="note.info.imgs">
-		<div class="img-container" v-for="(img, i) in note.info.imgs">
-			<img :src="img" alt="upload" />
+		class="content-container"
+		:style="{
+			'background-image': `url(${note.bgImg})`,
+		}"
+		>
+		<div class="note-imgs" v-if="note.info.imgs">
+			<div class="img-container" v-for="(img, i) in note.info.imgs">
+				<img :src="img" alt="upload" />
 			<img
 				class="delete-img-btn"
 				src="../assets/icon/trash.svg"

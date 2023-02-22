@@ -2,6 +2,7 @@
 	<!-- {{ isClrPlt }} -->
 	<!-- <pre>{{ noteCopy.info.imgs }}</pre>
 	<pre>{{ note.info.imgs }}</pre> -->
+	<!-- {{ noteCopy.bgClr }} -->
 	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
 		<button
@@ -57,8 +58,8 @@
 						<input
 							type="checkbox"
 							:value="label"
-							v-model="noteCopy.labels"
-							@change="save(noteCopy)"
+							v-model="noteLabels"
+							@change="onUpdateNoteLabels"
 						/>
 						<h5>{{ label }}</h5>
 					</label>
@@ -83,8 +84,9 @@ export default {
 	data() {
 		return {
 			noteCopy: JSON.parse(JSON.stringify(this.note)),
-			isLabelModal: false,
-			isClrPlt: false,
+			noteLabels: [],
+			// isLabelModal: false,
+			// isClrPlt: false,
 		}
 	},
 	methods: {
@@ -110,15 +112,21 @@ export default {
 			noteToCopy._id = ''
 			this.save(noteToCopy)
 		},
-		onToggleClrPlt() {
-			this.isClrPlt = !this.isClrPlt
-		},
-		onToggleLabels() {
-			this.isLabelModal = !this.isLabelModal
+		onUpdateNoteLabels() {
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.labels = this.noteLabels
+			this.save(noteCopy)
 		},
 		setBackground(fill, type) {
-			this.noteCopy[type] = fill
-			this.save(this.noteCopy)
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy[type] = fill
+			this.save(noteCopy)
+		},
+		onToggleClrPlt() {
+			this.$emit('toggleModal', 'color')
+		},
+		onToggleLabels() {
+			this.$emit('toggleModal', 'label')
 		},
 		save(note) {
 			this.$emit('save', note)

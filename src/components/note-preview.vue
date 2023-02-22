@@ -24,6 +24,9 @@
 		<noteActions
 			:note="note"
 			:labels="labels"
+			:isLabelModal="isLabelModal"
+			:isClrPlt="isClrPlt"
+			@toggleModal="toggleModal"
 			@deletNote="deleteNote"
 			@save="save"
 		/>
@@ -54,6 +57,8 @@ export default {
 			hover: false,
 			opacityStyle: 1,
 			isSelected: false,
+			isClrPlt: false,
+			isLabelModal: false,
 			//
 			isLoading: false,
 		}
@@ -70,6 +75,13 @@ export default {
 	methods: {
 		deleteNote(id) {
 			this.$emit('deleteNote', id)
+		},
+		toggleModal(modalName) {
+			if (modalName === 'color') {
+				this.isClrPlt = !this.isClrPlt
+			} else {
+				this.isLabelModal = !this.isLabelModal
+			}
 		},
 		goToDetails() {
 			this.opacityStyle = 0
