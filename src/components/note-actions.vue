@@ -1,6 +1,7 @@
 <template>
 	<!-- {{ isClrPlt }} -->
-	<!-- {{ noteCopy }} -->
+	<!-- <pre>{{ noteCopy.info.imgs }}</pre>
+	<pre>{{ note.info.imgs }}</pre> -->
 	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
 		<button
@@ -76,16 +77,15 @@ export default {
 	props: {
 		note: Object,
 		labels: Array,
+		isClrPlt: Boolean,
+		isLabelModal: Boolean,
 	},
 	data() {
 		return {
-			noteCopy: this.note,
+			noteCopy: JSON.parse(JSON.stringify(this.note)),
 			isLabelModal: false,
 			isClrPlt: false,
 		}
-	},
-	created() {
-		// this.noteCopy = JSON.parse(JSON.stringify(this.note))
 	},
 	methods: {
 		onDeleteNote() {
@@ -101,8 +101,9 @@ export default {
 			this.save(this.noteCopy)
 		},
 		addImgUrl(url) {
-			this.noteCopy.info.imgs.push(url)
-			this.save(this.noteCopy)
+			let noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.info.imgs.push(url)
+			this.save(noteCopy)
 		},
 		onCopyNote() {
 			const noteToCopy = JSON.parse(JSON.stringify(this.note))

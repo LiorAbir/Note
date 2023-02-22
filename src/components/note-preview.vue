@@ -10,6 +10,7 @@
 			opacity: opacityStyle,
 		}"
 	>
+		<!-- <pre>{{ note.info.imgs }}</pre> -->
 		<!-- {{ note }} -->
 		<!-- {{ selectedNotes }} -->
 		<!-- border: noteBorder, -->
@@ -21,7 +22,7 @@
 			<noteContent :note="note" @save="save" />
 		</div>
 		<noteActions
-			:note="noteCopy"
+			:note="note"
 			:labels="labels"
 			@deletNote="deleteNote"
 			@save="save"
@@ -49,7 +50,7 @@ export default {
 	},
 	data() {
 		return {
-			noteCopy: null,
+			// noteCopy: null,
 			hover: false,
 			opacityStyle: 1,
 			isSelected: false,
@@ -63,9 +64,9 @@ export default {
 			this.opacityStyle = 1
 		})
 	},
-	created() {
-		this.noteCopy = JSON.parse(JSON.stringify(this.note))
-	},
+	// created() {
+	// 	this.noteCopy = JSON.parse(JSON.stringify(this.note))
+	// },
 	methods: {
 		deleteNote(id) {
 			this.$emit('deleteNote', id)
@@ -75,7 +76,7 @@ export default {
 			this.$router.push(`/NOTE/${this.note._id}`)
 		},
 		save(note) {
-			this.noteCopy = note
+			// this.noteCopy = note
 			this.$emit('save', note)
 		},
 		onSelectNote() {

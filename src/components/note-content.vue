@@ -6,6 +6,8 @@
 		}"
 		v-if="note"
 	>
+		<!-- <pre>{{ note.info.imgs }}</pre> -->
+
 		<div class="note-imgs" v-if="note.info.imgs">
 			<div class="img-container" v-for="(img, i) in note.info.imgs">
 				<img :src="img" alt="upload" />

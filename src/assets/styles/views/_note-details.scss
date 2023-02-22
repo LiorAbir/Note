@@ -1,6 +1,7 @@
 .note-details {
 	position: fixed;
-
+	// overflow-y: auto;
+	// overflow-x: hidden;
 	transition: 0.4s;
 	background: $clr2;
 	transition: 0.2s;
