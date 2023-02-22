@@ -11,7 +11,7 @@
 					:note="note"
 					:labels="labels"
 					@save="save"
-					@addNoteToSelected="addNoteToSelected"
+					@updateSelectedNotes="updateSelectedNotes"
 				/>
 				<div class="actions"></div>
 			</li>
@@ -29,11 +29,6 @@ export default {
 		notes: Array,
 		labels: Array,
 	},
-	data() {
-		return {
-			selectedNotes: [],
-		}
-	},
 	mounted() {
 		const gridEl = this.$refs.grid
 		const masonry = new Masonry(gridEl, {
@@ -46,17 +41,8 @@ export default {
 		save(note) {
 			this.$emit('save', note)
 		},
-		addNoteToSelected(note, isSelected) {
-			if (isSelected) {
-				this.selectedNotes.push(note)
-			} else {
-				const idx = this.selectedNotes.filter((n) => {
-					return n._id === note._id
-				})
-				this.selectedNotes.splice(idx, 1)
-			}
-
-			this.$emit('updateSelectedNotes', this.selectedNotes)
+		updateSelectedNotes(selectedNotes, isSelected) {
+			this.$emit('updateSelectedNotes', selectedNotes, isSelected)
 		},
 	},
 	components: {

@@ -1,6 +1,4 @@
 .note-preview {
-	// width: 48%;
-	transition: 0.2s;
 	margin: 5px;
 	border-radius: 8px;
 	position: relative;
@@ -46,6 +44,9 @@
 
 		@include from-mini-layout() {
 			opacity: 0;
+			&.show {
+				opacity: 1;
+			}
 		}
 
 		input {
@@ -120,7 +121,7 @@
 	.note-actions {
 		margin-top: 10px;
 		opacity: 0;
-		transition: 0.3s;
+		transition: 0.2s;
 	}
 
 	.background-pallete {

@@ -6,7 +6,9 @@
 			:filter="filter"
 		/>
 		<!-- {{ pageType }}
-		{{ filter }} -->
+			{{ filter }} -->
+		<!-- {{ selectedNotes }} -->
+
 		<div class="content-container flex">
 			<sideNav
 				:isMenuOpen="isMenuOpen"
@@ -153,8 +155,15 @@ export default {
 				this.isShowModal = false
 			}
 		},
-		updateSelectedNotes(selectedNotes) {
-			this.selectedNotes = selectedNotes
+		updateSelectedNotes(selectedNote, isSelected) {
+			if (isSelected) {
+				this.selectedNotes.push(selectedNote)
+			} else {
+				const idx = this.selectedNotes.findIndex((note) => {
+					return note._id === selectedNote._id
+				})
+				this.selectedNotes.splice(idx, 1)
+			}
 		},
 		dataToExport(data) {
 			const exportData = []
@@ -193,6 +202,7 @@ export default {
 		},
 		changePage(page, label) {
 			this.closeSideNav()
+			this.selectedNotes = []
 
 			switch (page) {
 				case 'edit labels':

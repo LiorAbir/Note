@@ -10,13 +10,9 @@
 			opacity: opacityStyle,
 		}"
 	>
+		<!-- {{ selectedNotes }} -->
 		<!-- border: noteBorder, -->
-		<label
-			class="btn select-btn"
-			:style="{
-				opacity: isSelected || hover ? 1 : 0,
-			}"
-		>
+		<label class="btn select-btn" :class="{ show: isSelected || hover }">
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 
@@ -54,6 +50,7 @@ export default {
 	props: {
 		note: Object,
 		labels: Array,
+		selectedNotes: Array,
 	},
 	data() {
 		return {
@@ -98,7 +95,7 @@ export default {
 			this.isClrPlt = !this.isClrPlt
 		},
 		onSelectNote() {
-			this.$emit('addNoteToSelected', this.note, this.isSelected)
+			this.$emit('updateSelectedNotes', this.note, this.isSelected)
 		},
 		// setIsLoading(boolean) {
 		// 	this.isLoading === boolean

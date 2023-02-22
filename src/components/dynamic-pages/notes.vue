@@ -27,9 +27,10 @@
 						:note="note"
 						:labels="labels"
 						@save="save"
-						@addNoteToSelected="addNoteToSelected"
+						@updateSelectedNotes="updateSelectedNotes"
 					/>
 				</li>
+				<!-- @addNoteToSelected="addNoteToSelected" -->
 			</ul>
 		</div>
 	</section>
@@ -45,11 +46,6 @@ export default {
 		notes: Array,
 		labels: Array,
 	},
-	data() {
-		return {
-			selectedNotes: [],
-		}
-	},
 	mounted() {
 		let elem = document.querySelector('.masonry')
 		let masonry = new Masonry(elem, {
@@ -62,17 +58,8 @@ export default {
 		save(note) {
 			this.$emit('save', note)
 		},
-		addNoteToSelected(note, isSelected) {
-			if (isSelected) {
-				this.selectedNotes.push(note)
-			} else {
-				const idx = this.selectedNotes.filter((n) => {
-					return n._id === note._id
-				})
-				this.selectedNotes.splice(idx, 1)
-			}
-
-			this.$emit('updateSelectedNotes', this.selectedNotes)
+		updateSelectedNotes(selectedNotes, isSelected) {
+			this.$emit('updateSelectedNotes', selectedNotes, isSelected)
 		},
 	},
 	computed: {
