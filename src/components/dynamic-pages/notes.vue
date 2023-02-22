@@ -25,7 +25,6 @@
 				>
 					<notePreview
 						:note="note"
-						:selectedNotes="selectedNotes"
 						:labels="labels"
 						@save="save"
 						@addNoteToSelected="addNoteToSelected"
@@ -38,7 +37,6 @@
 
 <script>
 import notePreview from '../note-preview.vue'
-import draggable from 'vuedraggable'
 import Masonry from 'masonry-layout'
 
 export default {
@@ -64,9 +62,6 @@ export default {
 		save(note) {
 			this.$emit('save', note)
 		},
-		toggleModal() {
-			this.$emit('toggleModal')
-		},
 		addNoteToSelected(note, isSelected) {
 			if (isSelected) {
 				this.selectedNotes.push(note)
@@ -76,6 +71,8 @@ export default {
 				})
 				this.selectedNotes.splice(idx, 1)
 			}
+
+			this.$emit('updateSelectedNotes', this.selectedNotes)
 		},
 	},
 	computed: {
@@ -95,11 +92,15 @@ export default {
 	},
 	components: {
 		notePreview,
-		draggable,
 	},
 }
 </script>
 
+<!-- import draggable from 'vuedraggable' -->
+<!-- toggleModal() {
+	this.$emit('toggleModal')
+}, -->
+<!-- draggable, -->
 <!-- <draggable
 	v-model="notes"
 	group="notes"

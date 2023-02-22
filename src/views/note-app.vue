@@ -16,12 +16,18 @@
 				@close="closeSideNav"
 			/>
 			<div class="notes-content" v-if="notes">
-				<noteAdd
-					v-if="
-						this.pageType.mainCat === 'notes' &&
-						this.pageType.subCat === ''
-					"
-				/>
+				<div class="notes-actions flex">
+					<noteAdd
+						v-if="
+							this.pageType.mainCat === 'notes' &&
+							this.pageType.subCat === ''
+						"
+					/>
+					<div class="btn export-btn" @click="onExportData">
+						<h1>scv</h1>
+					</div>
+				</div>
+
 				<component
 					:is="pageType.mainCat"
 					:notes="notes"
@@ -32,6 +38,7 @@
 					@save="saveNote"
 					@deleteNote="deleteNote"
 					@setFilterBy="setFilterBy"
+					@updateSelectedNotes="updateSelectedNotes"
 				></component>
 				<!-- @updateNotesOrder="updateNotesOrder" -->
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
@@ -78,6 +85,7 @@ export default {
 			isShowModal: false,
 			isLabelModal: false,
 			loggedInUser: null,
+			selectedNotes: [],
 			pageType: {
 				mainCat: '',
 				subCat: '',
@@ -135,6 +143,44 @@ export default {
 				this.isMenuOpen = false
 				this.isShowModal = false
 			}
+		},
+		updateSelectedNotes(selectedNotes) {
+			this.selectedNotes = selectedNotes
+		},
+		dataToExport(data) {
+			const exportData = []
+			data.map((d) => {
+				data = [d._id, d.info.title, d.info.txt ? d.info.txt : '']
+				exportData.push(data)
+			})
+			return exportData
+		},
+		onExportData() {
+			//arrange the data according to the condition
+			const exportData = this.selectedNotes.length
+				? this.dataToExport(this.selectedNotes)
+				: this.dataToExport(this.notes)
+			exportData.unshift(['ID', 'Title', 'Note'])
+
+			//convert the arrays to string
+			//putting comma between by jason. putting new-line at the end by concatץ
+			let str = ''
+			exportData.forEach((row) => {
+				str += row
+					.map((col) => JSON.stringify(col))
+					.join(',')
+					.concat('\n')
+			})
+
+			//create file
+			let fileName = `notes.${Date.now()}.csv`
+			let file = new File([str], fileName, { type: 'text/csv' })
+
+			//create a to enable download
+			let a = document.createElement('a')
+			a.href = URL.createObjectURL(file)
+			a.download = fileName
+			a.click()
 		},
 		changePage(page, label) {
 			this.closeSideNav()

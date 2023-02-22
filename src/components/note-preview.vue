@@ -10,6 +10,7 @@
 			opacity: opacityStyle,
 		}"
 	>
+		<!-- {{ note }} -->
 		<label class="btn select-btn">
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
@@ -48,7 +49,6 @@ export default {
 	props: {
 		note: Object,
 		labels: Array,
-		selectedNotes: Array,
 	},
 	data() {
 		return {
