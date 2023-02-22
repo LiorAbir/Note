@@ -15,6 +15,7 @@
 		<!-- {{ selectedNotes }} -->
 		<!-- border: noteBorder, -->
 		<label class="btn select-btn" :class="{ show: isSelected || hover }">
+			<img src="../assets/icon/vmark.svg" alt="" />
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 

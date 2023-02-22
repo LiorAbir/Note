@@ -66,6 +66,11 @@
 		display: inline-block;
 	}
 
+	.bg-img {
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
 	.color,
 	.bg-img,
 	.empty {

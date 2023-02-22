@@ -22,13 +22,14 @@
 		<div class="exp">Background</div>
 		<div class="list">
 			<div class="img-pallete">
-				<img
-					:src="img"
+				<div
 					v-for="img in imgs"
-					alt="background image"
+					:style="{
+						'background-image': `url(${img})`,
+					}"
 					class="bg-img"
 					@click="setBackground(img, 'bgImg')"
-				/>
+				></div>
 				<img
 					src="../assets/icon/eye-slash.svg"
 					alt=""
