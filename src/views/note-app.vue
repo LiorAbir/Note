@@ -5,8 +5,8 @@
 			@toggleMenu="toggleMenu"
 			:filter="filter"
 		/>
-		{{ pageType }}
-		{{ filter }}
+		<!-- {{ pageType }}
+		{{ filter }} -->
 		<div class="content-container flex">
 			<sideNav
 				:isMenuOpen="isMenuOpen"
@@ -23,8 +23,17 @@
 							this.pageType.subCat === ''
 						"
 					/>
-					<div class="btn export-btn" @click="onExportData">
-						<h1>scv</h1>
+					<div
+						class="btn export-btn"
+						@click="onExportData"
+						:title="
+							selectedNotes.length
+								? 'download selected notes'
+								: 'download notes'
+						"
+					>
+						<!-- <h2>csv</h2> -->
+						<img src="../assets/icon/csv.svg" alt="" />
 					</div>
 				</div>
 

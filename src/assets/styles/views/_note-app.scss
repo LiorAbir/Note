@@ -36,6 +36,26 @@
 			.notes-actions {
 				justify-content: center;
 				align-items: center;
+				margin-bottom: 16px;
+
+				.export-btn {
+					box-shadow: 0 0 5px 0px rgb(0 0 0 / 37%);
+					background-color: $clr2;
+					border-radius: 8px;
+					padding: 5px 10px;
+					cursor: pointer;
+					color: gray;
+					position: relative;
+
+					img {
+						width: 20px;
+						filter: $svg-clr1;
+					}
+
+					&:hover {
+						color: black;
+					}
+				}
 			}
 		}
 	}

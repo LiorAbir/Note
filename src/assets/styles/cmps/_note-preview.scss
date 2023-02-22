@@ -4,7 +4,7 @@
 	margin: 5px;
 	border-radius: 8px;
 	position: relative;
-	transition: 0.5s;
+	transition: 0.2s;
 	cursor: pointer;
 
 	@include from-mini-layout {
@@ -19,12 +19,38 @@
 			.note-actions {
 				opacity: 1;
 			}
+
+			.select-btn {
+				opacity: 1;
+			}
 		}
+	}
+
+	&.selected {
+		border: 2px solid black;
 	}
 
 	.select-btn {
 		position: absolute;
-		right: 0;
+		top: -7px;
+		right: -7px;
+		transition: 0.2s;
+
+		background-image: url('/src/assets/icon/vmark.svg');
+		background-repeat: no-repeat;
+		background-color: white;
+		border-radius: 50%;
+
+		width: 22px;
+		height: 25px;
+
+		@include from-mini-layout() {
+			opacity: 0;
+		}
+
+		input {
+			display: none;
+		}
 	}
 
 	.note-content {

@@ -16,7 +16,7 @@
 				</li>
 			</ul> -->
 
-			{{ selectedNotes }}
+			<!-- {{ selectedNotes }} -->
 			<ul class="clean-list masonry" ref="grid">
 				<li
 					class="note-container"

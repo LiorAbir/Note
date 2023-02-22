@@ -4,14 +4,19 @@
 		class="note-preview"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
+		:class="{ selected: isSelected }"
 		:style="{
 			backgroundColor: note.bgClr,
-			border: noteBorder,
 			opacity: opacityStyle,
 		}"
 	>
-		<!-- {{ note }} -->
-		<label class="btn select-btn">
+		<!-- border: noteBorder, -->
+		<label
+			class="btn select-btn"
+			:style="{
+				opacity: isSelected || hover ? 1 : 0,
+			}"
+		>
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 
