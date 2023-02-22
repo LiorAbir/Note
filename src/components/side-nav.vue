@@ -59,19 +59,19 @@ export default {
 			pages: [
 				{
 					name: 'notes',
-					svg: 'src/assets/icon/lightbulb.svg',
+					svg: './src/assets/icon/lightbulb.svg',
 				},
 				{
 					name: 'edit labels',
-					svg: 'src/assets/icon/pencil.svg',
+					svg: './src/assets/icon/pencil.svg',
 				},
 				{
 					name: 'archive',
-					svg: 'src/assets/icon/archive-in.svg',
+					svg: './src/assets/icon/archive-in.svg',
 				},
 				{
 					name: 'trash',
-					svg: 'src/assets/icon/trash.svg',
+					svg: './src/assets/icon/trash.svg',
 				},
 			],
 		}
