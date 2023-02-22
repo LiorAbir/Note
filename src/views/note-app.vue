@@ -5,8 +5,8 @@
 			@toggleMenu="toggleMenu"
 			:filter="filter"
 		/>
-		<!-- {{ pageType }}
-			{{ filter }} -->
+		<!-- {{ pageType }} -->
+		<!-- {{ filter }}  -->
 		<!-- {{ selectedNotes }} -->
 
 		<div class="content-container flex">
@@ -18,7 +18,10 @@
 				@close="closeSideNav"
 			/>
 			<div class="notes-content" v-if="notes">
-				<div class="notes-actions flex">
+				<div
+					class="notes-actions flex"
+					v-if="this.pageType.mainCat !== 'search'"
+				>
 					<noteAdd
 						v-if="
 							this.pageType.mainCat === 'notes' &&
@@ -185,7 +188,7 @@ export default {
 			let str = ''
 			exportData.forEach((row) => {
 				str += row
-					.map((col) => JSON.stringify(col))
+					.map((col) => col)
 					.join(',')
 					.concat('\n')
 			})
@@ -194,7 +197,7 @@ export default {
 			let fileName = `notes.${Date.now()}.csv`
 			let file = new File([str], fileName, { type: 'text/csv' })
 
-			//create a to enable download
+			// create a to enable download
 			let a = document.createElement('a')
 			a.href = URL.createObjectURL(file)
 			a.download = fileName

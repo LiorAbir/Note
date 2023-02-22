@@ -1,4 +1,6 @@
 <template>
+	<!-- {{ isClrPlt }} -->
+	<!-- {{ noteCopy }} -->
 	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
 		<button
@@ -73,13 +75,13 @@ export default {
 	name: 'note-actions',
 	props: {
 		note: Object,
-		isClrPlt: Boolean,
 		labels: Array,
 	},
 	data() {
 		return {
 			noteCopy: this.note,
 			isLabelModal: false,
+			isClrPlt: false,
 		}
 	},
 	created() {
@@ -108,17 +110,17 @@ export default {
 			this.save(noteToCopy)
 		},
 		onToggleClrPlt() {
-			// this.isClrPlt = !this.isClrPlt
-			this.$emit('toggleClrPlt')
+			this.isClrPlt = !this.isClrPlt
 		},
 		onToggleLabels() {
 			this.isLabelModal = !this.isLabelModal
 		},
+		setBackground(fill, type) {
+			this.noteCopy[type] = fill
+			this.save(this.noteCopy)
+		},
 		save(note) {
 			this.$emit('save', note)
-		},
-		setBackground(fill, type) {
-			this.$emit('setBackground', fill, type)
 		},
 	},
 	components: {

@@ -10,6 +10,7 @@
 			opacity: opacityStyle,
 		}"
 	>
+		<!-- {{ note }} -->
 		<!-- {{ selectedNotes }} -->
 		<!-- border: noteBorder, -->
 		<label class="btn select-btn" :class="{ show: isSelected || hover }">
@@ -23,13 +24,7 @@
 			:note="noteCopy"
 			:labels="labels"
 			@deletNote="deleteNote"
-			@toggleClrPlt="toggleClrPlt"
 			@save="save"
-		/>
-		<backgroundPallete
-			v-if="isClrPlt"
-			v-clickOutSide="closeClrPlt"
-			@setBackground="setBackground"
 		/>
 	</section>
 </template>
@@ -59,7 +54,6 @@ export default {
 			opacityStyle: 1,
 			isSelected: false,
 			//
-			isClrPlt: false,
 			isLoading: false,
 		}
 	},
@@ -80,19 +74,9 @@ export default {
 			this.opacityStyle = 0
 			this.$router.push(`/NOTE/${this.note._id}`)
 		},
-		closeClrPlt() {
-			this.isClrPlt = false
-		},
-		setBackground(fill, type) {
-			let editedNote = JSON.parse(JSON.stringify(this.note))
-			editedNote[type] = fill
-			this.save(editedNote)
-		},
 		save(note) {
+			this.noteCopy = note
 			this.$emit('save', note)
-		},
-		toggleClrPlt() {
-			this.isClrPlt = !this.isClrPlt
 		},
 		onSelectNote() {
 			this.$emit('updateSelectedNotes', this.note, this.isSelected)

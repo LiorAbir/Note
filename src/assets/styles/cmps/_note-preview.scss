@@ -4,6 +4,7 @@
 	position: relative;
 	transition: 0.2s;
 	cursor: pointer;
+	border: rgb(224 224 224) 1px solid;
 
 	@include from-mini-layout {
 		width: 240px;
