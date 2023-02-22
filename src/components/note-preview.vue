@@ -10,6 +10,10 @@
 			opacity: opacityStyle,
 		}"
 	>
+		<label class="btn select-btn">
+			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
+		</label>
+
 		<div @click="goToDetails">
 			<noteContent :note="note" @save="save" />
 		</div>
@@ -44,14 +48,17 @@ export default {
 	props: {
 		note: Object,
 		labels: Array,
+		selectedNotes: Array,
 	},
 	data() {
 		return {
-			hover: false,
-			isClrPlt: false,
 			noteCopy: null,
-			isLoading: false,
+			hover: false,
 			opacityStyle: 1,
+			isSelected: false,
+			//
+			isClrPlt: false,
+			isLoading: false,
 		}
 	},
 	mounted() {
@@ -84,6 +91,9 @@ export default {
 		},
 		toggleClrPlt() {
 			this.isClrPlt = !this.isClrPlt
+		},
+		onSelectNote() {
+			this.$emit('addNoteToSelected', this.note, this.isSelected)
 		},
 		// setIsLoading(boolean) {
 		// 	this.isLoading === boolean

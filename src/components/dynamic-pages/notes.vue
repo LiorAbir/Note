@@ -16,32 +16,20 @@
 				</li>
 			</ul> -->
 
-			<!-- <draggable
-				v-model="notes"
-				group="notes"
-				item-key="id"
-				tag="ul"
-				class="clean-list masonry grid"
-				drag-class="drag"
-				ghost-class="ghost"
-				@change="onChangeNote"
-			>
-				<template #item="{ element }">
-					<li class="note-container item">
-						<div>
-							<notePreview :note="element" @save="save" />
-						</div>
-					</li>
-				</template>
-			</draggable> -->
-
+			{{ selectedNotes }}
 			<ul class="clean-list masonry" ref="grid">
 				<li
 					class="note-container"
 					v-for="note in notPinnedNotes"
 					:key="note._id"
 				>
-					<notePreview :note="note" :labels="labels" @save="save" />
+					<notePreview
+						:note="note"
+						:selectedNotes="selectedNotes"
+						:labels="labels"
+						@save="save"
+						@addNoteToSelected="addNoteToSelected"
+					/>
 				</li>
 			</ul>
 		</div>
@@ -59,6 +47,11 @@ export default {
 		notes: Array,
 		labels: Array,
 	},
+	data() {
+		return {
+			selectedNotes: [],
+		}
+	},
 	mounted() {
 		let elem = document.querySelector('.masonry')
 		let masonry = new Masonry(elem, {
@@ -74,10 +67,15 @@ export default {
 		toggleModal() {
 			this.$emit('toggleModal')
 		},
-		onChangeNote(ev) {
-			let notesCopy = this.notes.slice()
-			this.$emit('updateNotesOrder', notesCopy)
-			// this.$emit('saveBoard')
+		addNoteToSelected(note, isSelected) {
+			if (isSelected) {
+				this.selectedNotes.push(note)
+			} else {
+				const idx = this.selectedNotes.filter((n) => {
+					return n._id === note._id
+				})
+				this.selectedNotes.splice(idx, 1)
+			}
 		},
 	},
 	computed: {
@@ -101,3 +99,28 @@ export default {
 	},
 }
 </script>
+
+<!-- <draggable
+	v-model="notes"
+	group="notes"
+	item-key="id"
+	tag="ul"
+	class="clean-list masonry grid"
+	drag-class="drag"
+	ghost-class="ghost"
+	@change="onChangeNote"
+	>
+	<template #item="{ element }">
+		<li class="note-container item">
+			<div>
+				<notePreview :note="element" @save="save" />
+			</div>
+		</li>
+	</template>
+</draggable> -->
+
+<!-- onChangeNote(ev) {
+	let notesCopy = this.notes.slice()
+	this.$emit('updateNotesOrder', notesCopy)
+	// this.$emit('saveBoard')
+}, -->

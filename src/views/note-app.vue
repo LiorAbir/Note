@@ -5,8 +5,8 @@
 			@toggleMenu="toggleMenu"
 			:filter="filter"
 		/>
-		<!-- {{ pageType }}
-		{{ filter }} -->
+		{{ pageType }}
+		{{ filter }}
 		<div class="content-container flex">
 			<sideNav
 				:isMenuOpen="isMenuOpen"
