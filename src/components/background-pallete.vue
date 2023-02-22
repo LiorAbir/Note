@@ -69,7 +69,7 @@ export default {
 		imgs() {
 			const imgs = []
 			for (var i = 1; i < 10; i++) {
-				let src = `src/assets/background/background${i}.svg`
+				let src = `./src/assets/background/background${i}.svg`
 				imgs.push(src)
 			}
 			return imgs

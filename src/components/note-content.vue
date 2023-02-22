@@ -6,8 +6,6 @@
 		}"
 		v-if="note"
 	>
-		<!-- <pre>{{ note.info.imgs }}</pre> -->
-
 		<div class="note-imgs" v-if="note.info.imgs">
 			<div class="img-container" v-for="(img, i) in note.info.imgs">
 				<img :src="img" alt="upload" />
@@ -20,14 +18,12 @@
 				/>
 			</div>
 		</div>
-		<input
-			type="text"
-			class="note-title"
-			v-model="note.info.title"
-			placeholder="Add title"
-			@input="updateNote"
-		/>
 
+		<div class="note-title" contenteditable="true" @input="updateNoteTitle">
+			{{ note.info.title }}
+		</div>
+
+		<!-- v-model="noteCopy.info.title" -->
 		<div class="main-content" contenteditable="true" @input="updateNoteInfo">
 			{{ note.info.txt }}
 		</div>
@@ -46,17 +42,35 @@ export default {
 	props: {
 		note: Object,
 	},
+	data() {
+		return {
+			noteCopy: null,
+		}
+	},
+	created() {
+		this.noteCopy = JSON.parse(JSON.stringify(this.note))
+	},
 	methods: {
 		updateNoteInfo(el) {
-			this.note.info.txt = el.target.innerText
-			this.updateNote()
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.info.txt = el.target.innerText
+			// this.note.info.txt = el.target.innerText
+			this.updateNote(noteCopy)
+		},
+		updateNoteTitle(el) {
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.info.title = el.target.innerText
+			this.updateNote(noteCopy)
 		},
 		deleteImg(idx) {
-			this.note.info.imgs.splice(idx, 1)
-			this.updateNote()
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.info.imgs.splice(idx, 1)
+			// this.note.info.imgs.splice(idx, 1)
+			this.updateNote(noteCopy)
 		},
-		updateNote() {
-			this.$emit('save', JSON.parse(JSON.stringify(this.note)))
+		updateNote(note) {
+			this.$emit('save', JSON.parse(JSON.stringify(note)))
+			// this.$emit('save', note)
 		},
 	},
 }

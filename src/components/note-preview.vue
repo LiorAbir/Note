@@ -11,7 +11,7 @@
 		}"
 	>
 		<!-- <pre>{{ note.info.imgs }}</pre> -->
-		<!-- {{ note }} -->
+		<!-- {{ note.labels }} -->
 		<!-- {{ selectedNotes }} -->
 		<!-- border: noteBorder, -->
 		<label class="btn select-btn" :class="{ show: isSelected || hover }">

@@ -49,6 +49,7 @@ export default {
 			}
 
 			//LABELS
+
 			if (label) {
 				filteredNotes = filteredNotes.filter((note) => {
 					return note.labels.includes(label)
