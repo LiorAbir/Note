@@ -21,25 +21,25 @@
 			</div>
 
 			<ul class="labels-list clean-list">
-				<li
-					v-for="(label, i) in labels"
-					:key="i"
-					class="label-container flex"
-					:class="{ active: isEditLabelFocus }"
-				>
-					<button
-						class="delete-btn svg-btn"
-						@click="onDeleteLabel(i, label)"
-					></button>
-					<input
-						type="text"
-						placeholder="Label name"
-						:value="label"
-						@change="onEditLabel($event, i)"
-						@focus="onFocusActions"
-					/>
-					<!-- @change="onEditLabel($event, index)" -->
-					<button class="edit-btn svg-btn"></button>
+				<li v-for="(label, i) in labels" :key="i">
+					<div
+						class="label-container flex"
+						:class="{ active: isEditLabelFocus }"
+					>
+						<button
+							class="delete-btn svg-btn"
+							@click="onDeleteLabel(i, label)"
+						></button>
+						<input
+							type="text"
+							placeholder="Label name"
+							:value="label"
+							@change="onEditLabel($event, i)"
+							@focus="onFocusActions"
+						/>
+						<!-- @change="onEditLabel($event, index)" -->
+						<button class="edit-btn svg-btn"></button>
+					</div>
 				</li>
 			</ul>
 		</div>

@@ -4,7 +4,7 @@
 		class="note-preview"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
-		:class="{ selected: isSelected }"
+		:class="{ selected: isSelected, hover: hover }"
 		:style="{
 			backgroundColor: note.bgClr,
 			opacity: opacityStyle,
@@ -23,6 +23,7 @@
 			<noteContent :note="note" @save="save" />
 		</div>
 		<noteActions
+			:class="{ hover: hover || isClrPlt || isLabelModal }"
 			:note="note"
 			:labels="labels"
 			:isLabelModal="isLabelModal"
