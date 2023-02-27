@@ -1,6 +1,7 @@
 <template>
 	<div v-clickOutSide="onCloseModal" class="labels-modal modal">
-		<!-- {{ labels }} -->
+		{{ labels }}
+		<!-- {{ oldLabel }} -->
 		<div class="content">
 			<h3 class="title">Edit labels</h3>
 
@@ -22,7 +23,7 @@
 			<ul class="labels-list clean-list">
 				<li
 					v-for="(label, i) in labels"
-					:key="label + i"
+					:key="i"
 					class="label-container flex"
 					:class="{ active: isEditLabelFocus }"
 				>
@@ -32,13 +33,12 @@
 					></button>
 					<input
 						type="text"
-						:placeholder="label"
-						@change="onEditLabel($event, index)"
-						@focus="
-							;(isEditLabelFocus = true), (isAddLabelFocus = false)
-						"
+						placeholder="Label name"
+						:value="label"
+						@change="onEditLabel($event, i)"
+						@focus="onFocusActions"
 					/>
-					<!-- v-model="label" -->
+					<!-- @change="onEditLabel($event, index)" -->
 					<button class="edit-btn svg-btn"></button>
 				</li>
 			</ul>
@@ -54,31 +54,55 @@ export default {
 	name: 'labels-modal',
 	props: {
 		labels: Array,
+		notes: Array,
 	},
 	data() {
 		return {
 			isAddLabelFocus: false,
 			isEditLabelFocus: false,
 			newLabel: '',
-			labelEdit: '',
+			oldLabel: '',
 		}
 	},
 	methods: {
+		onFocusActions(ev) {
+			this.oldLabel = ev.target.value
+			this.isAddLabelFocus = false
+			this.isEditLabelFocus = true
+		},
 		onAddLabel() {
-			const labelsCopy = this.labels.slice()
+			let labelsCopy = this.labels.slice()
 			labelsCopy.unshift(this.newLabel)
 			this.$emit('updateLabels', labelsCopy)
 			this.newLabel = ''
 		},
 		onDeleteLabel(idx, label) {
-			const labelsCopy = this.labels.slice()
+			let labelsCopy = this.labels.slice()
 			labelsCopy.splice(idx, 1)
 			this.$emit('updateLabels', labelsCopy)
-			this.$emit('updateNotesLabels', label)
+			this.updateNoteLabels(label)
 		},
 		onEditLabel(ev, idx) {
-			const labelsCopy = this.labels.slice()
-			labelsCopy.splice(idx, 1, ev.target.value)
+			let labelsCopy = this.labels.slice()
+			labelsCopy[idx] = ev.target.value
+
+			this.updateNoteLabels(this.oldLabel, ev.target.value)
+			this.$emit('updateLabels', labelsCopy)
+		},
+		updateNoteLabels(oldLabel, newLabel) {
+			this.notes.map((note) => {
+				if (note.labels.includes(oldLabel)) {
+					let idx = note.labels.findIndex((label) => label === oldLabel)
+					const noteCopy = JSON.parse(JSON.stringify(note))
+					if (newLabel) {
+						noteCopy.labels.splice(idx, 1, newLabel)
+						this.oldLabel = newLabel
+					} else {
+						noteCopy.labels.splice(idx, 1)
+					}
+					this.$emit('updateNote', noteCopy)
+				}
+			})
 		},
 		onCloseModal() {
 			this.$emit('closeLabelModal')

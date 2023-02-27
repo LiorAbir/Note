@@ -5,8 +5,8 @@
 			@toggleMenu="toggleMenu"
 			:filter="filter"
 		/>
-		<!-- {{ pageType }} -->
-		<!-- {{ filter }}  -->
+		{{ pageType }}
+		{{ filter }}
 		<!-- {{ selectedNotes }} -->
 
 		<div class="content-container flex">
@@ -71,10 +71,12 @@
 		<labelsModal
 			v-if="isLabelModal"
 			:labels="board.labels"
+			:notes="notes"
 			@closeLabelModal="closeLabelModal"
 			@updateLabels="updateLabels"
-			@updateNotesLabels="updateNotesLabels"
+			@updateNote="saveNote"
 		/>
+		<!-- @updateNotesLabels="updateNotesLabels" -->
 	</div>
 </template>
 
@@ -127,15 +129,20 @@ export default {
 		saveNote(note) {
 			this.$store.dispatch({ type: 'saveNote', note })
 		},
-		updateNotesLabels(label) {
-			this.notes.map((note) => {
-				if (note.labels.includes(label)) {
-					let idx = note.labels.findIndex((l) => l === label)
-					const noteCopy = JSON.parse(JSON.stringify(note))
-					noteCopy.labels.splice(idx, 1)
-					this.saveNote(noteCopy)
-				}
-			})
+		// updateNotesLabels(label, isDelete) {
+		// 	this.notes.map((note) => {
+		// 		if (note.labels.includes(label)) {
+		// 			let idx = note.labels.findIndex((l) => l === label)
+		// 			const noteCopy = JSON.parse(JSON.stringify(note))
+		// 			noteCopy.labels.splice(idx, 1)
+		// 			this.saveNote(noteCopy)
+		// 		}
+		// 	})
+		// },
+		updateLabels(labels) {
+			const boardCopy = JSON.parse(JSON.stringify(this.board))
+			boardCopy.labels = labels
+			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 		toggleMenu() {
 			this.isMenuOpen = !this.isMenuOpen
@@ -144,12 +151,6 @@ export default {
 		closeLabelModal() {
 			this.isShowModal = false
 			this.isLabelModal = false
-			this.changePage(this.pageType.mainCat)
-		},
-		updateLabels(labels) {
-			const boardCopy = JSON.parse(JSON.stringify(this.board))
-			boardCopy.labels = labels
-			this.$store.dispatch({ type: 'saveBoard', board: boardCopy })
 		},
 		closeSideNav() {
 			if (window.innerWidth > 520) return

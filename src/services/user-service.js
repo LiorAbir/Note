@@ -1,14 +1,14 @@
 //DAMMY BACEND
-import { storageService } from './storage.service'
-import { boardService } from './board-service'
-const LOGGEDIN_KEY = 'loggedinUser'
-const USERS_KEY = 'users-DB'
-_createUsers()
+// import { storageService } from './storage.service'
+// import { boardService } from './board-service'
+// const LOGGEDIN_KEY = 'loggedinUser'
+// const USERS_KEY = 'users-DB'
+// _createUsers()
 
 //BACKEND
-// import { httpService } from './http.service'
-// const LOGGEDIN_KEY = 'loggedinUser'
-// const prmStr = 'auth'
+import { httpService } from './http.service'
+const LOGGEDIN_KEY = 'loggedinUser'
+const prmStr = 'auth'
 
 export const userService = {
 	login,
@@ -21,54 +21,54 @@ export const userService = {
 }
 
 async function login(credentials) {
-	const users = await storageService.query(USERS_KEY)
-	const user = users.find(
-		(user) =>
-			user.username === credentials.username &&
-			user.password === credentials.password
-	)
-	if (!user) return Promise.reject('No user')
-	return _saveLocalUser(user)
+	// const users = await storageService.query(USERS_KEY)
+	// const user = users.find(
+	// 	(user) =>
+	// 		user.username === credentials.username &&
+	// 		user.password === credentials.password
+	// )
+	// if (!user) return Promise.reject('No user')
+	// return _saveLocalUser(user)
 
 	//backend
-	// const user = await httpService.post(`${prmStr}/login`, credentials)
-	// if (user) return _saveLocalUser(user)
+	const user = await httpService.post(`${prmStr}/login`, credentials)
+	if (user) return _saveLocalUser(user)
 }
 
 async function logout() {
-	sessionStorage.removeItem(LOGGEDIN_KEY)
+	// sessionStorage.removeItem(LOGGEDIN_KEY)
 
 	//backend
-	// return await httpService.post(`${prmStr}/logout`)
+	return await httpService.post(`${prmStr}/logout`)
 }
 
 async function signUp(signupInfo) {
-	const { fullname, username, email, password } = signupInfo
-	const users = await storageService.query(USERS_KEY)
+	// const { fullname, username, email, password } = signupInfo
+	// const users = await storageService.query(USERS_KEY)
 
-	if (!username || !password || !fullname || !email)
-		return Promise.reject('Missing required signup information')
+	// if (!username || !password || !fullname || !email)
+	// 	return Promise.reject('Missing required signup information')
 
 	//Check if user exist
-	const userExist = users.find((user) => user.username === username)
-	if (userExist) return Promise.reject('Username already taken')
+	// const userExist = users.find((user) => user.username === username)
+	// if (userExist) return Promise.reject('Username already taken')
 
-	//Add user and board to user
-	const savedUser = await _addUser(signupInfo)
-	login({ username, password })
+	// //Add user and board to user
+	// const savedUser = await _addUser(signupInfo)
+	// login({ username, password })
 
-	const newBoard = {
-		userId: savedUser._id,
-		labels: [],
-		noteOrder: [],
-		noteList: [],
-	}
-	boardService.save(newBoard)
-	return savedUser
+	// const newBoard = {
+	// 	userId: savedUser._id,
+	// 	labels: [],
+	// 	noteOrder: [],
+	// 	noteList: [],
+	// }
+	// boardService.save(newBoard)
+	// return savedUser
 
 	//backend
-	// const user = await httpService.post(`${prmStr}/signup`, signupInfo)
-	// return _saveLocalUser(user)
+	const user = await httpService.post(`${prmStr}/signup`, signupInfo)
+	return _saveLocalUser(user)
 }
 
 function getLoggedinUser() {
@@ -89,23 +89,23 @@ async function _addUser({ fullname, username, email, password }) {
 }
 
 async function updateUser(user) {
-	user = await storageService.put(USERS_KEY, user)
+	// user = await storageService.put(USERS_KEY, user)
 
-	// user = await httpService.put(`user/${user._id}`, user)
+	user = await httpService.put(`user/${user._id}`, user)
 
 	if (getLoggedinUser._id === user._id) _saveLocalUser(user)
 	return user
 }
 
 async function getById(userId) {
-	const user = await storageService.get(USERS_KEY, userId)
-	// const user = await httpService.get(`user/${userId}`)
+	// const user = await storageService.get(USERS_KEY, userId)
+	const user = await httpService.get(`user/${userId}`)
 	return user
 }
 
 function removeUser(userId) {
-	return storageService.remove(USERS_KEY, userId)
-	// return httpService.delete(`user/${userId}`)
+	// return storageService.remove(USERS_KEY, userId)
+	return httpService.delete(`user/${userId}`)
 }
 
 function _saveLocalUser(user) {
