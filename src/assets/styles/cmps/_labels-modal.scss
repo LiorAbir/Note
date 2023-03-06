@@ -58,11 +58,13 @@
 			justify-content: space-between;
 			height: 45px;
 
-			.xmark-btn {
-				background-image: url('/src/assets/icon/plus.svg');
+			&:not(:focus-within) {
+				.xmark-btn {
+					background-image: url('/src/assets/icon/plus.svg');
+				}
 			}
 
-			&.active {
+			&:focus-within {
 				.add-btn {
 					background-image: url('/src/assets/icon/check.svg');
 				}
@@ -71,6 +73,16 @@
 					background-image: url('/src/assets/icon/xmark.svg');
 				}
 			}
+
+			// &.active {
+			// 	.add-btn {
+			// 		background-image: url('/src/assets/icon/check.svg');
+			// 	}
+
+			// 	.xmark-btn {
+			// 		background-image: url('/src/assets/icon/xmark.svg');
+			// 	}
+			// }
 		}
 	}
 
@@ -91,7 +103,7 @@
 			background-image: url('/src/assets/icon/pencil.svg');
 		}
 
-		&.active {
+		&:focus-within {
 			.delete-btn {
 				background-image: url('/src/assets/icon/trash-full.svg');
 			}
@@ -100,6 +112,16 @@
 				background-image: url('/src/assets/icon/check.svg');
 			}
 		}
+
+		// &.active {
+		// 	.delete-btn {
+		// 		background-image: url('/src/assets/icon/trash-full.svg');
+		// 	}
+
+		// 	.edit-btn {
+		// 		background-image: url('/src/assets/icon/check.svg');
+		// 	}
+		// }
 	}
 
 	.btns-container {

@@ -72,7 +72,7 @@ async function save(note) {
 function getEmptyNote() {
 	return {
 		_id: '',
-		type: 'note-txt',
+		type: 'txt',
 		isPinned: false,
 		bgClr: '#ffffff',
 		bgImg: '',

@@ -1,15 +1,14 @@
 <template>
 	<div v-clickOutSide="onCloseModal" class="labels-modal modal">
-		{{ labels }}
+		<!-- {{ labels }} -->
 		<!-- {{ oldLabel }} -->
 		<div class="content">
 			<h3 class="title">Edit labels</h3>
 
-			<div class="add-label flex" :class="{ active: isAddLabelFocus }">
-				<button
-					class="xmark-btn svg-btn"
-					@click="isAddLabelFocus = !isAddLabelFocus"
-				></button>
+			<div class="add-label flex">
+				<!-- :class="{ active: isAddLabelFocus } -->
+				<button class="xmark-btn svg-btn" @click="this.blur"></button>
+				<!-- isAddLabelFocus = !isAddLabelFocus -->
 				<input
 					type="text"
 					placeholder="Add new label"

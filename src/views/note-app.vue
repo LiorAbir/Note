@@ -185,7 +185,7 @@ export default {
 			exportData.unshift(['ID', 'Title', 'Note'])
 
 			//convert the arrays to string
-			//putting comma between by jason. putting new-line at the end by concatץ
+			//putting comma between by joinn. putting new-line at the end by concatץ
 			let str = ''
 			exportData.forEach((row) => {
 				str += row
