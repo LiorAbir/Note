@@ -58,6 +58,7 @@
 
 	.note-content {
 		border-radius: 8px;
+
 		.note-imgs {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
@@ -81,8 +82,36 @@
 		}
 
 		.main-content {
-			padding: 10px 15px;
+			padding: 10px 0;
+			margin: 0 15px;
 			font-size: 18px;
+
+			&.txt {
+				width: 100%;
+				border: none;
+				font-size: 18px;
+
+				// white-space: pre-line;
+			}
+
+			&.list {
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			}
+
+			.item-container {
+				position: relative;
+				align-items: center;
+
+				input {
+					padding: 5px 15px 2px 30px;
+				}
+
+				input[type='checkbox'] {
+					position: absolute;
+					// left: 12px;
+					padding: 0;
+				}
+			}
 		}
 
 		.labels-container {
@@ -131,6 +160,6 @@
 	}
 
 	.background-pallete {
-		left: -95px;
+		left: -250px;
 	}
 }

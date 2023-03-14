@@ -87,7 +87,7 @@ function _getBoards() {
 			noteList: [
 				{
 					_id: 'note1',
-					type: 'note-txt',
+					type: 'txt',
 					location: 'notes',
 					labels: [],
 					isPinned: false,
@@ -101,7 +101,7 @@ function _getBoards() {
 				},
 				{
 					_id: 'note2',
-					type: 'note-txt',
+					type: 'txt',
 					location: 'notes',
 					labels: [],
 					isPinned: false,
@@ -115,7 +115,7 @@ function _getBoards() {
 				},
 				{
 					_id: 'note3',
-					type: 'note-txt',
+					type: 'txt',
 					location: 'notes',
 					labels: ['Important'],
 					isPinned: false,
@@ -129,7 +129,7 @@ function _getBoards() {
 				},
 				{
 					_id: 'note4',
-					type: 'note-txt',
+					type: 'txt',
 					location: 'notes',
 					labels: [],
 					isPinned: false,

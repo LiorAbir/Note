@@ -67,7 +67,12 @@ button {
 
 input {
 	border: none;
-	border-radius: 8px;
-	padding: 10px 15px;
 	background-color: inherit;
+	// border-radius: 8px;
+	// padding: 10px 15px;
+}
+
+pre {
+	font-family: 'roboto-ligth';
+	margin: 0;
 }

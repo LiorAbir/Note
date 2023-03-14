@@ -23,9 +23,36 @@
 			{{ note.info.title }}
 		</div>
 
-		<!-- v-model="noteCopy.info.title" -->
-		<div class="main-content" contenteditable="true" @input="updateNoteInfo">
+		<pre>{{ note.info }}</pre>
+		<div
+			v-if="note.type === 'txt'"
+			class="main-content txt"
+			contenteditable="true"
+			@input="updateNoteInfo"
+		>
 			{{ note.info.txt }}
+		</div>
+		<!-- <textarea
+			v-if="note.type === 'txt'"
+			class="main-content txt"
+			@input="updateNoteInfo"
+		>
+			{{ note.info.txt }}
+		</textarea
+		> -->
+
+		<!-- <div v-if="note.type === 'txt'" class="main-content">
+			<pre class="txt" contenteditable="true" @input="updateNoteInfo" >
+			{{ note.info.txt }}
+			</pre
+			>
+		</div> -->
+
+		<div v-else class="main-content list">
+			<div v-for="(item, i) in note.info.list" class="item-container flex">
+				<input type="checkbox" v-model="note.info.list[i].isChecked" />
+				<input type="text" v-model="note.info.list[i].txt" />
+			</div>
 		</div>
 
 		<div class="labels-container flex">

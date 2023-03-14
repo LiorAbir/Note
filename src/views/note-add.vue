@@ -1,5 +1,5 @@
 <template>
-	<div class="note-add" v-if="isFocus === false" @click="isFocus = true">
+	<div class="note-add" v-if="isFocus === false" @click="onOpenAddNote">
 		<!-- {{ newNote }} -->
 		<div class="add-container flex">
 			<h4 class="title">Add note...</h4>
@@ -51,13 +51,15 @@
 					v-model="newNote.info.title"
 				/>
 
-				<div
-					v-if="newNote.type === 'txt'"
-					contenteditable
-					class="note-content txt"
-					placeholder="Add note content"
-					@input="setVal"
-				></div>
+				<div v-if="newNote.type === 'txt'" class="note-content txt">
+					<pre
+						ref="txt"
+						class="txt"
+						contenteditable
+						@input="onSetVal"
+						placeholder="Add note content"
+					></pre>
+				</div>
 
 				<div v-else class="note-content">
 					<ul
@@ -68,8 +70,9 @@
 							v-for="(item, i) in newNote.info.list"
 							class="list-item flex"
 						>
+							<!-- :ref="`todo${i}`" -->
 							<input
-								:ref="'todo' + i"
+								ref="todos"
 								type="checkbox"
 								v-model="newNote.info.list[i].isChecked"
 							/>
@@ -83,10 +86,10 @@
 					<div class="add-todo flex">
 						<div class="plus"></div>
 						<input
-							ref="input"
+							ref="new"
 							type="text"
 							placeholder="Item in list"
-							@input="setVal"
+							@input="onSetVal"
 						/>
 					</div>
 				</div>
@@ -137,21 +140,29 @@ export default {
 		setNoteType(type) {
 			this.newNote.type = type
 		},
-		setVal(ev) {
-			let val = ev.target.value
+		onSetVal(ev) {
+			let val
 			switch (this.newNote.type) {
 				case 'txt':
+					val = ev.target.innerText
 					this.newNote.info.txt = val
 					break
 				case 'list':
+					val = ev.target.value
 					if (!this.newNote.info.list) this.newNote.info.list = []
 					const newTodo = { txt: val, isChecked: false }
+					let newTodoIdx = this.newNote.info.list.length
 					this.newNote.info.list.push(newTodo)
+
 					ev.target.value = ''
-					// this.$refs.todo.focus()
+
+					this.$nextTick(() => {
+						this.$refs.todos[newTodoIdx].focus()
+
+						// this.$refs['todo' + newTodoIdx][0].focus()
+					})
 					break
 			}
-			console.log(this.$refs.todo)
 		},
 		setBackground(fill, type) {
 			this.isFocus = true
@@ -163,15 +174,17 @@ export default {
 			this.isFocus = false
 		},
 		closeAddNote() {
-			console.log('close')
 			if (this.isClrPlt) return
-			// if (this.isClrPlt === false) {
-			// 	this.isFocus = false
-			// 	this.getNewNote()
-			// }
 			this.isFocus = false
 			this.getNewNote()
 			this.newNote.type = 'txt'
+		},
+		onOpenAddNote() {
+			this.isFocus = true
+			this.$nextTick(() => {
+				let refName = this.newNote.type === 'txt' ? 'txt' : 'new'
+				this.$refs[refName].focus()
+			})
 		},
 		addImgUrl(url) {
 			this.newNote.info.imgs.push(url)
