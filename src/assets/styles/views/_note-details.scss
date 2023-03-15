@@ -45,11 +45,24 @@
 			padding: 16px 15px 12px 15px;
 			font-size: 22px;
 			width: 100%;
+
+			&[placeholder]:empty::before {
+				content: attr(placeholder);
+				color: $clr3;
+			}
 		}
 
 		.main-content {
-			padding: 16px 15px 12px 15px;
-			// white-space: pre-line;
+			padding: 16px 5px 12px 10px;
+
+			&.txt {
+				// background-color: aqua;
+				// white-space: pre-line;
+			}
+
+			&.list {
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			}
 		}
 
 		.labels-container {

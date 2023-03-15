@@ -82,20 +82,18 @@
 		}
 
 		.main-content {
-			padding: 10px 0;
-			margin: 0 15px;
+			padding: 10px 15px;
 			font-size: 18px;
 
 			&.txt {
-				width: 100%;
-				border: none;
-				font-size: 18px;
-
-				// white-space: pre-line;
+				&::placeholder {
+					color: transparent;
+				}
 			}
 
 			&.list {
 				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+				// margin: 0 15px;
 			}
 
 			.item-container {

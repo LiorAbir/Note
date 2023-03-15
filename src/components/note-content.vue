@@ -19,30 +19,36 @@
 			</div>
 		</div>
 
-		<div class="note-title" contenteditable="true" @input="updateNoteTitle">
+		<div
+			class="note-title"
+			contenteditable="true"
+			@input="updateNoteTitle"
+			placeholder="Title.."
+		>
 			{{ note.info.title }}
 		</div>
 
-		<pre>{{ note.info }}</pre>
-		<div
+		<!-- <pre>{{ note.info }}</pre> -->
+		<!-- <div
 			v-if="note.type === 'txt'"
 			class="main-content txt"
-			contenteditable="true"
+			contenteditable
 			@input="updateNoteInfo"
 		>
 			{{ note.info.txt }}
-		</div>
-		<!-- <textarea
+		</div> -->
+		<textarea
 			v-if="note.type === 'txt'"
 			class="main-content txt"
+			placeholder="Note.."
+			v-model="note.info.txt"
 			@input="updateNoteInfo"
 		>
-			{{ note.info.txt }}
-		</textarea
-		> -->
+		</textarea>
+		<!-- {{ note.info.txt }} -->
 
 		<!-- <div v-if="note.type === 'txt'" class="main-content">
-			<pre class="txt" contenteditable="true" @input="updateNoteInfo" >
+			<pre class="txt" contenteditable="true" @input="updateNoteInfo">
 			{{ note.info.txt }}
 			</pre
 			>
@@ -80,7 +86,8 @@ export default {
 	methods: {
 		updateNoteInfo(el) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.info.txt = el.target.innerText
+			// noteCopy.info.txt = el.target.innerText
+			noteCopy.info.txt = el.target.value
 			// this.note.info.txt = el.target.innerText
 			this.updateNote(noteCopy)
 		},
