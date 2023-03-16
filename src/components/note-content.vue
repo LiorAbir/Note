@@ -1,10 +1,11 @@
 <template>
 	<div
 		class="note-content"
+		v-if="note"
+		@click="onGoToDetails"
 		:style="{
 			'background-image': `url(${note.bgImg})`,
 		}"
-		v-if="note"
 	>
 		<div class="note-imgs" v-if="note.info.imgs">
 			<div class="img-container" v-for="(img, i) in note.info.imgs">
@@ -14,7 +15,7 @@
 					src="../assets/icon/trash.svg"
 					alt="trash"
 					title="Delete image"
-					@click="deleteImg(i)"
+					@click="onDeleteImg(i)"
 				/>
 			</div>
 		</div>
@@ -22,13 +23,13 @@
 		<div
 			class="note-title"
 			contenteditable="true"
-			@input="updateNoteTitle"
+			@input="onUpdateNoteTitle"
 			placeholder="Title.."
 		>
 			{{ note.info.title }}
 		</div>
 
-		<!-- <pre>{{ note.info }}</pre> -->
+		<pre>{{ note.info }}</pre>
 		<!-- <div
 			v-if="note.type === 'txt'"
 			class="main-content txt"
@@ -45,7 +46,6 @@
 			@input="updateNoteInfo"
 		>
 		</textarea>
-		<!-- {{ note.info.txt }} -->
 
 		<!-- <div v-if="note.type === 'txt'" class="main-content">
 			<pre class="txt" contenteditable="true" @input="updateNoteInfo">
@@ -55,9 +55,17 @@
 		</div> -->
 
 		<div v-else class="main-content list">
-			<div v-for="(item, i) in note.info.list" class="item-container flex">
-				<input type="checkbox" v-model="note.info.list[i].isChecked" />
-				<input type="text" v-model="note.info.list[i].txt" />
+			<div v-for="(item, i) in noteCopy.info.list" class="item-container flex">
+				<input
+					type="checkbox"
+					v-model="noteCopy.info.list[i].isChecked"
+					@change="updateNote(noteCopy)"
+				/>
+				<input
+					type="text"
+					v-model="noteCopy.info.list[i].txt"
+					@input="updateNote(noteCopy)"
+				/>
 			</div>
 		</div>
 
@@ -84,25 +92,35 @@ export default {
 		this.noteCopy = JSON.parse(JSON.stringify(this.note))
 	},
 	methods: {
-		updateNoteInfo(el) {
+		onGoToDetails(el) {
+			console.log(el.target.childNodes)
+			this.$emit('goToDetails')
+		},
+		onUpdateNoteInfo(el, type) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			// noteCopy.info.txt = el.target.innerText
-			noteCopy.info.txt = el.target.value
-			// this.note.info.txt = el.target.innerText
+			switch (type) {
+				case 'txt':
+					noteCopy.info.txt = el.target.value
+					break
+				case 'list':
+					console.log(el.target.checked)
+					break
+			}
 			this.updateNote(noteCopy)
 		},
-		updateNoteTitle(el) {
+		onUpdateNoteTitle(el) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
 			noteCopy.info.title = el.target.innerText
 			this.updateNote(noteCopy)
 		},
-		deleteImg(idx) {
+		onDeleteImg(idx) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
 			noteCopy.info.imgs.splice(idx, 1)
 			// this.note.info.imgs.splice(idx, 1)
 			this.updateNote(noteCopy)
 		},
 		updateNote(note) {
+			this.noteCopy = note
 			this.$emit('save', JSON.parse(JSON.stringify(note)))
 			// this.$emit('save', note)
 		},

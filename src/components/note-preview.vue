@@ -19,9 +19,9 @@
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 
-		<div @click="goToDetails">
-			<noteContent :note="note" @save="save" />
-		</div>
+		<!-- <div @click="goToDetails"> -->
+		<noteContent :note="note" @save="save" @goToDetails="goToDetails" />
+		<!-- </div> -->
 		<noteActions
 			:class="{ hover: hover || isClrPlt || isLabelModal }"
 			:note="note"
