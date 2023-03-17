@@ -82,18 +82,20 @@
 		}
 
 		.main-content {
-			padding: 10px 15px;
+			padding: 10px 0px;
 			font-size: 18px;
 
 			&.txt {
+				padding: 0 15px;
 				&::placeholder {
 					color: transparent;
 				}
 			}
 
 			&.list {
-				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-				// margin: 0 15px;
+				.add-todo {
+					display: none;
+				}
 			}
 
 			.item-container {

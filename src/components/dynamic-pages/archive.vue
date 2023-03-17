@@ -4,7 +4,7 @@
 			<img src="../../assets/icon/archive-in.svg" alt="" />
 			<h1>No Notes In Archivs</h1>
 		</div>
-		<ul class="clean-list" ref="grid" v-else>
+		<ul class="clean-list note-list-container" ref="grid" v-else>
 			<li class="note-container" v-for="note in notes" :key="note._id">
 				<!-- @toggleModal="toggleModal" -->
 				<notePreview

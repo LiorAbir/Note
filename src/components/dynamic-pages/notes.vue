@@ -17,7 +17,7 @@
 			</ul> -->
 
 			<!-- {{ selectedNotes }} -->
-			<ul class="clean-list masonry" ref="grid">
+			<ul class="clean-list masonry note-list-container" ref="grid">
 				<li
 					class="note-container"
 					v-for="note in notPinnedNotes"

@@ -9,10 +9,6 @@
 
 	.notes {
 		width: 100%;
-
-		// ul {
-		// 	width: 100vw;
-		// }
 	}
 
 	.drag {
@@ -24,7 +20,7 @@
 		}
 	}
 
-	ul {
+	ul.note-list-container {
 		width: 95%;
 		margin: auto;
 	}

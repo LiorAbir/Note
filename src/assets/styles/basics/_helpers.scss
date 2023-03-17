@@ -148,3 +148,65 @@
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: masonry;
 }
+
+.list-style {
+	margin: 0;
+	.list-item {
+		position: relative;
+		align-items: center;
+		&:focus-within {
+			box-shadow: 0 0 1px gray;
+
+			.xmark {
+				display: block;
+			}
+		}
+
+		.xmark {
+			background-image: url('/src/assets/icon/xmark.svg');
+			position: absolute;
+			right: 12px;
+			width: 22px;
+			height: 22px;
+
+			@include from-mini-layout() {
+				display: none;
+			}
+		}
+
+		input[type='checkbox'] {
+			position: absolute;
+			left: 12px;
+		}
+
+		input[type='text'] {
+			width: 100%;
+			padding: 5px 45px;
+		}
+	}
+}
+
+.add-todo {
+	position: relative;
+	align-items: center;
+
+	&:focus-within {
+		// box-shadow: 0 0 1px gray;
+		box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+	}
+
+	.plus {
+		background-image: url('/src/assets/icon/plus.svg');
+		position: absolute;
+		left: 12px;
+		height: 18px;
+		width: 18px;
+		opacity: 0.54;
+	}
+
+	input[type='text'] {
+		width: 100%;
+		padding: 5px 45px;
+	}
+}

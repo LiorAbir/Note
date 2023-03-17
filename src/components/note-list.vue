@@ -10,7 +10,7 @@
 			</li>
 		</ul>
 
-		<ul class="clean-list" ref="grid">
+		<ul class="clean-list note-list-container" ref="grid">
 			<li
 				class="note-container"
 				v-for="note in notPinnedNotes"

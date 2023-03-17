@@ -63,20 +63,22 @@
 
 				<div v-else class="note-content">
 					<ul
-						class="clean-list"
+						class="clean-list list-style"
 						v-if="newNote.info.list && newNote.info.list.length"
 					>
 						<li
 							v-for="(item, i) in newNote.info.list"
 							class="list-item flex"
 						>
-							<!-- :ref="`todo${i}`" -->
 							<input
-								ref="todos"
 								type="checkbox"
 								v-model="newNote.info.list[i].isChecked"
 							/>
-							<input type="text" v-model="newNote.info.list[i].txt" />
+							<input
+								type="text"
+								ref="todos"
+								v-model="newNote.info.list[i].txt"
+							/>
 							<button
 								class="xmark svg-btn"
 								@click="onDeleteTodo(i)"

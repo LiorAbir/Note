@@ -29,7 +29,7 @@
 			{{ note.info.title }}
 		</div>
 
-		<pre>{{ note.info }}</pre>
+		<!-- <pre>{{ note.info }}</pre> -->
 		<!-- <div
 			v-if="note.type === 'txt'"
 			class="main-content txt"
@@ -55,7 +55,32 @@
 		</div> -->
 
 		<div v-else class="main-content list">
-			<div v-for="(item, i) in noteCopy.info.list" class="item-container flex">
+			<ul class="clean-list list-style">
+				<li class="list-item flex" v-for="(item, i) in noteCopy.info.list">
+					<input
+						type="checkbox"
+						v-model="noteCopy.info.list[i].isChecked"
+						@change="updateNote(noteCopy)"
+					/>
+					<input
+						type="text"
+						ref="todos"
+						v-model="noteCopy.info.list[i].txt"
+						@input="updateNote(noteCopy)"
+					/>
+					<button class="xmark svg-btn" @click="onDeleteTodo(i)"></button>
+				</li>
+			</ul>
+			<div class="add-todo flex">
+				<div class="plus"></div>
+				<input
+					ref="new"
+					type="text"
+					placeholder="Item in list"
+					@input="onSetVal"
+				/>
+			</div>
+			<!-- <div v-for="(item, i) in noteCopy.info.list" class="item-container flex">
 				<input
 					type="checkbox"
 					v-model="noteCopy.info.list[i].isChecked"
@@ -66,7 +91,7 @@
 					v-model="noteCopy.info.list[i].txt"
 					@input="updateNote(noteCopy)"
 				/>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="labels-container flex">
@@ -93,8 +118,31 @@ export default {
 	},
 	methods: {
 		onGoToDetails(el) {
-			console.log(el.target.childNodes)
 			this.$emit('goToDetails')
+		},
+		onSetVal(ev) {
+			let val
+			switch (this.note.type) {
+				case 'txt':
+					val = ev.target.innerText
+					this.newNote.info.txt = val
+					break
+				case 'list':
+					val = ev.target.value
+					if (!this.noteCopy.info.list) this.noteCopy.info.list = []
+					const newTodo = { txt: val, isChecked: false }
+					let newTodoIdx = this.noteCopy.info.list.length
+					this.noteCopy.info.list.push(newTodo)
+
+					ev.target.value = ''
+
+					this.$nextTick(() => {
+						this.$refs.todos[newTodoIdx].focus()
+					})
+					break
+			}
+
+			this.updateNote(this.noteCopy)
 		},
 		onUpdateNoteInfo(el, type) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
@@ -119,6 +167,7 @@ export default {
 			// this.note.info.imgs.splice(idx, 1)
 			this.updateNote(noteCopy)
 		},
+		onDeleteTodo(idx) {},
 		updateNote(note) {
 			this.noteCopy = note
 			this.$emit('save', JSON.parse(JSON.stringify(note)))
