@@ -20,53 +20,56 @@
 			</div>
 		</div>
 
-		<div
+		<!-- contenteditable="true" -->
+		<input
 			class="note-title"
-			contenteditable="true"
-			@input="onUpdateNoteTitle"
+			v-model="note.info.title"
 			placeholder="Title.."
-		>
-			{{ note.info.title }}
-		</div>
+			@input="updateNote(note)"
+		/>
+		<!-- </input> -->
+		<!-- @input="onUpdateNoteTitle" -->
+		<!-- {{ note.info.title }} -->
 
 		<!-- <pre>{{ note.info }}</pre> -->
-		<!-- <div
-			v-if="note.type === 'txt'"
-			class="main-content txt"
-			contenteditable
-			@input="updateNoteInfo"
-		>
-			{{ note.info.txt }}
-		</div> -->
 		<textarea
 			v-if="note.type === 'txt'"
 			class="main-content txt"
 			placeholder="Note.."
 			v-model="note.info.txt"
-			@input="updateNoteInfo"
+			@input="updateNote(note)"
 		>
 		</textarea>
 
-		<!-- <div v-if="note.type === 'txt'" class="main-content">
-			<pre class="txt" contenteditable="true" @input="updateNoteInfo">
-			{{ note.info.txt }}
-			</pre
-			>
-		</div> -->
-
 		<div v-else class="main-content list">
-			<ul class="clean-list list-style">
-				<li class="list-item flex" v-for="(item, i) in noteCopy.info.list">
+			<!-- <ul class="clean-list list-style">
+				<li class="list-item flex" v-for="(item, idx) in note.info.list">
 					<input
 						type="checkbox"
-						v-model="noteCopy.info.list[i].isChecked"
-						@change="updateNote(noteCopy)"
+						:checked="item.isChecked"
+						@change="onUpdateNoteInfo($event, idx)"
 					/>
 					<input
 						type="text"
 						ref="todos"
-						v-model="noteCopy.info.list[i].txt"
-						@input="updateNote(noteCopy)"
+						:value="item.txt"
+						@input="onUpdateNoteInfo($event, idx)"
+					/>
+					<button class="xmark svg-btn" @click="onDeleteTodo(i)"></button>
+				</li>
+			</ul> -->
+			<ul class="clean-list list-style">
+				<li class="list-item flex" v-for="(item, i) in note.info.list">
+					<input
+						type="checkbox"
+						v-model="note.info.list[i].isChecked"
+						@change="updateNote(note)"
+					/>
+					<input
+						type="text"
+						ref="todos"
+						v-model="note.info.list[i].txt"
+						@input="updateNote(note)"
 					/>
 					<button class="xmark svg-btn" @click="onDeleteTodo(i)"></button>
 				</li>
@@ -80,18 +83,6 @@
 					@input="onSetVal"
 				/>
 			</div>
-			<!-- <div v-for="(item, i) in noteCopy.info.list" class="item-container flex">
-				<input
-					type="checkbox"
-					v-model="noteCopy.info.list[i].isChecked"
-					@change="updateNote(noteCopy)"
-				/>
-				<input
-					type="text"
-					v-model="noteCopy.info.list[i].txt"
-					@input="updateNote(noteCopy)"
-				/>
-			</div> -->
 		</div>
 
 		<div class="labels-container flex">
@@ -117,7 +108,7 @@ export default {
 		this.noteCopy = JSON.parse(JSON.stringify(this.note))
 	},
 	methods: {
-		onGoToDetails(el) {
+		onGoToDetails() {
 			this.$emit('goToDetails')
 		},
 		onSetVal(ev) {
@@ -144,35 +135,73 @@ export default {
 
 			this.updateNote(this.noteCopy)
 		},
-		onUpdateNoteInfo(el, type) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			switch (type) {
-				case 'txt':
-					noteCopy.info.txt = el.target.value
-					break
-				case 'list':
-					console.log(el.target.checked)
-					break
-			}
-			this.updateNote(noteCopy)
-		},
-		onUpdateNoteTitle(el) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.info.title = el.target.innerText
-			this.updateNote(noteCopy)
-		},
+		// onUpdateNoteInfo(el, itemIdx) {
+		// 	const noteCopy = JSON.parse(JSON.stringify(this.note))
+		// 	switch (noteCopy.type) {
+		// 		case 'txt':
+		// 			noteCopy.info.txt = el.target.value
+		// 			break
+		// 		case 'list':
+		// 			// console.log(el.target.checked)
+		// 			// console.log(el.target.value)
+		// 			console.log(el)
+		// 			break
+		// 	}
+		// 	this.updateNote(noteCopy)
+		// },
+		// onUpdateNoteTitle(el) {
+		// 	const noteCopy = JSON.parse(JSON.stringify(this.note))
+		// 	noteCopy.info.title = el.target.innerText
+		// 	this.updateNote(noteCopy)
+		// },
 		onDeleteImg(idx) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
 			noteCopy.info.imgs.splice(idx, 1)
 			// this.note.info.imgs.splice(idx, 1)
 			this.updateNote(noteCopy)
 		},
-		onDeleteTodo(idx) {},
+		onDeleteTodo(idx) {
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.info.list.splice(idx, 1)
+			this.updateNote(noteCopy)
+		},
 		updateNote(note) {
-			this.noteCopy = note
+			// console.log('update')
+			// console.log(this.note)
+			// console.log(this.noteCopy)
+			// this.noteCopy = note
 			this.$emit('save', JSON.parse(JSON.stringify(note)))
+			// this.noteCopy = JSON.parse(JSON.stringify(this.note))
 			// this.$emit('save', note)
 		},
 	},
 }
 </script>
+
+<!-- <div
+	v-if="note.type === 'txt'"
+	class="main-content txt"
+	contenteditable
+	@input="updateNoteInfo"
+>
+	{{ note.info.txt }}
+</div> -->
+
+<!-- <div v-if="note.type === 'txt'" class="main-content">
+		<pre class="txt" contenteditable="true" @input="updateNoteInfo">
+		{{ note.info.txt }}
+		</pre
+		>
+	</div> -->
+<!-- <div v-for="(item, i) in noteCopy.info.list" class="item-container flex">
+			<input
+			type="checkbox"
+			v-model="noteCopy.info.list[i].isChecked"
+			@change="updateNote(noteCopy)"
+			/>
+			<input
+			type="text"
+				v-model="noteCopy.info.list[i].txt"
+				@input="updateNote(noteCopy)"
+				/>
+			</div> -->
