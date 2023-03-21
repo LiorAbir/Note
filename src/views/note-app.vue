@@ -92,6 +92,7 @@ import search from '../components/note-filter.vue'
 import notes from '../components/dynamic-pages/notes.vue'
 import archive from '../components/dynamic-pages/archive.vue'
 import trash from '../components/dynamic-pages/trash.vue'
+import labels from '../components/dynamic-pages/labels.vue'
 
 export default {
 	name: 'note-app',
@@ -204,7 +205,7 @@ export default {
 			a.download = fileName
 			a.click()
 		},
-		changePage(page, label) {
+		changePage(page, subCategory) {
 			this.closeSideNav()
 			this.selectedNotes = []
 
@@ -214,13 +215,13 @@ export default {
 					this.isLabelModal = true
 					break
 				case 'label':
-					this.$router.push(`/${page}/${label}`)
+					this.$router.push(`/${page}/${subCategory}`)
 
-					this.pageType.mainCat = 'notes'
-					this.pageType.subCat = label
+					this.pageType.mainCat = 'labels'
+					this.pageType.subCat = subCategory
 
 					this.filter.location = ''
-					this.filter.label = label
+					this.filter.label = subCategory
 					this.setFilterBy(this.filter)
 
 					this.isShowModal = false
@@ -229,7 +230,7 @@ export default {
 					this.$router.push(`/${page}`)
 
 					this.pageType.mainCat = page
-					this.pageType.subCat = label
+					this.pageType.subCat = subCategory
 
 					this.filter.location = ''
 					this.setFilterBy(this.filter)
@@ -239,10 +240,10 @@ export default {
 					this.$router.push(`/${page}`)
 
 					this.pageType.mainCat = page
-					this.pageType.subCat = label
+					this.pageType.subCat = subCategory
 
 					this.filter.location = page
-					this.filter.label = label
+					this.filter.label = subCategory
 					this.setFilterBy(this.filter)
 
 					this.isShowModal = false
@@ -286,6 +287,7 @@ export default {
 		trash,
 		labelsModal,
 		search,
+		labels,
 	},
 }
 </script>

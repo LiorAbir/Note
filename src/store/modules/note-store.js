@@ -19,20 +19,24 @@ export default {
 			if (!notes) return
 			let { txt, location, label, color, type } = filter
 
+			let filteredNotes = notes
+
 			//TEXT
-			const regexTst = new RegExp(txt, 'i')
-			let filteredNotes = notes.filter((note) => {
-				if (note.type === 'note-txt') {
-					return (
-						regexTst.test(note.info.txt) ||
-						regexTst.test(note.info.title)
-					)
-				} else if (note.type === 'note-todos') {
-					note.info.todos.filter((todo) => {
-						return regexTst.test(todo.txt) || note.info.title
-					})
-				}
-			})
+			if (txt) {
+				const regexTst = new RegExp(txt, 'i')
+				filteredNotes = notes.filter((note) => {
+					if (note.type === 'txt') {
+						return (
+							regexTst.test(note.info.txt) ||
+							regexTst.test(note.info.title)
+						)
+					} else if (note.type === 'list') {
+						note.info.list.filter((todo) => {
+							return regexTst.test(todo.txt) || note.info.title
+						})
+					}
+				})
+			}
 
 			//LOCATION
 			if (location) {
@@ -49,7 +53,6 @@ export default {
 			}
 
 			//LABELS
-
 			if (label) {
 				filteredNotes = filteredNotes.filter((note) => {
 					return note.labels.includes(label)

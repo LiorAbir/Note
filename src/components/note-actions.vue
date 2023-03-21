@@ -89,6 +89,9 @@ export default {
 			// isClrPlt: false,
 		}
 	},
+	created() {
+		this.noteLabels = this.note.labels
+	},
 	methods: {
 		onDeleteNote() {
 			this.$emit('deletNote', this.note._id)
