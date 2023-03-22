@@ -4,7 +4,7 @@
 		v-if="note"
 		v-clickOutSide="onCloseModal"
 		:style="{
-			backgroundColor: note.bgClr,
+			backgroundColor: note.bgClr.clr,
 			border: noteBorder,
 		}"
 	>

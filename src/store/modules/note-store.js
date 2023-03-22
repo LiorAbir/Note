@@ -48,7 +48,7 @@ export default {
 			//COLORS
 			if (color) {
 				filteredNotes = filteredNotes.filter((note) => {
-					return note.bgClr === color
+					return note.bgClr.name === color
 				})
 			}
 

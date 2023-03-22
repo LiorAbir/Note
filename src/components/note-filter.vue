@@ -7,7 +7,6 @@
 				v-model="filterBy.txt"
 				placeholder="Search"
 				/> -->
-		<!-- {{ notes }} -->
 
 		<div
 			v-if="filter.color || filter.label || filter.type || filter.txt"
@@ -19,8 +18,8 @@
 		</div>
 
 		<div class="filters-container" v-else>
-			<!-- {{ filter }} -->
-			<!-- {{ filterBy }} -->
+			{{ notes.length }}
+			{{ boardColors }}
 			<transition-group appear @before-enter="beforeEnter" @enter="enter">
 				<div class="types-filter container" key="types" data-delay="1">
 					<h4 class="title">Types</h4>
@@ -52,8 +51,8 @@
 						<div
 							class="color"
 							v-for="color in boardColors"
-							:style="{ backgroundColor: color }"
-							@click="onUpdateFilter('color', color)"
+							:style="{ backgroundColor: color.clr }"
+							@click="onUpdateFilter('color', color.name)"
 						></div>
 					</div>
 				</div>
@@ -77,13 +76,13 @@ export default {
 		return {
 			boardColors: [],
 			isShowNotes: false,
-			// filterBy: null,
 		}
 	},
 	created() {
 		let clrsStack = []
 		this.notes.map((note) => {
-			if (clrsStack.includes(note.bgClr)) return
+			const values = clrsStack.map((clr) => clr.clr)
+			if (values.includes(note.bgClr.clr)) return
 			clrsStack.push(note.bgClr)
 		})
 		this.boardColors = clrsStack
@@ -91,13 +90,14 @@ export default {
 	methods: {
 		onUpdateFilter(type, val) {
 			this.filter[type] = val
-			this.setFilterBy()
-			// this.$router.push(`/serach/${type}%253D${val}`)
-			// this.$router.push(`/serach/${type}%253D${val}`)
+			this.$router.push(`/search/${type}%3D${val}`)
+
+			// this.$emit('changePage', 'search', { [type]: val })
+			// this.setFilterBy()
 		},
-		setFilterBy() {
-			this.$emit('setFilterBy', this.filter)
-		},
+		// setFilterBy() {
+		// 	// this.$emit('setFilterBy', this.filter)
+		// },
 		beforeEnter(el) {
 			el.style.opacity = 0
 			el.style.transform = 'translateY(100px)'

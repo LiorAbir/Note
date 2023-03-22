@@ -6,7 +6,7 @@
 		@mouseleave="hover = false"
 		:class="{ selected: isSelected, hover: hover }"
 		:style="{
-			backgroundColor: note.bgClr,
+			backgroundColor: note.bgClr.clr,
 			opacity: opacityStyle,
 		}"
 	>

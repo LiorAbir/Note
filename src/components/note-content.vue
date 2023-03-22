@@ -1,4 +1,5 @@
 <template>
+	<!-- <pre>{{ note }}</pre> -->
 	<div
 		class="note-content"
 		v-if="note"

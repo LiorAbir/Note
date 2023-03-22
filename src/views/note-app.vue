@@ -54,6 +54,7 @@
 					@setFilterBy="setFilterBy"
 					@updateSelectedNotes="updateSelectedNotes"
 				></component>
+				<!-- @changePage="changePage" -->
 				<!-- @updateNotesOrder="updateNotesOrder" -->
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
@@ -227,12 +228,21 @@ export default {
 					this.isShowModal = false
 					break
 				case 'search':
-					this.$router.push(`/${page}`)
+					const main = subCategory.split('=')[0]
+					const sub = subCategory.split('=')[1]
+					// const values =
+
+					// this.$router.push(`/${page}/`)
+
+					// console.log(page, subCategory)
+					// console.log(`main: ${main}, sub: ${sub}`)
 
 					this.pageType.mainCat = page
-					this.pageType.subCat = subCategory
+					this.pageType.subCat = sub ? sub : ''
 
 					this.filter.location = ''
+					if (main && sub) this.filter[main] = sub ? sub : ''
+
 					this.setFilterBy(this.filter)
 					break
 

@@ -7,7 +7,8 @@
 					class="color"
 					v-for="clr in clrs"
 					:key="clr"
-					:style="{ backgroundColor: clr }"
+					:style="{ backgroundColor: clr.clr }"
+					:title="clr.name"
 					@click="setBackground(clr, 'bgClr')"
 				></div>
 				<img
@@ -15,7 +16,9 @@
 					alt="ni color"
 					class="empty"
 					title="default"
-					@click="setBackground('#ffffff', 'bgClr')"
+					@click="
+						setBackground({ name: 'default', clr: '#ffffff' }, 'bgClr')
+					"
 				/>
 			</div>
 		</div>
@@ -47,17 +50,50 @@ export default {
 	data() {
 		return {
 			clrs: [
-				'#f28b82',
-				'#fbbc04',
-				'#fff475',
-				'#ccff90',
-				'#a7ffeb',
-				'#cbf0f8',
-				'#aecbfa',
-				'#d7aefb',
-				'#fdcfe8',
-				'#e6c9a8',
-				'#e8eaed',
+				{
+					name: 'red',
+					clr: '#f28b82',
+				},
+				{
+					name: 'orange',
+					clr: '#fbbc04',
+				},
+				{
+					name: 'yellow',
+					clr: '#fff475',
+				},
+				{
+					name: 'green',
+					clr: '#ccff90',
+				},
+				{
+					name: '',
+					clr: '#a7ffeb',
+				},
+				{
+					name: 'ligthBlue',
+					clr: '#cbf0f8',
+				},
+				{
+					name: 'blue',
+					clr: '#aecbfa',
+				},
+				{
+					name: 'purple',
+					clr: '#d7aefb',
+				},
+				{
+					name: 'pink',
+					clr: '#fdcfe8',
+				},
+				{
+					name: 'brown',
+					clr: '#e6c9a8',
+				},
+				{
+					name: 'gray',
+					clr: '#e8eaed',
+				},
 			],
 		}
 	},

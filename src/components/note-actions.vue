@@ -1,7 +1,5 @@
 <template>
-	<!-- {{ isClrPlt }} -->
-	<!-- <pre>{{ noteCopy.info.imgs }}</pre>
-	<pre>{{ note.info.imgs }}</pre> -->
+	<!-- <pre>{{ note }}</pre> -->
 	<!-- {{ noteCopy.bgClr }} -->
 	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
