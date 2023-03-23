@@ -4,7 +4,6 @@
 		v-scroll="handleScroll"
 		:style="{ boxShadow: shadow }"
 	>
-		<!-- {{ filter }} -->
 		<nav class="menu-nav flex">
 			<div
 				class="menu-container round"
@@ -42,7 +41,12 @@
 					v-model="this.filter.txt"
 					placeholder="Search"
 				/>
-				<button class="btn svg-btn" @click="goTo('notes')"></button>
+
+				<button
+					v-if="pageType.mainCat === 'search'"
+					class="btn svg-btn"
+					@click="goTo('back')"
+				></button>
 			</div>
 		</div>
 
@@ -69,6 +73,7 @@ export default {
 	name: 'ap-header',
 	props: {
 		filter: Object,
+		pageType: Object,
 	},
 	data() {
 		return {
@@ -121,8 +126,10 @@ export default {
 				case 'search':
 					this.$router.push(`/${page}`)
 					this.isFocused = true
-
-				default:
+					break
+				case 'back':
+					this.$router.go(-1)
+					this.clearFilter()
 					break
 			}
 		},

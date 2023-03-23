@@ -4,6 +4,7 @@
 			@setFilterBy="setFilterBy"
 			@toggleMenu="toggleMenu"
 			:filter="filter"
+			:pageType="pageType"
 		/>
 		{{ pageType }}
 		{{ filter }}
@@ -230,12 +231,6 @@ export default {
 				case 'search':
 					const main = subCategory.split('=')[0]
 					const sub = subCategory.split('=')[1]
-					// const values =
-
-					// this.$router.push(`/${page}/`)
-
-					// console.log(page, subCategory)
-					// console.log(`main: ${main}, sub: ${sub}`)
 
 					this.pageType.mainCat = page
 					this.pageType.subCat = sub ? sub : ''
