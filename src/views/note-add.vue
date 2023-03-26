@@ -20,7 +20,7 @@
 			backgroundColor: newNote.bgClr,
 		}"
 	>
-		<pre>{{ newNote }}</pre>
+		<!-- <pre>{{ newNote }}</pre> -->
 		<div class="actions-mobile flex">
 			<button class="btn back-btn" @click="closeAddNote">Back</button>
 		</div>

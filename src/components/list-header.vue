@@ -100,14 +100,14 @@ export default {
 			this.$emit('setFilterBy', this.filter)
 		},
 		clearFilter() {
-			let emptyFilter = {
-				txt: '',
-				location: '',
-				label: '',
-				color: '',
-				type: '',
-			}
-			this.$emit('setFilterBy', emptyFilter)
+			// let emptyFilter = {
+			// 	txt: '',
+			// 	location: '',
+			// 	label: '',
+			// 	color: '',
+			// 	type: '',
+			// }
+			// this.$emit('setFilterBy', emptyFilter)
 		},
 		async onLogout() {
 			await this.$store.dispatch({ type: 'logout' })
@@ -121,15 +121,18 @@ export default {
 				case 'notes':
 					this.$router.push(`/${page}`)
 					this.isFocused = false
-					this.clearFilter()
+					this.$emit('clearFilter')
+					// this.clearFilter()
 					break
 				case 'search':
 					this.$router.push(`/${page}`)
 					this.isFocused = true
+					this.$emit('clearFilter')
 					break
 				case 'back':
+					this.$emit('clearFilter')
 					this.$router.go(-1)
-					this.clearFilter()
+					// this.clearFilter()
 					break
 			}
 		},

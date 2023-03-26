@@ -86,7 +86,13 @@
 
 				.list-filter {
 					.filter-image {
-						background-image: url('/src/assets/icon/list.svg');
+						&.lists {
+							background-image: url('/src/assets/icon/list.svg');
+						}
+
+						&.images {
+							background-image: url('/src/assets/icon/image.svg');
+						}
 					}
 
 					@include from-mini-layout() {
@@ -96,7 +102,13 @@
 
 						.filter-image {
 							background-color: rgb(26 115 232);
-							background-image: url('/src/assets/icon/list2.svg');
+							&.lists {
+								background-image: url('/src/assets/icon/list2.svg');
+							}
+
+							&.images {
+								background-image: url('/src/assets/icon/image-white.svg');
+							}
 						}
 					}
 				}

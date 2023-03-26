@@ -3,6 +3,7 @@
 		<listHeader
 			@setFilterBy="setFilterBy"
 			@toggleMenu="toggleMenu"
+			@clearFilter="clearFilter"
 			:filter="filter"
 			:pageType="pageType"
 		/>
@@ -207,6 +208,17 @@ export default {
 			a.download = fileName
 			a.click()
 		},
+		clearFilter() {
+			let emptyFilter = {
+				txt: '',
+				location: '',
+				label: '',
+				color: '',
+				type: '',
+			}
+			this.setFilterBy(emptyFilter)
+			// this.$emit('setFilterBy', emptyFilter)
+		},
 		changePage(page, subCategory) {
 			this.closeSideNav()
 			this.selectedNotes = []
@@ -237,8 +249,13 @@ export default {
 
 					this.filter.location = ''
 					if (main && sub) this.filter[main] = sub ? sub : ''
-
 					this.setFilterBy(this.filter)
+
+					if (!subCategory) {
+						this.clearFilter()
+						return
+					}
+
 					break
 
 				default:

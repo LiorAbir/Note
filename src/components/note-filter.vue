@@ -18,16 +18,20 @@
 		</div>
 
 		<div class="filters-container" v-else>
-			{{ notes.length }}
-			{{ boardColors }}
+			<!-- {{ notes.length }}
+			{{ boardColors }} -->
 			<transition-group appear @before-enter="beforeEnter" @enter="enter">
 				<div class="types-filter container" key="types" data-delay="1">
 					<h4 class="title">Types</h4>
 
 					<div class="list flex">
-						<div class="filter list-filter">
-							<h5 class="filter-name">Lists</h5>
-							<div class="filter-image"></div>
+						<div
+							class="filter list-filter"
+							v-for="noteType in notesTypes"
+							@click="onUpdateFilter('type', noteType)"
+						>
+							<h5 class="filter-name">{{ noteType }}</h5>
+							<div class="filter-image" :class="noteType"></div>
 						</div>
 					</div>
 				</div>
@@ -75,6 +79,7 @@ export default {
 	data() {
 		return {
 			boardColors: [],
+			notesTypes: ['lists', 'images'],
 			isShowNotes: false,
 		}
 	},

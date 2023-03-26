@@ -59,6 +59,17 @@ export default {
 				})
 			}
 
+			//type
+			if (type) {
+				filteredNotes = filteredNotes.filter((note) => {
+					if (type === 'images') {
+						if (note.info.imgs.length) return note
+					} else {
+						return note.type === 'list'
+					}
+				})
+			}
+
 			return filteredNotes
 		},
 		filterBy({ filter }) {
