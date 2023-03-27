@@ -67,7 +67,7 @@ export default {
 					clr: '#ccff90',
 				},
 				{
-					name: '',
+					name: 'greenBlue',
 					clr: '#a7ffeb',
 				},
 				{

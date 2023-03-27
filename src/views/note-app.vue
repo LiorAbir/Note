@@ -176,7 +176,12 @@ export default {
 		dataToExport(data) {
 			const exportData = []
 			data.map((d) => {
-				data = [d._id, d.info.title, d.info.txt ? d.info.txt : '']
+				data = [
+					d._id,
+					d.info.title,
+					d.info.txt ? d.info.txt : '',
+					d.info.list ? d.info.list : '',
+				]
 				exportData.push(data)
 			})
 			return exportData
@@ -186,19 +191,28 @@ export default {
 			const exportData = this.selectedNotes.length
 				? this.dataToExport(this.selectedNotes)
 				: this.dataToExport(this.notes)
-			exportData.unshift(['ID', 'Title', 'Note'])
+			exportData.unshift(['ID', 'Title', 'Note', 'List'])
 
 			//convert the arrays to string
 			//putting comma between by joinn. putting new-line at the end by concatץ
 			let str = ''
 			exportData.forEach((row) => {
+				row.forEach((col, idx) => {
+					if (Array.isArray(col)) {
+						row[idx] = col.map((item, idx) => {
+							if (idx === 0) return item.txt + '\n'
+							else return `,,${item.txt}\n`
+						})
+					}
+				})
+
 				str += row
 					.map((col) => col)
 					.join(',')
 					.concat('\n')
 			})
 
-			//create file
+			// create file
 			let fileName = `notes.${Date.now()}.csv`
 			let file = new File([str], fileName, { type: 'text/csv' })
 

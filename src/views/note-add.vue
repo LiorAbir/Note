@@ -106,11 +106,13 @@
 							title="choose background"
 							@click="isClrPlt = !isClrPlt"
 						></button>
-						<backgroundPallete
-							v-if="isClrPlt"
-							@setBackground="setBackground"
-							v-clickOutSide="closeClrPlt"
-						/>
+						<transition name="msg">
+							<backgroundPallete
+								v-if="isClrPlt"
+								@setBackground="setBackground"
+								v-clickOutSide="closeClrPlt"
+							/>
+						</transition>
 					</div>
 				</div>
 				<button @click="save">Save</button>
