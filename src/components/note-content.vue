@@ -35,21 +35,30 @@
 			@input="updateNote(note)"
 		>
 		</textarea>
-
 		<div v-else class="main-content list">
 			<ul class="clean-list list-style">
+				{{
+					note.info.list
+				}}
 				<li class="list-item flex" v-for="(item, i) in note.info.list">
-					<input
-						type="checkbox"
-						v-model="note.info.list[i].isChecked"
-						@change="updateNote(note)"
-					/>
+					<label
+						class="label-checkbox svg-btn"
+						:class="{ checked: note.info.list[i].isChecked }"
+					>
+						<input
+							type="checkbox"
+							class="label-checkbox"
+							@change="updateNote(note)"
+							v-model="note.info.list[i].isChecked"
+						/>
+					</label>
 					<input
 						type="text"
 						ref="todos"
-						v-model="note.info.list[i].txt"
 						@input="updateNote(note)"
+						v-model="note.info.list[i].txt"
 					/>
+
 					<button class="xmark svg-btn" @click="onDeleteTodo(i)"></button>
 				</li>
 			</ul>

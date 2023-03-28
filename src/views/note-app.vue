@@ -7,8 +7,8 @@
 			:filter="filter"
 			:pageType="pageType"
 		/>
-		{{ pageType }}
-		{{ filter }}
+		<!-- {{ pageType }} -->
+		<!-- {{ filter }} -->
 		<!-- {{ selectedNotes }} -->
 
 		<div class="content-container flex">

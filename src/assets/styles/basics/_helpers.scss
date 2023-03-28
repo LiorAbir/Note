@@ -174,9 +174,22 @@
 			}
 		}
 
-		input[type='checkbox'] {
+		.label-checkbox {
 			position: absolute;
 			left: 12px;
+			background-image: url('/src/assets/icon/empty-checkbox.svg');
+
+			&.checked {
+				background-image: url('/src/assets/icon/checkbox.svg');
+			}
+
+			&:hover {
+				background-color: rgb(0 0 0 / 0%);
+			}
+
+			input[type='checkbox'] {
+				display: none;
+			}
 		}
 
 		input[type='text'] {

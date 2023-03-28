@@ -70,10 +70,15 @@
 							v-for="(item, i) in newNote.info.list"
 							class="list-item flex"
 						>
-							<input
-								type="checkbox"
-								v-model="newNote.info.list[i].isChecked"
-							/>
+							<label
+								class="label-checkbox svg-btn"
+								:class="{ checked: newNote.info.list[i].isChecked }"
+							>
+								<input
+									type="checkbox"
+									v-model="newNote.info.list[i].isChecked"
+								/>
+							</label>
 							<input
 								type="text"
 								ref="todos"
