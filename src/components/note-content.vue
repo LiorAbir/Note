@@ -37,9 +37,9 @@
 		</textarea>
 		<div v-else class="main-content list">
 			<ul class="clean-list list-style">
-				{{
+				<!-- {{
 					note.info.list
-				}}
+				}} -->
 				<li class="list-item flex" v-for="(item, i) in note.info.list">
 					<label
 						class="label-checkbox svg-btn"
@@ -74,9 +74,12 @@
 		</div>
 
 		<div class="labels-container flex">
-			<div class="label" v-for="label in note.labels">
+			<div class="label flex" v-for="(label, i) in note.labels">
 				<p>{{ label }}</p>
-				<!-- <button class="delete-btn svg-btn"></button> -->
+				<button
+					class="delete-btn svg-btn"
+					@click="onDeleteLabel(i)"
+				></button>
 			</div>
 		</div>
 	</div>
@@ -131,6 +134,11 @@ export default {
 		onDeleteTodo(idx) {
 			const noteCopy = JSON.parse(JSON.stringify(this.note))
 			noteCopy.info.list.splice(idx, 1)
+			this.updateNote(noteCopy)
+		},
+		onDeleteLabel(idx) {
+			const noteCopy = JSON.parse(JSON.stringify(this.note))
+			noteCopy.labels.splice(idx, 1)
 			this.updateNote(noteCopy)
 		},
 		updateNote(note) {

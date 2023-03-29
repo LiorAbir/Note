@@ -10,18 +10,14 @@
 			opacity: opacityStyle,
 		}"
 	>
-		<!-- <pre>{{ note.info.imgs }}</pre> -->
-		<!-- {{ note.labels }} -->
-		<!-- {{ selectedNotes }} -->
-		<!-- border: noteBorder, -->
+		{{ noteCopy }}
 		<label class="btn select-btn" :class="{ show: isSelected || hover }">
 			<img src="../assets/icon/vmark.svg" alt="" />
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 
-		<!-- <div @click="goToDetails"> -->
 		<noteContent :note="note" @save="save" @goToDetails="goToDetails" />
-		<!-- </div> -->
+
 		<noteActions
 			:class="{ hover: hover || isClrPlt || isLabelModal }"
 			:note="note"
@@ -107,6 +103,9 @@ export default {
 			} else {
 				return `1px solid ${this.note.bgClr}70`
 			}
+		},
+		noteCopy() {
+			return JSON.parse(JSON.stringify(this.note))
 		},
 	},
 	components: {

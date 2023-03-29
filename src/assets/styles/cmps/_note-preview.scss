@@ -117,6 +117,8 @@
 		.labels-container {
 			padding: 5px 10px;
 			.label {
+				justify-content: center;
+				align-items: center;
 				position: relative;
 				background-color: rgba(172, 168, 168, 0.438);
 				padding: 3px 5px;
@@ -136,14 +138,14 @@
 
 				.delete-btn {
 					display: none;
-					position: absolute;
+					// position: absolute;
 					top: 2px;
 					left: 0;
 					background-image: url('/src/assets/icon/xmark.svg');
-					background-size: 14px;
+					background-size: 12px;
 					width: 14px;
 					height: 14px;
-					background-color: gray;
+					// background-color: gray;
 				}
 			}
 		}
