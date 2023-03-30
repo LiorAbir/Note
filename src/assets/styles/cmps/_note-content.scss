@@ -1,0 +1,58 @@
+.note-content {
+	.note-imgs {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 5px;
+	}
+
+	.note-title {
+		width: 100%;
+		font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
+	}
+
+	.main-content {
+		&.txt {
+			width: 100%;
+			font-family: 'roboto-ligth';
+			font-size: 18px;
+			background-color: rgba(240, 248, 255, 0);
+
+			white-space: pre-wrap;
+			word-wrap: break-word;
+		}
+	}
+
+	.labels-container {
+		padding: 5px 10px;
+
+		.label {
+			justify-content: center;
+			align-items: center;
+			position: relative;
+
+			margin: 3px;
+			padding: 3px 5px;
+			border-radius: 10px;
+			background-color: rgba(172, 168, 168, 0.438);
+
+			&:hover {
+				.delete-btn {
+					display: block;
+				}
+			}
+
+			p {
+				font-size: 12px;
+				margin: 0;
+			}
+
+			.delete-btn {
+				display: none;
+				background-image: url('/src/assets/icon/xmark.svg');
+				background-size: 12px;
+				width: 14px;
+				height: 14px;
+			}
+		}
+	}
+}

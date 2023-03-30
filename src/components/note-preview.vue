@@ -1,4 +1,3 @@
-<!-- 'background-image': `url(${note.bgImg})`, -->
 <template>
 	<section
 		class="note-preview"
@@ -10,13 +9,17 @@
 			opacity: opacityStyle,
 		}"
 	>
-		{{ noteCopy }}
 		<label class="btn select-btn" :class="{ show: isSelected || hover }">
 			<img src="../assets/icon/vmark.svg" alt="" />
 			<input type="checkbox" v-model="isSelected" @change="onSelectNote()" />
 		</label>
 
-		<noteContent :note="note" @save="save" @goToDetails="goToDetails" />
+		<noteContent
+			:note="note"
+			:textBoxType="'preview'"
+			@save="save"
+			@goToDetails="goToDetails"
+		/>
 
 		<noteActions
 			:class="{ hover: hover || isClrPlt || isLabelModal }"
@@ -32,14 +35,8 @@
 </template>
 
 <script>
-// import noteTxt from './dynamic/note-txt.vue'
-// import noteImg from './dynamic/note-img.vue'
-// import noteTodos from './dynamic/note-todos.vue'
-// import noteVideo from './dynamic/note-video.vue'
-import backgroundPallete from './background-pallete.vue'
-import addImg from './add-img.vue'
-import noteActions from './note-actions.vue'
 import { eventBus } from '../services/eventBus-service'
+import noteActions from './note-actions.vue'
 import noteContent from './note-content.vue'
 
 export default {
@@ -51,7 +48,6 @@ export default {
 	},
 	data() {
 		return {
-			// noteCopy: null,
 			hover: false,
 			opacityStyle: 1,
 			isSelected: false,
@@ -67,9 +63,6 @@ export default {
 			this.opacityStyle = 1
 		})
 	},
-	// created() {
-	// 	this.noteCopy = JSON.parse(JSON.stringify(this.note))
-	// },
 	methods: {
 		deleteNote(id) {
 			this.$emit('deleteNote', id)
@@ -86,7 +79,6 @@ export default {
 			this.$router.push(`/NOTE/${this.note._id}`)
 		},
 		save(note) {
-			// this.noteCopy = note
 			this.$emit('save', note)
 		},
 		onSelectNote() {
@@ -104,20 +96,13 @@ export default {
 				return `1px solid ${this.note.bgClr}70`
 			}
 		},
-		noteCopy() {
-			return JSON.parse(JSON.stringify(this.note))
-		},
 	},
 	components: {
-		backgroundPallete,
-		addImg,
 		noteActions,
 		noteContent,
 	},
 }
 </script>
-
-<style></style>
 
 <!-- <div v-if="!isLoading"> -->
 <!-- <div class="note-imgs" v-if="note.info.imgs">
@@ -133,10 +118,3 @@ export default {
 <div v-else>
 	<h1>loading</h1>
 </div> -->
-<!-- <input class="note-title" type="text" v-model="note.info.title" />
-
-<component
-	:is="note.type"
-	:info="note.info"
-	class="note-content"
-></component> -->

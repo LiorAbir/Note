@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<section class="note-list">
 		<ul class="clean-list pinned-list" ref="grid2">
 			<li
@@ -78,4 +78,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style></style> -->

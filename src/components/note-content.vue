@@ -1,5 +1,4 @@
 <template>
-	<!-- <pre>{{ note }}</pre> -->
 	<div
 		class="note-content"
 		v-if="note"
@@ -24,39 +23,54 @@
 		<input
 			class="note-title"
 			v-model="note.info.title"
-			placeholder="Title.."
+			placeholder="Title..."
 			@input="updateNote(note)"
 		/>
-		<textarea
-			v-if="note.type === 'txt'"
+		<!-- {{ note.info }} -->
+		<div
 			class="main-content txt"
+			v-if="note.type === 'txt' && textBoxType === 'preview'"
+			spellcheck="true"
+			role="textbox"
 			placeholder="Note.."
+			@input="onSetVal"
+		>
+			{{ note.info.txt }}
+		</div>
+
+		<textarea
+			v-if="note.type === 'txt' && textBoxType === 'details'"
+			class="main-content txt"
+			placeholder="Note..."
 			v-model="note.info.txt"
 			@input="updateNote(note)"
 		>
 		</textarea>
-		<div v-else class="main-content list">
+
+		<div v-if="note.type === 'list'" class="main-content list">
 			<ul class="clean-list list-style">
-				<!-- {{
-					note.info.list
-				}} -->
-				<li class="list-item flex" v-for="(item, i) in note.info.list">
+				<li class="list-item flex" v-for="(item, i) in noteCopy.info.list">
 					<label
 						class="label-checkbox svg-btn"
-						:class="{ checked: note.info.list[i].isChecked }"
+						:class="{ checked: item.isChecked }"
+						@click="
+							(el) => {
+								el.stopPropagation()
+							}
+						"
 					>
 						<input
 							type="checkbox"
 							class="label-checkbox"
-							@change="updateNote(note)"
-							v-model="note.info.list[i].isChecked"
+							@change="updateNote(noteCopy)"
+							v-model="item.isChecked"
 						/>
 					</label>
 					<input
 						type="text"
 						ref="todos"
-						@input="updateNote(note)"
-						v-model="note.info.list[i].txt"
+						@input="updateNote(noteCopy)"
+						v-model="item.txt"
 					/>
 
 					<button class="xmark svg-btn" @click="onDeleteTodo(i)"></button>
@@ -73,7 +87,14 @@
 			</div>
 		</div>
 
-		<div class="labels-container flex">
+		<div
+			class="labels-container flex"
+			@click="
+				(el) => {
+					el.stopPropagation()
+				}
+			"
+		>
 			<div class="label flex" v-for="(label, i) in note.labels">
 				<p>{{ label }}</p>
 				<button
@@ -89,6 +110,7 @@ export default {
 	name: 'note-content',
 	props: {
 		note: Object,
+		textBoxType: String,
 	},
 	data() {
 		return {
@@ -102,12 +124,27 @@ export default {
 		onGoToDetails() {
 			this.$emit('goToDetails')
 		},
+		onDeleteImg(idx) {
+			this.noteCopy.info.imgs.splice(idx, 1)
+			this.updateNote(this.noteCopy)
+		},
+		onDeleteTodo(idx) {
+			this.noteCopy.info.list.splice(idx, 1)
+			this.updateNote(this.noteCopy)
+		},
+		onDeleteLabel(idx) {
+			this.noteCopy.labels.splice(idx, 1)
+			this.updateNote(this.noteCopy)
+		},
+		updateNote(note) {
+			this.$emit('save', note)
+		},
 		onSetVal(ev) {
 			let val
 			switch (this.note.type) {
 				case 'txt':
 					val = ev.target.innerText
-					this.newNote.info.txt = val
+					this.noteCopy.info.txt = val
 					break
 				case 'list':
 					val = ev.target.value
@@ -126,23 +163,13 @@ export default {
 
 			this.updateNote(this.noteCopy)
 		},
-		onDeleteImg(idx) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.info.imgs.splice(idx, 1)
-			this.updateNote(noteCopy)
-		},
-		onDeleteTodo(idx) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.info.list.splice(idx, 1)
-			this.updateNote(noteCopy)
-		},
-		onDeleteLabel(idx) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.labels.splice(idx, 1)
-			this.updateNote(noteCopy)
-		},
-		updateNote(note) {
-			this.$emit('save', JSON.parse(JSON.stringify(note)))
+	},
+	watch: {
+		note: {
+			handler(note) {
+				this.noteCopy = JSON.parse(JSON.stringify(note))
+			},
+			deep: true,
 		},
 	},
 }

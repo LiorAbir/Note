@@ -29,71 +29,31 @@
 		width: 40%;
 	}
 
+	/////////////////////
 	.note-content {
 		margin-top: 28px;
-		flex-grow: 1;
-
-		.note-imgs {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 5px;
-		}
 
 		.note-title {
+			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
 			padding: 16px 15px 12px 15px;
 			font-size: 22px;
-			width: 100%;
-
-			&[placeholder]:empty::before {
-				content: attr(placeholder);
-				color: $clr3;
-			}
 		}
 
 		.main-content {
+			// height: 100%;
+			overflow: auto;
+			overflow-x: hidden;
+			@include app-scroll(5px);
+			@include from-mini-layout() {
+				max-height: 384px;
+			}
+
 			&.txt {
 				padding: 16px 15px 12px 15px;
 			}
-
-			&.list {
-				// border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-			}
-		}
-
-		.labels-container {
-			padding: 5px 10px;
-			.label {
-				position: relative;
-				background-color: rgba(172, 168, 168, 0.438);
-				padding: 3px 5px;
-				border-radius: 10px;
-				margin: 3px;
-
-				&:hover {
-					.delete-btn {
-						display: block;
-					}
-				}
-
-				p {
-					font-size: 12px;
-					margin: 0;
-				}
-
-				.delete-btn {
-					display: none;
-					position: absolute;
-					top: 2px;
-					left: 0;
-					background-image: url('/src/assets/icon/xmark.svg');
-					background-size: 14px;
-					width: 14px;
-					height: 14px;
-					background-color: gray;
-				}
-			}
 		}
 	}
+	/////
 
 	.actions-container {
 		justify-content: center;

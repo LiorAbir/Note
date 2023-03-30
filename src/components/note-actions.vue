@@ -1,5 +1,4 @@
 <template>
-	<!-- <pre>{{ note }}</pre> -->
 	<div class="note-actions flex" v-if="note.location === 'trash'">
 		<button class="btn delete-btn svg-btn" @click="onDeleteNote()"></button>
 		<button
@@ -26,8 +25,6 @@
 		></button>
 
 		<addImg @addImgUrl="addImgUrl" />
-
-		<!-- clrplt -->
 		<div class="clr-btn-container">
 			<button
 				class="clr-btn svg-btn"
@@ -45,11 +42,8 @@
 
 		<button class="btn copy-btn svg-btn" @click="onCopyNote"></button>
 
-		<!-- labels-->
 		<div class="add-label-container">
 			<button class="btn label-btn svg-btn" @click="onToggleLabels"></button>
-			<!-- {{ noteCopy.labels }}
-			{{ note.labels }} -->
 			<transition name="msg">
 				<div
 					class="labels-list"
@@ -62,7 +56,7 @@
 							type="checkbox"
 							:value="label"
 							v-model="noteCopy.labels"
-							@change="onUpdateNoteLabels"
+							@change="save(noteCopy)"
 						/>
 						<h5>{{ label }}</h5>
 					</label>
@@ -72,9 +66,9 @@
 	</div>
 </template>
 <script>
+import { showUserMsg } from '../services/eventBus-service'
 import addImg from './add-img.vue'
 import backgroundPallete from './background-pallete.vue'
-import { showUserMsg } from '../services/eventBus-service'
 
 export default {
 	name: 'note-actions',
@@ -87,9 +81,6 @@ export default {
 	data() {
 		return {
 			noteCopy: null,
-			noteLabels: [],
-			// isLabelModal: false,
-			// isClrPlt: false,
 		}
 	},
 	created() {
@@ -109,24 +100,17 @@ export default {
 			this.save(this.noteCopy)
 		},
 		addImgUrl(url) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy.info.imgs.push(url)
-			this.save(noteCopy)
+			this.noteCopy.info.imgs.push(url)
+			this.save(this.noteCopy)
 		},
 		onCopyNote() {
 			const noteToCopy = JSON.parse(JSON.stringify(this.note))
 			noteToCopy._id = ''
 			this.save(noteToCopy)
 		},
-		onUpdateNoteLabels() {
-			// const noteCopy = JSON.parse(JSON.stringify(this.note))
-			// noteCopy.labels = this.noteLabels
-			this.save(this.noteCopy)
-		},
 		setBackground(fill, type) {
-			const noteCopy = JSON.parse(JSON.stringify(this.note))
-			noteCopy[type] = fill
-			this.save(noteCopy)
+			this.noteCopy[type] = fill
+			this.save(this.noteCopy)
 		},
 		onToggleClrPlt() {
 			this.$emit('toggleModal', 'color')
@@ -135,13 +119,20 @@ export default {
 			this.$emit('toggleModal', 'label')
 		},
 		save(note) {
-			this.$emit('save', note)
-			this.noteCopy = JSON.parse(JSON.stringify(this.note))
+			this.$emit('save', JSON.parse(JSON.stringify(note)))
 		},
 	},
 	components: {
 		addImg,
 		backgroundPallete,
+	},
+	watch: {
+		note: {
+			handler(note) {
+				this.noteCopy = JSON.parse(JSON.stringify(note))
+			},
+			deep: true,
+		},
 	},
 }
 </script>

@@ -8,7 +8,7 @@
 			border: noteBorder,
 		}"
 	>
-		<noteContent :note="note" @save="save" />
+		<noteContent :note="note" :textBoxType="'details'" @save="save" />
 
 		<div class="actions-container flex">
 			<noteActions

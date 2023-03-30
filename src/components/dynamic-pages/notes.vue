@@ -16,7 +16,6 @@
 				</li>
 			</ul> -->
 
-			<!-- {{ selectedNotes }} -->
 			<ul class="clean-list masonry note-list-container" ref="grid">
 				<li
 					class="note-container"
@@ -30,7 +29,6 @@
 						@updateSelectedNotes="updateSelectedNotes"
 					/>
 				</li>
-				<!-- @addNoteToSelected="addNoteToSelected" -->
 			</ul>
 		</div>
 	</section>
