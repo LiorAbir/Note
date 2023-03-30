@@ -51,7 +51,11 @@
 					v-clickOutSide="onToggleLabels"
 				>
 					<h5 class="title">Notes labels</h5>
-					<label class="flex" v-for="label in labels">
+					<label class="label flex" v-for="label in labels">
+						<div
+							class="label-checkbox"
+							:class="{ checked: noteCopy.labels.includes(label) }"
+						></div>
 						<input
 							type="checkbox"
 							:value="label"
