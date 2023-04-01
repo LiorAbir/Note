@@ -1,4 +1,5 @@
 .note-content {
+	flex-direction: column;
 	.note-imgs {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);

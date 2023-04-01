@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="note-content"
+		class="note-content flex"
 		v-if="note"
 		@click="onGoToDetails"
 		:style="{

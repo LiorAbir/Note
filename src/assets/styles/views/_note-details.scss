@@ -1,6 +1,5 @@
 .note-details {
 	position: fixed;
-	transition: 0.4s;
 	background: $clr2;
 	transition: 0.2s;
 	flex-direction: column;
@@ -32,6 +31,11 @@
 	/////////////////////
 	.note-content {
 		margin-top: 28px;
+		// height: 100%;
+		flex-grow: 1;
+		// @include from-mini-layout() {
+		// 	height: fit-content;
+		// }
 
 		.note-title {
 			font-family: 'Roboto-regular', 'Droid Sans', arial, sans-serif;
@@ -40,12 +44,13 @@
 		}
 
 		.main-content {
-			// height: 100%;
-			overflow: auto;
-			overflow-x: hidden;
 			@include app-scroll(5px);
+			height: 70%;
 			@include from-mini-layout() {
-				max-height: 384px;
+				// overflow: hidden;
+				height: auto;
+				min-height: 100px;
+				max-height: 314px;
 			}
 
 			&.txt {
