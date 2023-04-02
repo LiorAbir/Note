@@ -13,6 +13,20 @@
 				</router-link>
 			</div>
 		</div>
+		<div class="content capture flex">
+			<h2 class="title">Capture what's on your mind</h2>
+			<p class="sub-title">Add notes, lists, and photos to keep.</p>
+			<div class="container flex">
+				<div class="notes flex">
+					<div class="img"></div>
+					<div class="sub-img"></div>
+				</div>
+				<div class="lists flex">
+					<div class="img"></div>
+					<div class="sub-img"></div>
+				</div>
+			</div>
+		</div>
 	</section>
 </template>
 <script>

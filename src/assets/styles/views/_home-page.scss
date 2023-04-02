@@ -3,11 +3,15 @@
 	position: relative;
 
 	.hero {
-		background-image: url('/src/assets/img/hero.jpg');
+		background-image: url('/src/assets/img/mobile-hero.jpg');
 		background-size: cover;
 		background-position: center;
 		background-attachment: fixed;
 		min-height: 540px;
+
+		@include from-mini-layout() {
+			background-image: url('/src/assets/img/hero.jpg');
+		}
 
 		.content {
 			flex-direction: column;
@@ -52,6 +56,122 @@
 						rgb(105 141 246) 0%,
 						rgb(95 129 246) 100%
 					);
+				}
+			}
+		}
+	}
+
+	.content.capture {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+
+		@include from-mini-layout() {
+			width: 80%;
+			margin: auto;
+			padding-top: 45px;
+		}
+
+		.title {
+			padding: 45px 0 22px 0;
+			font-size: 28px;
+			font-family: roboto-ligth;
+			color: #8a8a8a;
+
+			@include from-mini-layout() {
+				font-size: 36px;
+			}
+		}
+
+		.sub-title {
+			font-family: roboto-regular;
+			color: #595959;
+			padding-bottom: 25px;
+			margin-bottom: 10px;
+		}
+
+		.container {
+			width: 100%;
+			margin: auto;
+			padding: 0 20px;
+			flex-direction: column;
+
+			@include from-mobile-layout() {
+				flex-direction: row;
+				width: 75%;
+			}
+
+			@include from-normal-layout() {
+				width: 65%;
+			}
+
+			& > * {
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 20px;
+				width: 100%;
+			}
+
+			.img {
+				margin-bottom: 20px;
+				width: 100%;
+				height: 190px;
+
+				background-size: 200px 192px;
+				background-repeat: no-repeat;
+				background-position: center;
+
+				@include from-mini-layout() {
+					// background-color: aqua;
+					height: 293px;
+					background-size: 305px 293px;
+				}
+
+				@include from-mobile-layout() {
+					// background-color: lightblue;
+					height: 190px;
+					background-size: 200px 192px;
+				}
+
+				@include from-narrow-layout {
+					// background-color: aquamarine;
+					height: 293px;
+					background-size: 305px 293px;
+				}
+			}
+
+			.sub-img {
+				width: 20px;
+				height: 20px;
+				background-repeat: no-repeat;
+				filter: invert(78%) sepia(11%) saturate(17%) hue-rotate(318deg)
+					brightness(74%) contrast(85%);
+
+				&:hover {
+					filter: $svg-ligthblue;
+					cursor: pointer;
+				}
+			}
+
+			.lists {
+				.img {
+					background-image: url('/src/assets/img/list.jpg');
+				}
+
+				.sub-img {
+					background-image: url('/src/assets/icon/list-ul.svg');
+				}
+			}
+
+			.notes {
+				.img {
+					background-image: url('/src/assets/img/note.jpg');
+				}
+
+				.sub-img {
+					background-image: url('/src/assets/icon/note-solid.svg');
 				}
 			}
 		}
