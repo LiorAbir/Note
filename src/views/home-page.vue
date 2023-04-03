@@ -27,10 +27,12 @@
 				</div>
 			</div>
 		</div>
+		<appFooter />
 	</section>
 </template>
 <script>
 import appHeader from '../components/app-header.vue'
+import appFooter from '../components/app-footer.vue'
 export default {
 	name: 'home-page',
 	data() {
@@ -38,9 +40,6 @@ export default {
 			opacityNum: 1,
 			prevScroll: 0,
 		}
-	},
-	components: {
-		appHeader,
 	},
 	methods: {
 		handleScroll() {
@@ -57,6 +56,9 @@ export default {
 			this.prevScroll = st <= 0 ? 0 : st
 		},
 	},
+	components: {
+		appHeader,
+		appFooter,
+	},
 }
 </script>
-<style></style>

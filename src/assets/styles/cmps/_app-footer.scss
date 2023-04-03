@@ -1,0 +1,28 @@
+.app-footer {
+	background-image: url('/src/assets/img/footer-mobile.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	height: 530px;
+	text-align: center;
+	flex-direction: column;
+	align-items: center;
+
+	@include from-mini-layout() {
+		background-image: url('/src/assets/img/footer.jpg');
+	}
+
+	.title {
+		color: white;
+		font-size: 33px;
+		padding: 200px 0 20px;
+
+		@include from-mini-layout() {
+			font-size: 53px;
+		}
+	}
+
+	.start-btn {
+		@include start-btn();
+	}
+}
