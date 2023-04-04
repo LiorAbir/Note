@@ -60,6 +60,7 @@
 				<!-- @updateNotesOrder="updateNotesOrder" -->
 				<!-- <noteList :notes="notes" @removeNote="removeNote" @save="save" /> -->
 			</div>
+			<appLoader v-else />
 		</div>
 	</section>
 
@@ -90,6 +91,7 @@ import sideNav from '../components/side-nav.vue'
 import noteAdd from './note-add.vue'
 import labelsModal from '../components/labels-modal.vue'
 import search from '../components/note-filter.vue'
+import appLoader from '../components/app-loader.vue'
 
 //Dynamic
 import notes from '../components/dynamic-pages/notes.vue'
@@ -324,6 +326,7 @@ export default {
 		labelsModal,
 		search,
 		labels,
+		appLoader,
 	},
 }
 </script>

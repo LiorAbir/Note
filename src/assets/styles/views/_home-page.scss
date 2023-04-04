@@ -1,6 +1,11 @@
 .home-page {
 	min-height: 200vh;
 	position: relative;
+	flex-direction: column;
+
+	.home-page-content {
+		flex-grow: 1;
+	}
 
 	.hero {
 		background-image: url('/src/assets/img/mobile-hero.jpg');
