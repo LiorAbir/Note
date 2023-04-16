@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="notes" v-else>
-			<!-- <ul class="clean-list pinned-list" ref="masonry">
+			<ul class="clean-list pinned-list" ref="masonry">
 				<li
 					class="pinned-note-container"
 					v-for="note in pinnedNotes"
@@ -14,7 +14,7 @@
 				>
 					<notePreview :note="note" @save="save" />
 				</li>
-			</ul> -->
+			</ul>
 
 			<ul class="clean-list masonry note-list-container" ref="grid">
 				<li

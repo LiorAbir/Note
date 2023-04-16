@@ -74,7 +74,10 @@ function getEmptyNote() {
 		_id: '',
 		type: 'txt',
 		isPinned: false,
-		bgClr: '#ffffff',
+		bgClr: {
+			name: 'default',
+			clr: '#ffffff',
+		},
 		bgImg: '',
 		info: {
 			title: '',

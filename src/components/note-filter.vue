@@ -18,8 +18,6 @@
 		</div>
 
 		<div class="filters-container" v-else>
-			<!-- {{ notes.length }}
-			{{ boardColors }} -->
 			<transition-group appear @before-enter="beforeEnter" @enter="enter">
 				<div class="types-filter container" key="types" data-delay="1">
 					<h4 class="title">Types</h4>
@@ -54,6 +52,7 @@
 					<div class="list flex">
 						<div
 							class="color"
+							:title="color.name"
 							v-for="color in boardColors"
 							:style="{ backgroundColor: color.clr }"
 							@click="onUpdateFilter('color', color.name)"

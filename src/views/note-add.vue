@@ -1,6 +1,5 @@
 <template>
 	<div class="note-add" v-if="isFocus === false" @click="onOpenAddNote">
-		<!-- {{ newNote }} -->
 		<div class="add-container flex">
 			<h4 class="title">Add note...</h4>
 			<div class="types round flex">
